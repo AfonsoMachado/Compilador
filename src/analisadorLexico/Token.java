@@ -25,4 +25,12 @@ public class Token {
 		
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
 }
