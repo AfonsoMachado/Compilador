@@ -71,7 +71,7 @@ public class AnalisadorLexico {
 			return EOF;
 	}
 
-	// podem conter vários códigos-fonte
+	// podem conter vários códigos-fonte... lê varios codigos fonte da pasta
 	public ArrayList<String> lerCodigos() {
 
         File caminho = new File("src/testes/");
