@@ -16,7 +16,7 @@ public class EstruturaLexica {
     private final ArrayList<Character> digitos  = new ArrayList<>();
     private final ArrayList<Character> simbolosASCII  = new ArrayList<>();
     private final ArrayList<Character> operadoresAritmeticos  = new ArrayList<>();
-    private final ArrayList<String> operadoresRelacionais  = new ArrayList<>();
+    private final ArrayList<Character> operadoresRelacionais  = new ArrayList<>();
     private final ArrayList<String> operadoresLogicos  = new ArrayList<>();
     private final ArrayList<Character> delimitadores  = new ArrayList<>();
     private final ArrayList<Character> comentarios  = new ArrayList<>();
@@ -61,12 +61,9 @@ public class EstruturaLexica {
         operadoresAritmeticos.add('*');
         operadoresAritmeticos.add('/');
         
-        operadoresRelacionais.add("<>");
-        operadoresRelacionais.add("=");
-        operadoresRelacionais.add("<");
-        operadoresRelacionais.add("<=");
-        operadoresRelacionais.add(">");
-        operadoresRelacionais.add(">=");
+        operadoresRelacionais.add('<');
+        operadoresRelacionais.add('=');
+        operadoresRelacionais.add('>');
         
         operadoresLogicos.add("nao");
         operadoresLogicos.add("e");
@@ -84,6 +81,20 @@ public class EstruturaLexica {
         for (int i = 32; i <= 126; i++) {
             this.simbolosASCII.add((char) i);
         }
+	}
+	
+	public boolean isPalavraResevada(String s){
+		return this.palavrasReservadas.contains(s);
+	}
+	
+	public boolean isDelimitador(char c) {
+		return this.delimitadores.contains(c);
+	}
+	
+	public boolean isOperador(char c) {
+		if(this.operadoresAritmeticos.contains(c) || this.operadoresRelacionais.contains(c))
+			return true;
+		return false;
 	}
 
 }
