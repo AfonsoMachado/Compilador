@@ -96,5 +96,13 @@ public class EstruturaLexica {
 			return true;
 		return false;
 	}
+	
+	public boolean isOperadorAritimetico(char c) {
+		return this.operadoresAritmeticos.contains(c);
+	}
+	
+	public boolean isOperadorLogico(String s){
+		return this.operadoresLogicos.contains(s);
+	}
 
 }

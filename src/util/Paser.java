@@ -12,7 +12,7 @@
     * de avaliação. Alguns trechos do código podem coincidir com de outros
     * colegas pois estes foram discutidos em sessões tutorias.
     */
-  package br.uefs.ecomp.util;
+  package util;
     
   import java.io.File;
   import java.io.FileNotFoundException;

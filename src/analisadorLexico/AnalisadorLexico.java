@@ -42,21 +42,106 @@ public class AnalisadorLexico {
 	
 	private void analiseCodigo() {
 		char c = leCaractere();
+		String lexema = "";
 		//enquanto não chegar no fim do arquivo
 		while(c != EOF){
+			
 			if(Character.isSpaceChar(c))
 				coluna++;
 			else if (Character.isLetter(c)){
+				letras(lexema, c);
+			}
+			else if (Character.isDigit(c)){
+				this.numero(lexema, c);
+			}
+			// Compreende somente os operadores relacionais e aritmeticos
+			else if (estruturaLexica.isOperador(c)){
 				
 			}
+			
 			//FAZ TUDO
 		}
 		
 	}
 	
-	private void isLetra(String lexema, char ch){
+	private void operador(String lexema, char ch){
+		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+        boolean erro = false; // Identifica se houve erro.
+        boolean aritimetico = false;
+        
+        lexema = lexema + ch; // Cria o lexema apartir da composição do caractere lido. 
+        this.coluna++;
+        
+        //CONSIDERA SE O USUARIO COLOCAR ++ -- ** //
+        if (ch == '+' || ch == '-' || ch == '*' || ch == '-'){
+        	aritimetico = true;
+        	ch = this.leCaractere();
+        	if (estruturaLexica.isOperador(ch)){
+        		erro = true;
+        		this.coluna++;
+        		lexema = lexema + ch;
+        	}
+        }
+        
+        else if (ch == '<') {
+        	ch = this.leCaractere();
+	        if (ch == '=' || ch == '>') {
+	            lexema = lexema + ch;
+	            this.coluna++;
+	        }
+	        else if(estruturaLexica.isOperadorAritimetico(ch)) {
+	        	erro = true;
+	        	lexema = lexema + ch;
+	        	this.coluna++;
+	        }
+        }
+        
+        else if (ch == '>') {
+        	ch = this.leCaractere();
+	        if (ch == '=') {
+	            lexema = lexema + ch;
+	            this.coluna++;
+	        }
+	        else if(estruturaLexica.isOperadorAritimetico(ch) || ch == '>' || ch == '<') {
+	        	erro = true;
+	        	lexema = lexema + ch;
+	        	this.coluna++;
+	        }
+        }
+        
+        
+        
+        
+        
+        
+        if(!erro){
+        	Token token;
+        	if (aritimetico)
+        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
+        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
+		}
+		else
+			this.addErro("Operador Inexistente", lexema, linhaInicial, colunaInicial);
+        
+	}
+	
+	
+	private void numero(String lexema, char ch){
 		int linhaInicial = linha;
 		int colunaInicial = coluna;
+		
+		lexema = lexema + ch;  // Cria o lexema apartir da composição do caractere lido. 
+        this.coluna++;
+        ch = this.leCaractere();
+		//COLOCAR AQUI O AUTÔMATO DE DIGITO
+	}
+	
+	//Pode ser um identificador, uma palavra reservada ou um operador lógico
+	private void letras(String lexema, char ch){
+		int linhaInicial = linha;
+		int colunaInicial = coluna;
+		boolean erro = false;
 		
 		lexema = lexema + ch;
 		this.coluna++;
@@ -65,28 +150,31 @@ public class AnalisadorLexico {
 		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch))) {
 			//se começar com uma letra ja assumete que vai ser um identifiacdor ou uma palavra reservada
 			if(!(ch == '_' || Character.isLetterOrDigit(ch))){
-				addErro("Identificador incorreto", lexema, linhaInicial, colunaInicial);
+				erro = true;
 			}
 			lexema = lexema + ch;
 			coluna++;
 			ch = this.leCaractere();
 		}
 		
-		Token token;
-		if(estruturaLexica.isPalavraResevada(lexema))
-			token = new Token(linhaInicial, colunaInicial, "Palavra Reservada", lexema);
+		if(!erro){
+			Token token;
+			if(estruturaLexica.isPalavraResevada(lexema))
+				token = new Token(linhaInicial + 1, colunaInicial + 1, "Palavra Reservada", lexema);
+			else if (estruturaLexica.isOperadorLogico(lexema))
+				token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Lógico", lexema);
+			else
+				token = new Token(linhaInicial + 1, colunaInicial + 1, "Identificador", lexema);
+			tokens.add(token);
+		}
 		else
-			token = new Token(linhaInicial, colunaInicial, "Identificador", lexema);
+			this.addErro("Identificador incorreto", lexema, linhaInicial, colunaInicial);
 	}
 	
 	private void addErro(String tipo, String erro, int linha, int coluna) {
 		//VERIFICA SE É LINHA E COLINA + 1
-		erros.add(erro + " -> " + tipo + " | linha: " + linha + " | coluna: " + coluna);
+		erros.add(erro + " -> " + tipo + " | linha: " + (linha + 1) + " | coluna: " + (coluna + 1));
 	}
-	
-	/*private void palavraReservada(String palavra) {
-		
-	}*/
 	
 	private char leCaractere(){
 		if(!codigoFonte.isEmpty()){
