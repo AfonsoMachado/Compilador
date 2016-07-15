@@ -37,6 +37,7 @@ public class AnalisadorLexico {
 		for(String arquivos : localFiles) { //pra cada código
 			this.codigoFonte = lerCodigoFonte(arquivos);
 			analiseCodigo();
+			//IMPRIME OS TOKENS E OS ERROS AQUI
 		}
 		
 	}
