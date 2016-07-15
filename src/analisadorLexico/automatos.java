@@ -103,7 +103,7 @@ public class automatos {
 			  
 			 //////////////////////////////////////
 			
-			   //Estado 0
+			   //Estado 0	
 			
 			case 0: 
 				

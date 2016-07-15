@@ -10,6 +10,7 @@ public class AnalisadorLexico {
 	
     private ArrayList<String> codigos = new ArrayList<>(); //lista de códigos dentro de uma pasta
     private ArrayList<String> codigoFonte = new ArrayList<>(); // irá receber
+    
     private ArrayList<Token> tokens = new ArrayList<>();
     private ArrayList<String> erros = new ArrayList<>();
 
@@ -42,45 +43,130 @@ public class AnalisadorLexico {
 	
 	private void analiseCodigo() {
 		char c = leCaractere();
-		String lexema = "";
+		String lexema;
 		//enquanto não chegar no fim do arquivo
+		
 		while(c != EOF){
-			
-			if(Character.isSpaceChar(c))
-				coluna++;
-			else if (Character.isLetter(c)){
-				letras(lexema, c);
-			}
-			else if (Character.isDigit(c)){
-				this.numero(lexema, c);
-			}
-			// Compreende somente os operadores relacionais e aritmeticos
-			else if (estruturaLexica.isOperador(c)){
+			if (!this.linhaVazia){
+				lexema = "";
 				
+				if(Character.isSpaceChar(c))
+					coluna++;
+				else if (Character.isLetter(c)){
+					letras(lexema, c);
+				}
+				else if (Character.isDigit(c)){
+					this.digito(lexema, c);
+				}
+				// Compreende somente os operadores relacionais e aritmeticos
+				else if (estruturaLexica.isOperador(c)){
+					this.operador(lexema, c);
+				}
+				else if (estruturaLexica.isDelimitador(c)) {
+					this.delimitador(lexema, c);
+				}
+				//VER ESSAS AS APAS SIMPLES
+				else if (c == '\'') {
+					this.caractere(lexema, c);
+				}
+				else if (c == '"') {
+					
+				}
+				else if (c == '{') {
+					this.comentario(c);
+				}
+				
+			} 
+			else {
+				linhaVazia = false;
+				linha++;
 			}
+			
+			c = this.leCaractere();
 			
 			//FAZ TUDO
 		}
 		
 	}
 	
+	private void comentario(char ch) {
+		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+
+        this.coluna++;
+        
+        while (ch != '}' || ch != EOF) {
+        	//consome os caracteres
+        	this.coluna++;
+        	ch = this.leCaractere();
+        }
+        
+        if (ch == EOF) {
+        	this.addErro("Comentario", "Comentario não finalizado", linhaInicial, colunaInicial - 1);
+        }
+	}
+	
+	private void delimitador(String lexema, char ch) {
+
+        int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+
+        lexema = lexema + ch; // Cria o lexema apartir da composição do caractere lido. 
+        this.coluna++;
+
+        Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Delimitador", lexema);
+        this.tokens.add(token);
+    }
+	
+	private void caractere(String lexema, char ch) {
+		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+        boolean erro = false;
+
+        lexema = lexema + ch; // Cria o lexema apartir da composição do caractere lido. 
+        this.coluna++;
+        
+        ch = this.leCaractere();
+        if (Character.isLetterOrDigit(ch)){
+        	lexema = lexema + ch;
+        	this.coluna++;
+        	ch = this.leCaractere();
+        	if (ch != '\'')
+        		erro = true;
+        	lexema = lexema + ch;
+        }
+        
+        if (!erro) {
+        	Token token;
+        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Caractere", lexema);
+        }
+        else {
+        	this.addErro("Contém mais de um caractere", lexema, linhaInicial, colunaInicial);
+        }
+	}
+	
+	//REVISAAAAAAAAAAAAAAAAAAAAAAAAR
 	private void operador(String lexema, char ch){
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
-        boolean erro = false; // Identifica se houve erro.
+        //boolean erro = false; // Identifica se houve erro.
         boolean aritimetico = false;
         
         lexema = lexema + ch; // Cria o lexema apartir da composição do caractere lido. 
         this.coluna++;
         
-        //CONSIDERA SE O USUARIO COLOCAR ++ -- ** //
-        if (ch == '+' || ch == '-' || ch == '*' || ch == '-'){
+        if (ch == '+' || ch == '/' || ch == '*'){
         	aritimetico = true;
         	ch = this.leCaractere();
-        	if (estruturaLexica.isOperador(ch)){
-        		erro = true;
-        		this.coluna++;
-        		lexema = lexema + ch;
+        }
+        
+        else if (ch == '-') {
+        	aritimetico = true;
+        	ch = this.leCaractere();
+        	//Se achar um digito depois do menos, é um numero negativo, vai para o autômato de numero
+        	if (Character.isDigit(ch)){
+        		this.digito(lexema, ch);
+        		return;
         	}
         }
         
@@ -90,11 +176,6 @@ public class AnalisadorLexico {
 	            lexema = lexema + ch;
 	            this.coluna++;
 	        }
-	        else if(estruturaLexica.isOperadorAritimetico(ch)) {
-	        	erro = true;
-	        	lexema = lexema + ch;
-	        	this.coluna++;
-	        }
         }
         
         else if (ch == '>') {
@@ -103,38 +184,50 @@ public class AnalisadorLexico {
 	            lexema = lexema + ch;
 	            this.coluna++;
 	        }
-	        else if(estruturaLexica.isOperadorAritimetico(ch) || ch == '>' || ch == '<') {
-	        	erro = true;
-	        	lexema = lexema + ch;
-	        	this.coluna++;
-	        }
         }
         
-        
-        
-        
-        
-        
-        if(!erro){
-        	Token token;
-        	if (aritimetico)
-        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
-        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
-		}
-		else
-			this.addErro("Operador Inexistente", lexema, linhaInicial, colunaInicial);
+        Token token;
+       	if (aritimetico)
+       		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
+       	token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
         
 	}
 	
-	
-	private void numero(String lexema, char ch){
+	public void digito(String lexema, char ch){
 		int linhaInicial = linha;
 		int colunaInicial = coluna;
+		boolean isPonto = false;
+		boolean erro = false;
 		
 		lexema = lexema + ch;  // Cria o lexema apartir da composição do caractere lido. 
         this.coluna++;
         ch = this.leCaractere();
-		//COLOCAR AQUI O AUTÔMATO DE DIGITO
+		
+        if(lexema == "-") {
+    		this.coluna--;
+    	}
+        
+        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch))) {
+        	if(Character.isDigit(ch)){
+        		lexema = lexema + ch;
+            	coluna++;
+            	ch = this.leCaractere();
+        	}
+        	if (ch == '.' && isPonto == false){
+        		lexema = lexema + ch;
+            	coluna++;
+            	isPonto = true;
+            	ch = this.leCaractere();
+        	}
+        	else
+        		erro = true;
+        }
+        if (!erro){
+        	Token token;
+        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
+        }
+        else
+        	addErro("Digito Inválido", lexema, linhaInicial, colunaInicial);
 	}
 	
 	//Pode ser um identificador, uma palavra reservada ou um operador lógico
@@ -172,7 +265,6 @@ public class AnalisadorLexico {
 	}
 	
 	private void addErro(String tipo, String erro, int linha, int coluna) {
-		//VERIFICA SE É LINHA E COLINA + 1
 		erros.add(erro + " -> " + tipo + " | linha: " + (linha + 1) + " | coluna: " + (coluna + 1));
 	}
 	
@@ -182,7 +274,7 @@ public class AnalisadorLexico {
 			if(c.length == coluna){ //verifica se a linha é vazia, então quebra a linha
 				linhaVazia = false;
 				//FAZER ALGO PRA QUEBRAR A LINHA
-				return 0;
+				return ' ';
 			}
 			else if(c.length > coluna){
 				linhaVazia = false;
@@ -192,6 +284,10 @@ public class AnalisadorLexico {
 				linha++;
 				c = codigoFonte.get(linha).toCharArray();
 				coluna = 0;
+				if (c.length == 0) { // Caso uma linha não tenha absolutamente nada, apenas um "enter".
+                    this.linhaVazia = true;
+                    return ' ';
+                }
 				return c[coluna];
 			}
 			else
