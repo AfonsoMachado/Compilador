@@ -140,6 +140,7 @@ public class AnalisadorLexico {
         if (!erro) {
         	Token token;
         	token = new Token(linhaInicial + 1, colunaInicial + 1, "Caractere", lexema);
+        	tokens.add(token);
         }
         else {
         	this.addErro("Contém mais de um caractere", lexema, linhaInicial, colunaInicial);
@@ -191,6 +192,8 @@ public class AnalisadorLexico {
        	if (aritimetico)
        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
+       	
+       	tokens.add(token);
         
 	}
 	
@@ -224,8 +227,8 @@ public class AnalisadorLexico {
         		erro = true;
         }
         if (!erro){
-        	Token token;
-        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
+        	Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
+        	tokens.add(token);
         }
         else
         	addErro("Digito Inválido", lexema, linhaInicial, colunaInicial);
@@ -302,7 +305,7 @@ public class AnalisadorLexico {
 	public ArrayList<String> lerCodigos() {
 
         File caminho = new File("src/testes/");
-        ArrayList<String> codigos = new ArrayList<>();
+        //ArrayList<String> codigos = new ArrayList<>();
         for (File f : caminho.listFiles()) {
             codigos.add(f.getName());
         }

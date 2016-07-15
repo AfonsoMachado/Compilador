@@ -39,5 +39,9 @@ public class Token {
 	public int getColuna() {
 		return coluna;
 	}
+	
+	public String getLexema() {
+		return lexema;
+	}
 
 }
