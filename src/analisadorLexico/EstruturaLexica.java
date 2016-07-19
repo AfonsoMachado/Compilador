@@ -6,7 +6,8 @@ package analisadorLexico;
 import java.util.ArrayList;
 
 /**
- * @author afons
+ * @author Afonso Machado
+ * @author Henderson Chalegre
  *
  */
 public class EstruturaLexica {

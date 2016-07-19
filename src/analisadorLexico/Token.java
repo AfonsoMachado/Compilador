@@ -5,6 +5,7 @@ package analisadorLexico;
 
 /**
  * @author Afonso Machado
+ * @author Henderson Chalegre
  *
  */
 public class Token {

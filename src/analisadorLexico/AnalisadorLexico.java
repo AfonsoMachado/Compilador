@@ -11,9 +11,18 @@ public class AnalisadorLexico {
     private ArrayList<String> codigos = new ArrayList<>(); //lista de códigos dentro de uma pasta
     private ArrayList<String> codigoFonte = new ArrayList<>(); // irá receber
     
+    /**
+     * Array que armazena todos os tokens encontrados em um código
+     */
     private ArrayList<Token> tokens = new ArrayList<>();
+    /**
+     * Array que aramzena todos os erros encontrados em um código
+     */
     private ArrayList<String> erros = new ArrayList<>();
 
+    /**
+     * Constante que define o fim de um arquivo
+     */
 	private static final char EOF = '\0';
 	private final EstruturaLexica estruturaLexica = new EstruturaLexica();
 	
@@ -21,10 +30,10 @@ public class AnalisadorLexico {
 	private int coluna = 0;
 	private boolean linhaVazia;
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		
-	}
+	}*/
 	
 	public void analiseGeral() throws FileNotFoundException{ //analisa todos os códigos fonte
 		ArrayList<String> localFiles = new ArrayList<>(); // Recebe a lista com todos os códigos da pasta.
@@ -45,34 +54,60 @@ public class AnalisadorLexico {
 	private void analiseCodigo() {
 		char c = leCaractere();
 		String lexema;
-		//enquanto não chegar no fim do arquivo
 		
+		//enquanto não chegar no fim do arquivo
 		while(c != EOF){
 			if (!this.linhaVazia){
 				lexema = "";
 				
 				if(Character.isSpaceChar(c))
 					coluna++;
+				
+				/**
+				 * Autômato para tratamento de letras maiúsculas e minúsculas
+				 */
 				else if (Character.isLetter(c)){
 					letras(lexema, c);
 				}
+				
+				/**
+				 * Autômato para tratamento de digitos de 0 a 9
+				 */
 				else if (Character.isDigit(c)){
 					this.digito(lexema, c);
 				}
-				// Compreende somente os operadores relacionais e aritmeticos
+
+				/**
+				 * Autômato para tratamento de operadores relacionais e aritiméticos
+				 */
 				else if (estruturaLexica.isOperador(c)){
 					this.operador(lexema, c);
 				}
+				
+				/**
+				 * Autômato para tratamento de delmitadores
+				 */
 				else if (estruturaLexica.isDelimitador(c)) {
 					this.delimitador(lexema, c);
 				}
-				//VER ESSAS AS APAS SIMPLES
+				
+				/**
+				 * Autômato para tratamento de caractere
+				 */
 				else if (c == '\'') {
 					this.caractere(lexema, c);
 				}
+				
+				/** 
+				 * Autômato para tratamento de cadeia de caracteres
+				 */
 				else if (c == '"') {
-					
+					cadeiaDeCaracteres(lexema, c);
 				}
+				
+				/**
+				 * Autômato para tratamento de comentario
+				 */
 				else if (c == '{') {
 					this.comentario(c);
 				}
@@ -90,13 +125,46 @@ public class AnalisadorLexico {
 		
 	}
 	
+	private void cadeiaDeCaracteres(String lexema, char ch) {
+		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+        boolean erro = false;
+
+        lexema = lexema + ch;
+        this.coluna++;
+        ch = this.leCaractere();
+        
+        while (ch != '"' || ch != EOF) {
+        	this.coluna++;
+        	if (Character.isLetterOrDigit(ch) || Character.isSpaceChar(ch)) {
+        		lexema = lexema + ch;
+        		ch = this.leCaractere();
+        	} 
+        	else {
+        		lexema = lexema + ch;
+        		ch = this.leCaractere();
+        		erro = true;
+        		//break;
+        	}
+        }
+        
+        if (!erro) {
+        	Token token;
+        	token = new Token(linhaInicial + 1, colunaInicial + 1, "Cadeia de caracteres", lexema);
+        	this.tokens.add(token);
+        }
+        else {
+        	this.addErro("Cadeia de carcteres mal formada", lexema, linhaInicial, colunaInicial);
+        }   
+	}
+
 	private void comentario(char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
 
         this.coluna++;
         
-        while (ch != '}' || ch != EOF) {
+        while (ch != '}') {
         	//consome os caracteres
         	this.coluna++;
         	ch = this.leCaractere();
@@ -197,7 +265,7 @@ public class AnalisadorLexico {
         
 	}
 	
-	public void digito(String lexema, char ch){
+	private void digito(String lexema, char ch){
 		int linhaInicial = linha;
 		int colunaInicial = coluna;
 		boolean isPonto = false;
@@ -314,7 +382,7 @@ public class AnalisadorLexico {
 	
 	public ArrayList<String> lerCodigoFonte(String localFile) throws FileNotFoundException {
 
-        Scanner scanner = new Scanner(new FileReader("src/testes/" + localFile)); // Lendo o arquivo do código.
+        Scanner scanner = new Scanner(new FileReader("testes/" + localFile)); // Lendo o arquivo do código.
         //this.localFile = localFile; // Guarda o nome do arquivo de entrada para que o arquivo de saída tenha o "mesmo" nome.
         ArrayList<String> codigo = new ArrayList<String>(); // Código obtido.
         while (scanner.hasNextLine()) { // Capturando as linhas do código.
