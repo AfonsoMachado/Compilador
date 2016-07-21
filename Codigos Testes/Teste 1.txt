@@ -1,0 +1,27 @@
+{CODIGO TESTE DA DUPLA AFONSO MACHADO E HENDERSON CHALEGRE}
+
+
+const int constante1 = 5.0; 
+var real c; 
+var int a, b; 
+
+
+
+funcao programa () inicio
+
+
+	leia ("escreva um valor" );
+
+
+	escreva (a);
+
+	leia ("escreva um valor" );
+
+
+	escreva (b);
+
+	c = a+b;
+
+	leia ("a soma eh" c );
+
+fim
