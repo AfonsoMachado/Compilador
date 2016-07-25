@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package analisadorLexico;
 
 import java.util.ArrayList;
@@ -9,6 +12,10 @@ import java.util.ArrayList;
  */
 public class AnalisadorLexico {
 	
+	
+    /**
+     * Array que armazena o codigo fonte que está sendo análisado 
+     */
     private ArrayList<String> codigoFonte = new ArrayList<>(); // irá receber
     /**
      * Array que armazena todos os tokens encontrados em um código
@@ -19,25 +26,30 @@ public class AnalisadorLexico {
      * Array que armazena todos os erros encontrados em um código
      */
     private ArrayList<String> erros = new ArrayList<>();
-
     /**
      * Constante que define o fim de um arquivo
      */
 	private static final char EOF = '\0';
 	/**
+	 * Instancia da classe EstrutraLexica para ser usada na analise léxica
 	 * 
+	 * @see EstruturaLexica
 	 */
 	private final EstruturaLexica estruturaLexica = new EstruturaLexica();
 	/**
+	 * Linha percorrida no momento no código fonte
 	 * 
+	 * @see codigoFonte
 	 */
 	private int linha = 0;
 	/**
+	 * Coluna percorrida no momento no código fonte
 	 * 
+	 * @see codigoFonte
 	 */
 	private int coluna = 0;
 	/**
-	 * 
+	 * Identifica se uma linha está vazia ou não.
 	 */
 	private boolean linhaVazia = false;
 	
@@ -141,7 +153,7 @@ public class AnalisadorLexico {
         	this.tokens.add(token);
         }
         else {
-        	this.addErro("Cadeia de carcteres mal formada", lexema, linhaInicial, colunaInicial);
+        	this.addErro("Cadeia de caracteres mal formada", lexema, linhaInicial + 1, colunaInicial + 1);
         }   
 	}
 
@@ -262,7 +274,8 @@ public class AnalisadorLexico {
         Token token;
        	if (aritimetico)
        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
-       	token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
+       	else
+       		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
        	
        	tokens.add(token);
         
@@ -372,7 +385,6 @@ public class AnalisadorLexico {
 			char c[] = codigoFonte.get(linha).toCharArray();
 			if(c.length == coluna){ //verifica se a linha é vazia, então quebra a linha
 				linhaVazia = false;
-				//FAZER ALGO PRA QUEBRAR A LINHA
 				return ' ';
 			}
 			else if(c.length > coluna){
@@ -395,8 +407,6 @@ public class AnalisadorLexico {
 		else
 			return EOF;
 	}
-
-	// podem conter vários códigos-fonte... lê varios codigos fonte da pasta
 	
 	/**
 	 * @return

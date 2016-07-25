@@ -15,7 +15,7 @@ funcao programa () inicio
 
 	escreva (a);
 
-	leia ("escreva um valor" );
+	leia ("escreva um val*or" );
 
 
 	escreva (b);

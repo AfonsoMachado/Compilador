@@ -42,28 +42,36 @@ public class Token {
 	}
 
 	/**
-	 * @return
+	 * Retorna o tipo do token
+	 * 
+	 * @return tipo do token
 	 */
 	public String getTipo() {
 		return tipo;
 	}
 
 	/**
-	 * @return
+	 * Retorna a linha aonde está localizado o token
+	 * 
+	 * @return linha do token
 	 */
 	public int getLinha() {
 		return linha;
 	}
 
 	/**
-	 * @return
+	 * Retorna a coluna aonde começa o token
+	 * 
+	 * @return coluna do token
 	 */
 	public int getColuna() {
 		return coluna;
 	}
 	
 	/**
-	 * @return
+	 * Retorna o lexema relacionado ao token
+	 * 
+	 * @return lexema do token
 	 */
 	public String getLexema() {
 		return lexema;

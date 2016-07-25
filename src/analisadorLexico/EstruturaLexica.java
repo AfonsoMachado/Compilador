@@ -13,15 +13,15 @@ import java.util.ArrayList;
 public class EstruturaLexica {
 
     /**
-     * 
+     * ArrayList que armazena todas as palavras reservadas da lingaugem
      */
     private final ArrayList<String> palavrasReservadas  = new ArrayList<>();
     /**
-     * 
+     * ArrayList que armazena todos os operadores aritiméticos da linguagem
      */
     private final ArrayList<Character> operadoresAritmeticos  = new ArrayList<>();
     /**
-     * 
+     * ArrayLisy que armazena todos os operadores relacionais da linguagem
      */
     private final ArrayList<Character> operadoresRelacionais  = new ArrayList<>();
     /**
@@ -80,24 +80,33 @@ public class EstruturaLexica {
 	}
 	
 	/**
-	 * @param s
-	 * @return
+	 * Verifica se uma String é uma palavra reservada
+	 * 
+	 * @param s String para ser comparada com a lista de palavras reservadas
+	 * @return verdadeiro se a String s for uma palavra reservada, falso caso contrário
+	 * 
 	 */
 	public boolean isPalavraResevada(String s){
 		return this.palavrasReservadas.contains(s);
 	}
 	
 	/**
-	 * @param c
-	 * @return
+	 * Verifica se um char é uma delimitador válido
+	 * 
+	 * @param c Char para ser comparado com a lista de delimitadores
+	 * @return verdadeiro se o Char c for um delimitador, falso caso contrário
+	 * 
 	 */
 	public boolean isDelimitador(char c) {
 		return this.delimitadores.contains(c);
 	}
 	
 	/**
-	 * @param c
-	 * @return
+	 * Verifica se um char é um operador aritimético ou um operador relacional válido
+	 * 
+	 * @param c Char para ser comparado com a lista de operadores aritméticos e relacionais
+	 * @return verdadeiro se o Char c for um operador aritmético ou relacional, falso caso contrário
+	 * 
 	 */
 	public boolean isOperador(char c) {
 		if(this.operadoresAritmeticos.contains(c) || this.operadoresRelacionais.contains(c))
@@ -106,24 +115,22 @@ public class EstruturaLexica {
 	}
 	
 	/**
-	 * @param c
-	 * @return
-	 */
-	public boolean isOperadorAritimetico(char c) {
-		return this.operadoresAritmeticos.contains(c);
-	}
-	
-	/**
-	 * @param s
-	 * @return
+	 * Verifica se um char é um operador lógico válido
+	 * 
+	 * @param s Char para ser comparado com a lista de operadores lógicos
+	 * @return verdadeiro se a String s for um operador lógico, falso caso contrário
+	 * 
 	 */
 	public boolean isOperadorLogico(String s){
 		return this.operadoresLogicos.contains(s);
 	}
 	
 	/**
-	 * @param ch
-	 * @return
+	 * Verifica se um char é um espaço, um tab ou uma quebra de linha
+	 * 
+	 * @param ch Char para a verficação de espaço, tab ou quebra de linha
+	 * @return verdadeiro se o Char ch for um espaço, tab ou quebra de linha, falso caso contrário
+	 * 
 	 */
 	public boolean isSpace(char ch){    
         return (Character.isSpaceChar(ch) || ch == 9);
