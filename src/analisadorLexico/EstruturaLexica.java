@@ -12,16 +12,30 @@ import java.util.ArrayList;
  */
 public class EstruturaLexica {
 
+    /**
+     * 
+     */
     private final ArrayList<String> palavrasReservadas  = new ArrayList<>();
-    private final ArrayList<Character> letras  = new ArrayList<>();
-    private final ArrayList<Character> digitos  = new ArrayList<>();
-    private final ArrayList<Character> simbolosASCII  = new ArrayList<>();
+    /**
+     * 
+     */
     private final ArrayList<Character> operadoresAritmeticos  = new ArrayList<>();
+    /**
+     * 
+     */
     private final ArrayList<Character> operadoresRelacionais  = new ArrayList<>();
+    /**
+     * 
+     */
     private final ArrayList<String> operadoresLogicos  = new ArrayList<>();
+    /**
+     * 
+     */
     private final ArrayList<Character> delimitadores  = new ArrayList<>();
-    private final ArrayList<Character> comentarios  = new ArrayList<>();
     
+	/**
+	 * 
+	 */
 	public EstruturaLexica() {
 		
 		palavrasReservadas.add("programa");
@@ -45,18 +59,6 @@ public class EstruturaLexica {
 		palavrasReservadas.add("cadeia");
 		palavrasReservadas.add("caractere");
 		
-		for (char i = 'a'; i <= 'z'; i++) {
-            this.letras.add((char) i);
-        }
-		
-		for (char i = 'A'; i <= 'Z'; i++) {
-            this.letras.add((char) i);
-        }
-		
-		for (char i = '0'; i <= '9'; i++) {
-            this.digitos.add(i);
-        }
-		
         operadoresAritmeticos.add('+');
         operadoresAritmeticos.add('-');
         operadoresAritmeticos.add('*');
@@ -75,35 +77,56 @@ public class EstruturaLexica {
         delimitadores.add('(');
         delimitadores.add(')');
         
-        comentarios.add('{');
-        comentarios.add('}');
-        
-        // Inserindo inserindo códigos ASCII do 32 ao 126.
-        for (int i = 32; i <= 126; i++) {
-            this.simbolosASCII.add((char) i);
-        }
 	}
 	
+	/**
+	 * @param s
+	 * @return
+	 */
 	public boolean isPalavraResevada(String s){
 		return this.palavrasReservadas.contains(s);
 	}
 	
+	/**
+	 * @param c
+	 * @return
+	 */
 	public boolean isDelimitador(char c) {
 		return this.delimitadores.contains(c);
 	}
 	
+	/**
+	 * @param c
+	 * @return
+	 */
 	public boolean isOperador(char c) {
 		if(this.operadoresAritmeticos.contains(c) || this.operadoresRelacionais.contains(c))
 			return true;
 		return false;
 	}
 	
+	/**
+	 * @param c
+	 * @return
+	 */
 	public boolean isOperadorAritimetico(char c) {
 		return this.operadoresAritmeticos.contains(c);
 	}
 	
+	/**
+	 * @param s
+	 * @return
+	 */
 	public boolean isOperadorLogico(String s){
 		return this.operadoresLogicos.contains(s);
 	}
+	
+	/**
+	 * @param ch
+	 * @return
+	 */
+	public boolean isSpace(char ch){    
+        return (Character.isSpaceChar(ch) || ch == 9);
+    }
 
 }

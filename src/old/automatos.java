@@ -1,4 +1,4 @@
-package analisadorLexico;
+package old;
 
 
 public class automatos {

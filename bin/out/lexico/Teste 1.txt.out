@@ -1,0 +1,56 @@
+Lexema: const | Tipo: Palavra Reservada | Linha: 4 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 4 | Coluna: 7
+Lexema: constante1 | Tipo: Identificador | Linha: 4 | Coluna: 11
+Lexema: = | Tipo: Operador Relacional | Linha: 4 | Coluna: 22
+Lexema: -5.0 | Tipo: Dígito | Linha: 4 | Coluna: 25
+Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 28
+Lexema: var | Tipo: Palavra Reservada | Linha: 5 | Coluna: 1
+Lexema: real | Tipo: Palavra Reservada | Linha: 5 | Coluna: 5
+Lexema: c | Tipo: Identificador | Linha: 5 | Coluna: 10
+Lexema: ; | Tipo: Delimitador | Linha: 5 | Coluna: 11
+Lexema: var | Tipo: Palavra Reservada | Linha: 6 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 6 | Coluna: 5
+Lexema: a | Tipo: Identificador | Linha: 6 | Coluna: 9
+Lexema: , | Tipo: Delimitador | Linha: 6 | Coluna: 10
+Lexema: b | Tipo: Identificador | Linha: 6 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 13
+Lexema: funcao | Tipo: Palavra Reservada | Linha: 10 | Coluna: 1
+Lexema: programa | Tipo: Palavra Reservada | Linha: 10 | Coluna: 8
+Lexema: ( | Tipo: Delimitador | Linha: 10 | Coluna: 17
+Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 18
+Lexema: inicio | Tipo: Palavra Reservada | Linha: 10 | Coluna: 20
+Lexema: leia | Tipo: Palavra Reservada | Linha: 13 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 13 | Coluna: 7
+Lexema: "escreva um valor" | Tipo: Cadeia de caracteres | Linha: 13 | Coluna: 8
+Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 27
+Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 28
+Lexema: escreva | Tipo: Palavra Reservada | Linha: 16 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 16 | Coluna: 10
+Lexema: a | Tipo: Identificador | Linha: 16 | Coluna: 11
+Lexema: ) | Tipo: Delimitador | Linha: 16 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 13
+Lexema: leia | Tipo: Palavra Reservada | Linha: 18 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 18 | Coluna: 7
+Lexema: "escreva um valor" | Tipo: Cadeia de caracteres | Linha: 18 | Coluna: 8
+Lexema: ) | Tipo: Delimitador | Linha: 18 | Coluna: 27
+Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 28
+Lexema: escreva | Tipo: Palavra Reservada | Linha: 21 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 21 | Coluna: 10
+Lexema: b | Tipo: Identificador | Linha: 21 | Coluna: 11
+Lexema: ) | Tipo: Delimitador | Linha: 21 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 13
+Lexema: c | Tipo: Identificador | Linha: 23 | Coluna: 2
+Lexema: = | Tipo: Operador Relacional | Linha: 23 | Coluna: 4
+Lexema: a | Tipo: Identificador | Linha: 23 | Coluna: 6
+Lexema: + | Tipo: Operador Relacional | Linha: 23 | Coluna: 7
+Lexema: b | Tipo: Identificador | Linha: 23 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 23 | Coluna: 9
+Lexema: leia | Tipo: Palavra Reservada | Linha: 25 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 25 | Coluna: 7
+Lexema: "a soma eh" | Tipo: Cadeia de caracteres | Linha: 25 | Coluna: 8
+Lexema: c | Tipo: Identificador | Linha: 25 | Coluna: 20
+Lexema: ) | Tipo: Delimitador | Linha: 25 | Coluna: 22
+Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 23
+Lexema: fim | Tipo: Palavra Reservada | Linha: 27 | Coluna: 1
+
+Sucesso! Não existem erros léxicos

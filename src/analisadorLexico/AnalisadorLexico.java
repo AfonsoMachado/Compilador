@@ -1,22 +1,22 @@
 package analisadorLexico;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * @author Afonso Machado
+ * @author Henderson Chalegre
+ *
+ */
 public class AnalisadorLexico {
 	
-    private ArrayList<String> codigos = new ArrayList<>(); //lista de códigos dentro de uma pasta
     private ArrayList<String> codigoFonte = new ArrayList<>(); // irá receber
-    
     /**
      * Array que armazena todos os tokens encontrados em um código
      */
     private ArrayList<Token> tokens = new ArrayList<>();
-    /**
-     * Array que aramzena todos os erros encontrados em um código
+
+	/**
+     * Array que armazena todos os erros encontrados em um código
      */
     private ArrayList<String> erros = new ArrayList<>();
 
@@ -24,90 +24,72 @@ public class AnalisadorLexico {
      * Constante que define o fim de um arquivo
      */
 	private static final char EOF = '\0';
+	/**
+	 * 
+	 */
 	private final EstruturaLexica estruturaLexica = new EstruturaLexica();
-	
+	/**
+	 * 
+	 */
 	private int linha = 0;
+	/**
+	 * 
+	 */
 	private int coluna = 0;
-	private boolean linhaVazia;
-
-	/*public static void main(String[] args) {
-		
-		
-	}*/
+	/**
+	 * 
+	 */
+	private boolean linhaVazia = false;
 	
-	public void analiseGeral() throws FileNotFoundException{ //analisa todos os códigos fonte
-		ArrayList<String> localFiles = new ArrayList<>(); // Recebe a lista com todos os códigos da pasta.
-        localFiles = lerCodigos();
-		if (localFiles.isEmpty()) { // Pasta de códigos de entrada vazia.
-            System.out.println("Sem Códigos para Compilar");
-            System.exit(0);
-        }
-		
-		for(String arquivos : localFiles) { //pra cada código
-			this.codigoFonte = lerCodigoFonte(arquivos);
-			analiseCodigo();
-			//IMPRIME OS TOKENS E OS ERROS AQUI
-		}
-		
-	}
-	
-	private void analiseCodigo() {
-		char c = leCaractere();
+	/**
+	 * @param codigo
+	 * @param nomeDoArquivo
+	 */
+	public void analiseCodigo(ArrayList<String> codigo, String nomeDoArquivo) {
+		System.out.println("Analisando: " + nomeDoArquivo);
+		this.codigoFonte = codigo;
 		String lexema;
+		char c = leCaractere();
 		
 		//enquanto não chegar no fim do arquivo
 		while(c != EOF){
 			if (!this.linhaVazia){
 				lexema = "";
 				
-				if(Character.isSpaceChar(c))
+				if(estruturaLexica.isSpace(c))
 					coluna++;
 				
-				/**
-				 * Autômato para tratamento de letras maiúsculas e minúsculas
-				 */
+				//Autômato para tratamento de letras maiúsculas e minúsculas
 				else if (Character.isLetter(c)){
 					letras(lexema, c);
 				}
 				
-				/**
-				 * Autômato para tratamento de digitos de 0 a 9
-				 */
+				//Autômato para tratamento de digitos de 0 a 9
 				else if (Character.isDigit(c)){
 					this.digito(lexema, c);
 				}
 
-				/**
-				 * Autômato para tratamento de operadores relacionais e aritiméticos
-				 */
+				//Autômato para tratamento de operadores relacionais e aritiméticos
 				else if (estruturaLexica.isOperador(c)){
 					this.operador(lexema, c);
 				}
 				
-				/**
-				 * Autômato para tratamento de delmitadores
-				 */
+				//Autômato para tratamento de delmitadores
 				else if (estruturaLexica.isDelimitador(c)) {
 					this.delimitador(lexema, c);
 				}
 				
-				/**
-				 * Autômato para tratamento de caractere
-				 */
+				//Autômato para tratamento de caractere
 				else if (c == '\'') {
 					this.caractere(lexema, c);
 				}
 				
-				/** 
-				 * Autômato para tratamento de cadeia de caracteres
-				 */
+				//Autômato para tratamento de cadeia de caracteres
 				else if (c == '"') {
 					cadeiaDeCaracteres(lexema, c);
 				}
 				
-				/**
-				 * Autômato para tratamento de comentario
-				 */
+				//Autômato para tratamento de comentario
 				else if (c == '{') {
 					this.comentario(c);
 				}
@@ -119,12 +101,15 @@ public class AnalisadorLexico {
 			}
 			
 			c = this.leCaractere();
-			
-			//FAZ TUDO
+
 		}
 		
 	}
 	
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void cadeiaDeCaracteres(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
@@ -134,7 +119,7 @@ public class AnalisadorLexico {
         this.coluna++;
         ch = this.leCaractere();
         
-        while (ch != '"' || ch != EOF) {
+        while (ch != '"' && ch != EOF) {
         	this.coluna++;
         	if (Character.isLetterOrDigit(ch) || Character.isSpaceChar(ch)) {
         		lexema = lexema + ch;
@@ -144,9 +129,11 @@ public class AnalisadorLexico {
         		lexema = lexema + ch;
         		ch = this.leCaractere();
         		erro = true;
-        		//break;
         	}
         }
+        
+        this.coluna++;
+        lexema = lexema + ch;
         
         if (!erro) {
         	Token token;
@@ -158,23 +145,32 @@ public class AnalisadorLexico {
         }   
 	}
 
+	/**
+	 * @param ch
+	 */
 	private void comentario(char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
 
         this.coluna++;
         
-        while (ch != '}') {
+        while (ch != '}' && ch != EOF) {
         	//consome os caracteres
         	this.coluna++;
         	ch = this.leCaractere();
         }
+        
+        this.coluna++;
         
         if (ch == EOF) {
         	this.addErro("Comentario", "Comentario não finalizado", linhaInicial, colunaInicial - 1);
         }
 	}
 	
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void delimitador(String lexema, char ch) {
 
         int linhaInicial = this.linha; // Linha onde se inicia a sequência.
@@ -187,6 +183,10 @@ public class AnalisadorLexico {
         this.tokens.add(token);
     }
 	
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void caractere(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
@@ -215,7 +215,10 @@ public class AnalisadorLexico {
         }
 	}
 	
-	//REVISAAAAAAAAAAAAAAAAAAAAAAAAR
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void operador(String lexema, char ch){
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
@@ -265,6 +268,10 @@ public class AnalisadorLexico {
         
 	}
 	
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void digito(String lexema, char ch){
 		int linhaInicial = linha;
 		int colunaInicial = coluna;
@@ -276,16 +283,23 @@ public class AnalisadorLexico {
         ch = this.leCaractere();
 		
         if(lexema == "-") {
-    		this.coluna--;
+    		colunaInicial--;
     	}
         
-        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch))) {
-        	if(Character.isDigit(ch)){
+        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch) || ch == '\'' || ch == '"')) {
+        	
+        	if(!(Character.isDigit(ch)) && ch != '.') {
+            	erro = true;
+            	lexema = lexema + ch;
+            	coluna++;
+            	ch = this.leCaractere();
+            }
+        	else if(Character.isDigit(ch)){
         		lexema = lexema + ch;
             	coluna++;
             	ch = this.leCaractere();
         	}
-        	if (ch == '.' && isPonto == false){
+        	else if (ch == '.' && isPonto == false){
         		lexema = lexema + ch;
             	coluna++;
             	isPonto = true;
@@ -303,6 +317,10 @@ public class AnalisadorLexico {
 	}
 	
 	//Pode ser um identificador, uma palavra reservada ou um operador lógico
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void letras(String lexema, char ch){
 		int linhaInicial = linha;
 		int colunaInicial = coluna;
@@ -312,7 +330,7 @@ public class AnalisadorLexico {
 		this.coluna++;
 		ch = this.leCaractere();
 		//aí vai percorrer até terminar a palavra
-		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch))) {
+		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch) || ch == '\'' || ch == '"')) {
 			//se começar com uma letra ja assumete que vai ser um identifiacdor ou uma palavra reservada
 			if(!(ch == '_' || Character.isLetterOrDigit(ch))){
 				erro = true;
@@ -336,10 +354,19 @@ public class AnalisadorLexico {
 			this.addErro("Identificador incorreto", lexema, linhaInicial, colunaInicial);
 	}
 	
+	/**
+	 * @param tipo
+	 * @param erro
+	 * @param linha
+	 * @param coluna
+	 */
 	private void addErro(String tipo, String erro, int linha, int coluna) {
 		erros.add(erro + " -> " + tipo + " | linha: " + (linha + 1) + " | coluna: " + (coluna + 1));
 	}
 	
+	/**
+	 * @return
+	 */
 	private char leCaractere(){
 		if(!codigoFonte.isEmpty()){
 			char c[] = codigoFonte.get(linha).toCharArray();
@@ -370,28 +397,20 @@ public class AnalisadorLexico {
 	}
 
 	// podem conter vários códigos-fonte... lê varios codigos fonte da pasta
-	public ArrayList<String> lerCodigos() {
-
-        File caminho = new File("src/testes/");
-        //ArrayList<String> codigos = new ArrayList<>();
-        for (File f : caminho.listFiles()) {
-            codigos.add(f.getName());
-        }
-        return codigos;
-    }
 	
-	public ArrayList<String> lerCodigoFonte(String localFile) throws FileNotFoundException {
+	/**
+	 * @return
+	 */
+	public ArrayList<Token> getTokens() {
+		return tokens;
+	}
 
-        Scanner scanner = new Scanner(new FileReader("testes/" + localFile)); // Lendo o arquivo do código.
-        //this.localFile = localFile; // Guarda o nome do arquivo de entrada para que o arquivo de saída tenha o "mesmo" nome.
-        ArrayList<String> codigo = new ArrayList<String>(); // Código obtido.
-        while (scanner.hasNextLine()) { // Capturando as linhas do código.
-            codigo.add(scanner.nextLine());
-        }
-        scanner.close();
-        return codigo;
-    }
-	
+	/**
+	 * @return
+	 */
+	public ArrayList<String> getErros() {
+		return erros;
+	}
 	
 
 }
