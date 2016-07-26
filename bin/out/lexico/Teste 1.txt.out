@@ -31,9 +31,8 @@ Lexema: ) | Tipo: Delimitador | Linha: 16 | Coluna: 12
 Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 13
 Lexema: leia | Tipo: Palavra Reservada | Linha: 18 | Coluna: 2
 Lexema: ( | Tipo: Delimitador | Linha: 18 | Coluna: 7
-Lexema: "escreva um valor" | Tipo: Cadeia de caracteres | Linha: 18 | Coluna: 8
-Lexema: ) | Tipo: Delimitador | Linha: 18 | Coluna: 27
-Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 28
+Lexema: ) | Tipo: Delimitador | Linha: 18 | Coluna: 28
+Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 29
 Lexema: escreva | Tipo: Palavra Reservada | Linha: 21 | Coluna: 2
 Lexema: ( | Tipo: Delimitador | Linha: 21 | Coluna: 10
 Lexema: b | Tipo: Identificador | Linha: 21 | Coluna: 11
@@ -42,7 +41,7 @@ Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 13
 Lexema: c | Tipo: Identificador | Linha: 23 | Coluna: 2
 Lexema: = | Tipo: Operador Relacional | Linha: 23 | Coluna: 4
 Lexema: a | Tipo: Identificador | Linha: 23 | Coluna: 6
-Lexema: + | Tipo: Operador Relacional | Linha: 23 | Coluna: 7
+Lexema: + | Tipo: Operador Aritmético | Linha: 23 | Coluna: 7
 Lexema: b | Tipo: Identificador | Linha: 23 | Coluna: 8
 Lexema: ; | Tipo: Delimitador | Linha: 23 | Coluna: 9
 Lexema: leia | Tipo: Palavra Reservada | Linha: 25 | Coluna: 2
@@ -52,5 +51,4 @@ Lexema: c | Tipo: Identificador | Linha: 25 | Coluna: 20
 Lexema: ) | Tipo: Delimitador | Linha: 25 | Coluna: 22
 Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 23
 Lexema: fim | Tipo: Palavra Reservada | Linha: 27 | Coluna: 1
-
-Sucesso! Não existem erros léxicos
+Erro: "escreva um val*or" -> Cadeia de carcteres mal formada | linha: 19 | coluna: 9

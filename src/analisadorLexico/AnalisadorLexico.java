@@ -131,6 +131,10 @@ public class AnalisadorLexico {
         this.coluna++;
         ch = this.leCaractere();
         
+        if (Character.isDigit(ch)){
+        	erro = true;
+        }
+        
         while (ch != '"' && ch != EOF) {
         	this.coluna++;
         	if (Character.isLetterOrDigit(ch) || Character.isSpaceChar(ch)) {
