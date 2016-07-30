@@ -21,7 +21,6 @@ public class AnalisadorLexico {
      * Array que armazena todos os tokens encontrados em um código
      */
     private ArrayList<Token> tokens = new ArrayList<>();
-
 	/**
      * Array que armazena todos os erros encontrados em um código
      */
@@ -54,8 +53,8 @@ public class AnalisadorLexico {
 	private boolean linhaVazia = false;
 	
 	/**
-	 * @param codigo
-	 * @param nomeDoArquivo
+	 * @param codigo - código fonte a ser analisado
+	 * @param nomeDoArquivo - titulo do arquivo aonde está o código fonte
 	 */
 	public void analiseCodigo(ArrayList<String> codigo, String nomeDoArquivo) {
 		System.out.println("Analisando: " + nomeDoArquivo);
@@ -104,6 +103,9 @@ public class AnalisadorLexico {
 				//Autômato para tratamento de comentario
 				else if (c == '{') {
 					this.comentario(c);
+				} 
+				else {
+					this.caractereInvalido(lexema, c);
 				}
 				
 			} 
@@ -122,6 +124,23 @@ public class AnalisadorLexico {
 	 * @param lexema
 	 * @param ch
 	 */
+	private void caractereInvalido(String lexema, char ch) {
+		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
+        int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
+        
+        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch) || ch == '\'' || ch == '"' || ch == '{')) {
+        	lexema = lexema + ch;
+        	this.coluna++;
+        	ch = this.leCaractere();
+        }
+        
+        this.addErro("Sequência Inválida", lexema, linhaInicial, colunaInicial);
+	}
+	
+	/**
+	 * @param lexema
+	 * @param ch
+	 */
 	private void cadeiaDeCaracteres(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
@@ -131,7 +150,7 @@ public class AnalisadorLexico {
         this.coluna++;
         ch = this.leCaractere();
         
-        if (Character.isDigit(ch)){
+        if (!(Character.isLetter(ch))){
         	erro = true;
         }
         
@@ -198,6 +217,7 @@ public class AnalisadorLexico {
         Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Delimitador", lexema);
         this.tokens.add(token);
     }
+	
 	
 	/**
 	 * @param lexema
@@ -303,7 +323,7 @@ public class AnalisadorLexico {
     		colunaInicial--;
     	}
         
-        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch) || ch == '\'' || ch == '"')) {
+        while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isOperador(ch) || estruturaLexica.isDelimitador(ch) || ch == '\'' || ch == '"' || ch == '{')) {
         	
         	if(!(Character.isDigit(ch)) && ch != '.') {
             	erro = true;
@@ -321,9 +341,16 @@ public class AnalisadorLexico {
             	coluna++;
             	isPonto = true;
             	ch = this.leCaractere();
+            	if (!(Character.isDigit(ch))) {
+            		erro = true;
+            	}
         	}
-        	else
+        	else {
         		erro = true;
+        		lexema = lexema + ch;
+            	coluna++;
+            	ch = this.leCaractere();
+        	}
         }
         if (!erro){
         	Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
@@ -347,7 +374,7 @@ public class AnalisadorLexico {
 		this.coluna++;
 		ch = this.leCaractere();
 		//aí vai percorrer até terminar a palavra
-		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch) || ch == '\'' || ch == '"')) {
+		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch) || ch == '\'' || ch == '"' || ch == '{')) {
 			//se começar com uma letra ja assumete que vai ser um identifiacdor ou uma palavra reservada
 			if(!(ch == '_' || Character.isLetterOrDigit(ch))){
 				erro = true;

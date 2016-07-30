@@ -21,9 +21,8 @@ Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 18
 Lexema: inicio | Tipo: Palavra Reservada | Linha: 10 | Coluna: 20
 Lexema: leia | Tipo: Palavra Reservada | Linha: 13 | Coluna: 2
 Lexema: ( | Tipo: Delimitador | Linha: 13 | Coluna: 7
-Lexema: "escreva um valor" | Tipo: Cadeia de caracteres | Linha: 13 | Coluna: 8
-Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 27
-Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 28
+Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 28
+Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 29
 Lexema: escreva | Tipo: Palavra Reservada | Linha: 16 | Coluna: 2
 Lexema: ( | Tipo: Delimitador | Linha: 16 | Coluna: 10
 Lexema: a | Tipo: Identificador | Linha: 16 | Coluna: 11
@@ -51,4 +50,5 @@ Lexema: c | Tipo: Identificador | Linha: 25 | Coluna: 20
 Lexema: ) | Tipo: Delimitador | Linha: 25 | Coluna: 22
 Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 23
 Lexema: fim | Tipo: Palavra Reservada | Linha: 27 | Coluna: 1
-Erro: "escreva um val*or" -> Cadeia de carcteres mal formada | linha: 19 | coluna: 9
+Erro: "2escreva um valor" -> Cadeia de caracteres mal formada | linha: 14 | coluna: 9
+Erro: "escreva um val*or" -> Cadeia de caracteres mal formada | linha: 19 | coluna: 9

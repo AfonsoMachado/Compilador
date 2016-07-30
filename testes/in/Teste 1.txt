@@ -10,12 +10,12 @@ var int a, b;
 funcao programa () inicio
 
 
-	leia ("2escreva um valor" );
+	leia ("escreva um valor" );
 
 
 	escreva (a);
 
-	leia ("escreva um val*or" );
+	leia ("escreva um valor" );
 
 
 	escreva (b);
