@@ -37,4 +37,4 @@ Erro: 9.h0 -> Digito Inválido | linha: 4 | coluna: 25
 Erro: 1a -> Digito Inválido | linha: 6 | coluna: 9
 Erro: b_w3# -> Identificador incorreto | linha: 6 | coluna: 13
 Erro: 1inicio -> Digito Inválido | linha: 10 | coluna: 20
-Erro: "escreva um valor );   	escreva (a);  	c = a + b;  	leia (a soma eh" -> Cadeia de carcteres mal formada | linha: 19 | coluna: 9
+Erro: "escreva um valor );   	escreva (a);  	c = a + b;  	leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 19 | coluna: 9

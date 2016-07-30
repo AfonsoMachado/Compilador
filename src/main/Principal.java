@@ -39,6 +39,11 @@ public class Principal {
 			arquivo.gravaSaida(lexico.getTokens(), lexico.getErros());
 			
 			System.out.println("Análise Léxica feita com sucesso!");
+			if (lexico.getErros().isEmpty()) {
+				System.out.println("Não foram encontrados erros");
+			} else {
+				System.out.println("Foram detectados erros - Verifique-os no arquivo de saída");
+			}
 			System.out.println(" ");
 		}
 	}
