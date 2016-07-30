@@ -33,11 +33,6 @@ public class EstruturaLexica {
      */
     private final ArrayList<Character> delimitadores  = new ArrayList<>();
     
-    /**
-     * 
-     */
-    private final ArrayList<Character> simbolos = new ArrayList<>();
-    
 	/**
 	 * 
 	 */
@@ -81,10 +76,6 @@ public class EstruturaLexica {
         delimitadores.add(',');
         delimitadores.add('(');
         delimitadores.add(')');
-        
-        for (int i = 32; i <= 126; i++) {
-            this.simbolos.add((char) i);
-        }
         
 	}
 	
