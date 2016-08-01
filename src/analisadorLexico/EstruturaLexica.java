@@ -38,6 +38,8 @@ public class EstruturaLexica {
      */
     private final ArrayList<Character> simbolos = new ArrayList<>();
     
+    private final ArrayList<Character> letras = new ArrayList<>();
+    
 	/**
 	 * 
 	 */
@@ -86,6 +88,13 @@ public class EstruturaLexica {
             this.simbolos.add((char) i);
         }
         
+        for (char i = 'a'; i <= 'z'; i++) {
+            this.letras.add((char) i);
+        }
+        for (char i = 'A'; i <= 'Z'; i++) {
+            this.letras.add((char) i);
+        }
+        
 	}
 	
 	/**
@@ -97,6 +106,10 @@ public class EstruturaLexica {
 	 */
 	public boolean isPalavraResevada(String s){
 		return this.palavrasReservadas.contains(s);
+	}
+	
+	public boolean isLetra(char c) {
+		return this.letras.contains(c);
 	}
 	
 	/**

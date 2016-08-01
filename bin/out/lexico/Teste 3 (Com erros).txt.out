@@ -1,1 +1,36 @@
-Erro: Comentario não finalizado -> Comentario | linha: 1 | coluna: 0
+Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 2 | Coluna: 7
+Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 23
+Lexema: 3.0 | Tipo: Dígito | Linha: 2 | Coluna: 25
+Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 28
+Lexema: var | Tipo: Palavra Reservada | Linha: 3 | Coluna: 1
+Lexema: real | Tipo: Palavra Reservada | Linha: 3 | Coluna: 5
+Lexema: cw | Tipo: Identificador | Linha: 3 | Coluna: 10
+Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 12
+Lexema: var | Tipo: Palavra Reservada | Linha: 4 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 4 | Coluna: 5
+Lexema: a | Tipo: Identificador | Linha: 4 | Coluna: 9
+Lexema: , | Tipo: Delimitador | Linha: 4 | Coluna: 10
+Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 17
+Lexema: funcao | Tipo: Palavra Reservada | Linha: 5 | Coluna: 1
+Lexema: ( | Tipo: Delimitador | Linha: 5 | Coluna: 19
+Lexema: ) | Tipo: Delimitador | Linha: 5 | Coluna: 20
+Lexema: leia | Tipo: Palavra Reservada | Linha: 6 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 6 | Coluna: 7
+Lexema: "escreva um valor" | Tipo: Cadeia de caracteres | Linha: 6 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 27
+Lexema: escreva | Tipo: Palavra Reservada | Linha: 7 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 7 | Coluna: 10
+Lexema: a | Tipo: Identificador | Linha: 7 | Coluna: 11
+Lexema: ) | Tipo: Delimitador | Linha: 7 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 7 | Coluna: 13
+Lexema: leia | Tipo: Palavra Reservada | Linha: 8 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 8 | Coluna: 7
+Lexema: c | Tipo: Identificador | Linha: 13 | Coluna: 20
+Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 22
+Lexema: fim | Tipo: Palavra Reservada | Linha: 14 | Coluna: 1
+Erro: 1constante1 -> Digito Inválido | linha: 2 | coluna: 11
+Erro: b_w3# -> Identificador incorreto | linha: 4 | coluna: 12
+Erro: prog&&rama -> Identificador incorreto | linha: 5 | coluna: 8
+Erro: 1inicio -> Digito Inválido | linha: 5 | coluna: 22
+Erro: "escreva um valor ); 	escreva a); 	c = a + b; 	 	se (a >=< b) 		leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 9

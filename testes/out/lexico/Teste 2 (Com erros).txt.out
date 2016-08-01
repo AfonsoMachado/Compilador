@@ -1,40 +1,40 @@
-Lexema: const | Tipo: Palavra Reservada | Linha: 4 | Coluna: 1
-Lexema: int | Tipo: Identificador | Linha: 4 | Coluna: 7
-Lexema: = | Tipo: Operador Relacional | Linha: 4 | Coluna: 23
-Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 29
-Lexema: var | Tipo: Palavra Reservada | Linha: 5 | Coluna: 1
-Lexema: real | Tipo: Palavra Reservada | Linha: 5 | Coluna: 5
-Lexema: c | Tipo: Identificador | Linha: 5 | Coluna: 10
-Lexema: ; | Tipo: Delimitador | Linha: 5 | Coluna: 11
-Lexema: var | Tipo: Palavra Reservada | Linha: 6 | Coluna: 1
-Lexema: int | Tipo: Identificador | Linha: 6 | Coluna: 5
-Lexema: , | Tipo: Delimitador | Linha: 6 | Coluna: 11
-Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 18
-Lexema: funcao | Tipo: Palavra Reservada | Linha: 10 | Coluna: 1
-Lexema: programa | Tipo: Palavra Reservada | Linha: 10 | Coluna: 8
-Lexema: ( | Tipo: Delimitador | Linha: 10 | Coluna: 17
-Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 18
-Lexema: leia | Tipo: Palavra Reservada | Linha: 13 | Coluna: 2
-Lexema: ( | Tipo: Delimitador | Linha: 13 | Coluna: 7
-Lexema: escreva | Tipo: Palavra Reservada | Linha: 13 | Coluna: 8
-Lexema: um | Tipo: Identificador | Linha: 13 | Coluna: 16
-Lexema: valor | Tipo: Identificador | Linha: 13 | Coluna: 19
-Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 25
-Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 26
-Lexema: escreva | Tipo: Palavra Reservada | Linha: 16 | Coluna: 2
-Lexema: ( | Tipo: Delimitador | Linha: 16 | Coluna: 10
-Lexema: a | Tipo: Identificador | Linha: 16 | Coluna: 11
-Lexema: ) | Tipo: Delimitador | Linha: 16 | Coluna: 12
-Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 13
-Lexema: leia | Tipo: Palavra Reservada | Linha: 18 | Coluna: 2
-Lexema: ( | Tipo: Delimitador | Linha: 18 | Coluna: 7
-Lexema: c | Tipo: Identificador | Linha: 25 | Coluna: 19
-Lexema: ) | Tipo: Delimitador | Linha: 25 | Coluna: 21
-Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 22
-Lexema: fim | Tipo: Palavra Reservada | Linha: 29 | Coluna: 1
-Erro: 1constante1 -> Digito Inválido | linha: 4 | coluna: 11
-Erro: 9.h0 -> Digito Inválido | linha: 4 | coluna: 25
-Erro: 1a -> Digito Inválido | linha: 6 | coluna: 9
-Erro: b_w3# -> Identificador incorreto | linha: 6 | coluna: 13
-Erro: 1inicio -> Digito Inválido | linha: 10 | coluna: 20
-Erro: "escreva um valor );   	escreva (a);  	c = a + b;  	leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 19 | coluna: 9
+Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 2 | Coluna: 7
+Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 23
+Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 29
+Lexema: var | Tipo: Palavra Reservada | Linha: 3 | Coluna: 1
+Lexema: real | Tipo: Palavra Reservada | Linha: 3 | Coluna: 5
+Lexema: c | Tipo: Identificador | Linha: 3 | Coluna: 10
+Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 11
+Lexema: var | Tipo: Palavra Reservada | Linha: 4 | Coluna: 1
+Lexema: int | Tipo: Identificador | Linha: 4 | Coluna: 5
+Lexema: , | Tipo: Delimitador | Linha: 4 | Coluna: 11
+Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 18
+Lexema: funcao | Tipo: Palavra Reservada | Linha: 5 | Coluna: 1
+Lexema: programa | Tipo: Palavra Reservada | Linha: 5 | Coluna: 8
+Lexema: ( | Tipo: Delimitador | Linha: 5 | Coluna: 17
+Lexema: ) | Tipo: Delimitador | Linha: 5 | Coluna: 18
+Lexema: leia | Tipo: Palavra Reservada | Linha: 6 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 6 | Coluna: 7
+Lexema: escreva | Tipo: Palavra Reservada | Linha: 6 | Coluna: 8
+Lexema: um | Tipo: Identificador | Linha: 6 | Coluna: 16
+Lexema: valor | Tipo: Identificador | Linha: 6 | Coluna: 19
+Lexema: ) | Tipo: Delimitador | Linha: 6 | Coluna: 25
+Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 26
+Lexema: escreva | Tipo: Palavra Reservada | Linha: 7 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 7 | Coluna: 10
+Lexema: a | Tipo: Identificador | Linha: 7 | Coluna: 11
+Lexema: ) | Tipo: Delimitador | Linha: 7 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 7 | Coluna: 13
+Lexema: leia | Tipo: Palavra Reservada | Linha: 8 | Coluna: 2
+Lexema: ( | Tipo: Delimitador | Linha: 8 | Coluna: 7
+Lexema: c | Tipo: Identificador | Linha: 11 | Coluna: 19
+Lexema: ) | Tipo: Delimitador | Linha: 11 | Coluna: 21
+Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 22
+Lexema: fim | Tipo: Palavra Reservada | Linha: 12 | Coluna: 1
+Erro: 1constante1 -> Digito Inválido | linha: 2 | coluna: 11
+Erro: 9.h0 -> Digito Inválido | linha: 2 | coluna: 25
+Erro: 1a -> Digito Inválido | linha: 4 | coluna: 9
+Erro: b_w3# -> Identificador incorreto | linha: 4 | coluna: 13
+Erro: 1inicio -> Digito Inválido | linha: 5 | coluna: 20
+Erro: "escreva um valor ); 	escreva (a); 	c = a + b; 	leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 9

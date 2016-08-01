@@ -48,7 +48,11 @@ public class Arquivo {
         this.localFile = localFile; // Guarda o nome do arquivo de entrada para que o arquivo de saída tenha o "mesmo" nome.
         ArrayList<String> codigo = new ArrayList<String>(); // Código obtido.
         while (scanner.hasNextLine()) { // Capturando as linhas do código.
-            codigo.add(scanner.nextLine());
+        	
+        String s = scanner.nextLine();
+        
+        if (s.length() != 0){
+            codigo.add(s);}
             
         }
         scanner.close();
@@ -78,6 +82,8 @@ public class Arquivo {
     }
 	
 	/**
+	 * 
+	 * 
 	 * @return
 	 */
 	public String getLocalFile(){

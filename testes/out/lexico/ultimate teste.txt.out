@@ -1,0 +1,73 @@
+Lexema: "hdsfg" | Tipo: Cadeia de caracteres | Linha: 1 | Coluna: 1
+Lexema: sdhjkfgshjbv | Tipo: Identificador | Linha: 1 | Coluna: 8
+Lexema: v | Tipo: Identificador | Linha: 1 | Coluna: 21
+Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 22
+Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 6
+Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 12
+Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 5 | Coluna: 13
+Lexema: * | Tipo: Operador Aritmético | Linha: 6 | Coluna: 4
+Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 5
+Lexema: ; | Tipo: Delimitador | Linha: 8 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 9 | Coluna: 4
+Lexema: ; | Tipo: Delimitador | Linha: 10 | Coluna: 4
+Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 3
+Lexema: ; | Tipo: Delimitador | Linha: 12 | Coluna: 6
+Lexema: * | Tipo: Operador Aritmético | Linha: 13 | Coluna: 1
+Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 5
+Lexema: ; | Tipo: Delimitador | Linha: 15 | Coluna: 3
+Lexema: <= | Tipo: Operador Relacional | Linha: 16 | Coluna: 1
+Lexema: < | Tipo: Operador Relacional | Linha: 16 | Coluna: 3
+Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 4
+Lexema: 1 | Tipo: Dígito | Linha: 17 | Coluna: 4
+Lexema: 2 | Tipo: Dígito | Linha: 17 | Coluna: 6
+Lexema: d | Tipo: Identificador | Linha: 17 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 9
+Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 14
+Lexema: < | Tipo: Operador Relacional | Linha: 18 | Coluna: 1
+Lexema: <> | Tipo: Operador Relacional | Linha: 18 | Coluna: 2
+Lexema: = | Tipo: Operador Relacional | Linha: 18 | Coluna: 4
+Lexema: <= | Tipo: Operador Relacional | Linha: 18 | Coluna: 5
+Lexema: > | Tipo: Operador Relacional | Linha: 18 | Coluna: 7
+Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 8
+Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 10
+Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 3
+Lexema: + | Tipo: Operador Aritmético | Linha: 24 | Coluna: 3
+Lexema: -1 | Tipo: Dígito | Linha: 24 | Coluna: 5
+Erro: 'dfd' -> Caractere Inválido | linha: 2 | coluna: 1
+Erro: 15451.45.15 -> Digito Inválido | linha: 3 | coluna: 1
+Erro: "1vfds" -> Cadeia de caracteres mal formada | linha: 5 | coluna: 2
+Erro: 1d3t1f1c4d0R -> Digito Inválido | linha: 5 | coluna: 1
+Erro: n&m -> Identificador incorreto | linha: 6 | coluna: 1
+Erro: 'd;  -> Caractere Inválido | linha: 7 | coluna: 1
+Erro: "_fsfd" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 2
+Erro: " " -> Cadeia de caracteres mal formada | linha: 10 | coluna: 2
+Erro: 1.k -> Digito Inválido | linha: 10 | coluna: 1
+Erro: ‘s -> Sequência Inválida | linha: 11 | coluna: 1
+Erro: “as#” -> Sequência Inválida | linha: 12 | coluna: 1
+Erro: y1& -> Identificador incorreto | linha: 13 | coluna: 2
+Erro: ‘as’ -> Sequência Inválida | linha: 14 | coluna: 1
+Erro: &% -> Sequência Inválida | linha: 15 | coluna: 1
+Erro: “S -> Sequência Inválida | linha: 17 | coluna: 1
+Erro: 1tr -> Digito Inválido | linha: 17 | coluna: 11
+Erro: “2coisas” -> Sequência Inválida | linha: 19 | coluna: 1
+Erro: 9. -> Digito Inválido | linha: 20 | coluna: 1
+Erro: ‘’ -> Sequência Inválida | linha: 21 | coluna: 1
+Erro: "		f" -> Cadeia de caracteres mal formada | linha: 23 | coluna: 2
+Erro: "134" -> Cadeia de caracteres mal formada | linha: 24 | coluna: 2
+Erro: 1@ -> Digito Inválido | linha: 24 | coluna: 1
+Erro: ¹²³ -> Sequência Inválida | linha: 25 | coluna: 1
+Erro: f¢ -> Identificador incorreto | linha: 26 | coluna: 1
+Erro: tt¬ -> Identificador incorreto | linha: 27 | coluna: 1
+Erro: ª -> Sequência Inválida | linha: 28 | coluna: 1
+Erro: aº -> Identificador incorreto | linha: 29 | coluna: 1
+Erro: §p -> Sequência Inválida | linha: 30 | coluna: 1
+Erro: aão -> Identificador incorreto | linha: 31 | coluna: 1
+Erro: e? -> Identificador incorreto | linha: 32 | coluna: 1
+Erro: ü -> Sequência Inválida | linha: 33 | coluna: 1
+Erro: abumaê -> Identificador incorreto | linha: 34 | coluna: 1
+Erro: ë -> Sequência Inválida | linha: 35 | coluna: 1
+Erro: ê -> Sequência Inválida | linha: 36 | coluna: 1
+Erro: cç -> Identificador incorreto | linha: 37 | coluna: 1
+Erro: aª -> Identificador incorreto | linha: 38 | coluna: 1
+Erro: Comentario não finalizado -> Comentario | linha: 39 | coluna: 0

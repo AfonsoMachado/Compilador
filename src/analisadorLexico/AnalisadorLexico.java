@@ -1,6 +1,3 @@
-/**
- * 
- */
 package analisadorLexico;
 
 import java.util.ArrayList;
@@ -74,12 +71,16 @@ public class AnalisadorLexico {
 			if (!this.linhaVazia){
 				lexema = "";
 				
-				if(estruturaLexica.isSpace(c)) {
+				if (c == 'ª' || c == 'º') {
+					this.caractereInvalido(lexema, c);
+				}
+				
+				else if(estruturaLexica.isSpace(c)) {
 					coluna++;
 				}
 				
 				//Autômato para tratamento de letras maiúsculas e minúsculas
-				else if (Character.isLetter(c)){
+				else if (estruturaLexica.isLetra(c)){
 					letras(lexema, c);
 				}
 				
@@ -432,7 +433,10 @@ public class AnalisadorLexico {
 		//aí vai percorrer até terminar a palavra
 		while (!(ch == EOF || Character.isSpaceChar(ch) || estruturaLexica.isDelimitador(ch) || estruturaLexica.isOperador(ch) || ch == '\'' || ch == '"' || ch == '{')) {
 			//se começar com uma letra ja assumete que vai ser um identifiacdor ou uma palavra reservada
-			if(!(ch == '_' || Character.isLetterOrDigit(ch))){
+			if (ch == 'ª' || ch == 'º') {
+				erro = true;
+			}
+			if(!(ch == '_' || estruturaLexica.isLetra(ch))){
 				erro = true;
 			}
 			lexema = lexema + ch;
