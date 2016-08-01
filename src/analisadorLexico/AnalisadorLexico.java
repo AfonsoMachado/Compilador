@@ -53,6 +53,8 @@ public class AnalisadorLexico {
 	private boolean linhaVazia = false;
 	
 	/**
+	 * Método que faz a análise léxica por completo de um código fonte
+	 * 
 	 * @param codigo - código fonte a ser analisado
 	 * @param nomeDoArquivo - titulo do arquivo aonde está o código fonte
 	 */
@@ -121,8 +123,12 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * Trata a existência de um caractere inválido encontrado no código,
+	 * esses caracteres inválidos são representados na tabela ASCII dos 
+	 * números 32 ao 126
+	 * 
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void caractereInvalido(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
@@ -138,8 +144,12 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * Método que trata a existência de uma cadeia de caracteres no código.
+	 * Sendo que sempre está delimitada por aspas duplas ("), e deve respeitar
+	 * a seguinte formação: "letra | numero | ASCII 32"
+	 * 
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void cadeiaDeCaracteres(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
@@ -181,7 +191,14 @@ public class AnalisadorLexico {
 	}
 
 	/**
-	 * @param ch
+	 * Trata a existência de um comentário no código. Sendo que os
+	 * comentários podem ser de linha ou de bloco, contendo quaisquer
+	 * caracteres, desde que sejam limitados por chaves ({}).
+	 * Tudo que esteja delimitado por chaves é ignorado pela
+	 * análise léxica. Caso não sejam fechadas as chaves (}),
+	 * o código todo a partir do abre chaves é ignorado ({)
+	 * 
+	 * @param ch - Caractere inicial do comentário: {
 	 */
 	private void comentario(char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
@@ -203,8 +220,11 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * Trata a existência de delimitadores no código fonte,
+	 * que são: , ; ( e ).
+	 * 
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void delimitador(String lexema, char ch) {
 
@@ -220,8 +240,14 @@ public class AnalisadorLexico {
 	
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * Trata a existência de um caractere no código fonte,
+	 * este caractere deve ser delimitado por aspas simples ('),
+	 * respeitando a seguinte condição: 'letra | dígito'. 
+	 * Casso exista mais de um caractere delimitado por aspas simples,
+	 * é considerado um erro léxico.
+	 * 
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void caractere(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
