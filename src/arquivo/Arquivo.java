@@ -49,6 +49,7 @@ public class Arquivo {
         ArrayList<String> codigo = new ArrayList<String>(); // Código obtido.
         while (scanner.hasNextLine()) { // Capturando as linhas do código.
             codigo.add(scanner.nextLine());
+            
         }
         scanner.close();
         return codigo;

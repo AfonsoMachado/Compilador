@@ -51,6 +51,11 @@ public class AnalisadorLexico {
 	 * Identifica se uma linha está vazia ou não.
 	 */
 	private boolean linhaVazia = false;
+	/**
+	 * Identifica a existência de uma expressão digito - digito,
+	 * separando os digitos do operador.
+	 */
+	private boolean numeroAntes = false;
 	
 	/**
 	 * Método que faz a análise léxica por completo de um código fonte
@@ -69,8 +74,9 @@ public class AnalisadorLexico {
 			if (!this.linhaVazia){
 				lexema = "";
 				
-				if(estruturaLexica.isSpace(c))
+				if(estruturaLexica.isSpace(c)) {
 					coluna++;
+				}
 				
 				//Autômato para tratamento de letras maiúsculas e minúsculas
 				else if (Character.isLetter(c)){
@@ -264,7 +270,9 @@ public class AnalisadorLexico {
         	ch = this.leCaractere();
         	if (ch != '\'')
         		erro = true;
-        	lexema = lexema + ch;
+        	//lexema = lexema + ch;
+        } else {
+        	erro = true;
         }
         
         if (!erro) {
@@ -273,13 +281,25 @@ public class AnalisadorLexico {
         	tokens.add(token);
         }
         else {
-        	this.addErro("Contém mais de um caractere", lexema, linhaInicial, colunaInicial);
+        	while ((ch != '\'' && linhaInicial == this.linha) ) {
+        		lexema = lexema + ch;
+            	this.coluna++;
+            	ch = this.leCaractere();
+        	}
+        	if (linhaInicial == this.linha) {
+        		lexema = lexema + ch;
+            	this.coluna++;
+        	}
+           
+        	this.addErro("Caractere Inválido", lexema, linhaInicial, colunaInicial);
         }
 	}
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * 
+	 * 
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void operador(String lexema, char ch){
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
@@ -295,7 +315,7 @@ public class AnalisadorLexico {
         	ch = this.leCaractere();
         }
         
-        else if (ch == '-') {
+        else if (ch == '-' && !(numeroAntes)) {
         	aritimetico = true;
         	ch = this.leCaractere();
         	//Se achar um digito depois do menos, é um numero negativo, vai para o autômato de numero
@@ -318,7 +338,14 @@ public class AnalisadorLexico {
 	        if (ch == '=') {
 	            lexema = lexema + ch;
 	            this.coluna++;
+	            
 	        }
+        }
+        
+        else if (ch == '-' && numeroAntes) {
+        	//ch = this.leCaractere();
+        	//lexema = lexema + ch;
+            //this.coluna++;
         }
         
         Token token;
@@ -332,8 +359,8 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @param lexema
-	 * @param ch
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void digito(String lexema, char ch){
 		int linhaInicial = linha;
@@ -378,6 +405,9 @@ public class AnalisadorLexico {
             	ch = this.leCaractere();
         	}
         }
+        /*if (ch == '-') {
+        	this.numeroAntes = true;
+        }*/
         if (!erro){
         	Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
         	tokens.add(token);
@@ -388,8 +418,8 @@ public class AnalisadorLexico {
 	
 	//Pode ser um identificador, uma palavra reservada ou um operador lógico
 	/**
-	 * @param lexema
-	 * @param ch
+	 * @param lexema - Token a ser formado
+	 * @param ch - Caractere inicial para compor o lexema
 	 */
 	private void letras(String lexema, char ch){
 		int linhaInicial = linha;
@@ -425,16 +455,18 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @param tipo
-	 * @param erro
-	 * @param linha
-	 * @param coluna
+	 * @param tipo - Tipo do erro
+	 * @param erro - Descrição do erro
+	 * @param linha - Linha do erro
+	 * @param coluna - Coluna do erro
 	 */
 	private void addErro(String tipo, String erro, int linha, int coluna) {
 		erros.add(erro + " -> " + tipo + " | linha: " + (linha + 1) + " | coluna: " + (coluna + 1));
 	}
 	
 	/**
+	 * 
+	 * 
 	 * @return
 	 */
 	private char leCaractere(){
@@ -466,13 +498,17 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * @return
+	 * Retorna um ArrayList dos tokens existentes no código
+	 * 
+	 * @return Tokens existentes
 	 */
 	public ArrayList<Token> getTokens() {
 		return tokens;
 	}
 
 	/**
+	 * Retorna um ArrayList com os erros encontrados no código
+	 * 
 	 * @return
 	 */
 	public ArrayList<String> getErros() {
