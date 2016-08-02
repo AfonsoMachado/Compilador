@@ -6,6 +6,8 @@ package analisadorLexico;
 import java.util.ArrayList;
 
 /**
+ * contém todos os elementos que compõem a estrutura léxica da linguagem, tais como as palavras reservadas, os operadores lógicos, aritméticos e relacionais, os delimitadores e os símbolos que não são aceitos e os que são aceitos na linguagem, tornando assim mais simples a minipulação dessa estrutura por meio do analisador léxico
+ * 
  * @author Afonso Machado
  * @author Henderson Chalegre
  *
@@ -32,12 +34,13 @@ public class EstruturaLexica {
      * 
      */
     private final ArrayList<Character> delimitadores  = new ArrayList<>();
-    
     /**
      * 
      */
     private final ArrayList<Character> simbolos = new ArrayList<>();
-    
+    /**
+     * 
+     */
     private final ArrayList<Character> letras = new ArrayList<>();
     
 	/**
@@ -108,6 +111,12 @@ public class EstruturaLexica {
 		return this.palavrasReservadas.contains(s);
 	}
 	
+	/**
+	 * Verifica se é uma letra válida, maiuscula ou minuscula
+	 * 
+	 * @param c Char para ser comparado com a lista de letras
+	 * @return verdadeiro se o char for uma letra e falso caso contrario
+	 */
 	public boolean isLetra(char c) {
 		return this.letras.contains(c);
 	}

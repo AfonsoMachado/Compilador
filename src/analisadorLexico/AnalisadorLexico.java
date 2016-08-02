@@ -2,7 +2,12 @@ package analisadorLexico;
 
 import java.util.ArrayList;
 
+import arquivo.Arquivo;
+
 /**
+ *  é instanciada e executada uma vez para cada código encontrado, ela trata e armazena os tokens e erros encontrados em cada código que por fim são armazenados em um arquivo através da classe Arquivo.java
+ * 
+ * @see Arquivo
  * @author Afonso Machado
  * @author Henderson Chalegre
  *
@@ -297,7 +302,9 @@ public class AnalisadorLexico {
 	}
 	
 	/**
-	 * 
+	 * Método que trata a existência de um operador aritimético
+	 * ou relacional no código fonte, trata tambem se o operador
+	 * aritimético '-', pode gerar um número negativo
 	 * 
 	 * @param lexema - Token a ser formado
 	 * @param ch - Caractere inicial para compor o lexema
@@ -419,6 +426,10 @@ public class AnalisadorLexico {
 	
 	//Pode ser um identificador, uma palavra reservada ou um operador lógico
 	/**
+	 * Identifica quaisquer tokens e começam com uma letra,
+	 * podendo ser um identificador, uma palavra reservada
+	 * ou um operador lógico
+	 * 
 	 * @param lexema - Token a ser formado
 	 * @param ch - Caractere inicial para compor o lexema
 	 */
@@ -436,7 +447,7 @@ public class AnalisadorLexico {
 			if (ch == 'ª' || ch == 'º') {
 				erro = true;
 			}
-			if(!(ch == '_' || estruturaLexica.isLetra(ch))){
+			if(!(ch == '_' || estruturaLexica.isLetra(ch) || Character.isDigit(ch))){
 				erro = true;
 			}
 			lexema = lexema + ch;
@@ -459,6 +470,9 @@ public class AnalisadorLexico {
 	}
 	
 	/**
+	 * Adiciona um erro encontrado numa lista de erros,
+	 * contendo todas as informações do mesmo.
+	 * 
 	 * @param tipo - Tipo do erro
 	 * @param erro - Descrição do erro
 	 * @param linha - Linha do erro
@@ -469,9 +483,9 @@ public class AnalisadorLexico {
 	}
 	
 	/**
+	 * Lê um caractere por vez para a análise do código
 	 * 
-	 * 
-	 * @return
+	 * @return caractere - Próximo caractere a ser lido para a análise
 	 */
 	private char leCaractere(){
 		if(!codigoFonte.isEmpty()){

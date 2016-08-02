@@ -1,6 +1,3 @@
-/**
- * 
- */
 package main;
 
 import java.io.IOException;
@@ -10,13 +7,19 @@ import analisadorLexico.AnalisadorLexico;
 import arquivo.Arquivo;
 
 /**
+ * Contém as chamadas de métodos necessários e as classes instanciadas para o uso do analisador. Executando ela uma única vez, ela vai ler todos os código da pasta testes/in, fazer as suas análises e armazenar os resultados na pasta teste/out/lexico
+ * 
  * @author Afonso Machado
  *
  */
 public class Principal {
 
 	/**
-	 * @param args
+	 * Método principal do análisador léxico, responsável por
+	 * instanciar a estrutura léxica da linguagem, verificar a existencia
+	 * de códigos fontes, ler os mesmo e realizas a sua análise léxica.
+	 * Ao final armazenando o resultado da análise em um arquivo de texto.
+	 * 
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {

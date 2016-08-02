@@ -1,39 +1,39 @@
-Lexema: "hdsfg" | Tipo: Cadeia de caracteres | Linha: 1 | Coluna: 1
-Lexema: sdhjkfgshjbv | Tipo: Identificador | Linha: 1 | Coluna: 8
-Lexema: v | Tipo: Identificador | Linha: 1 | Coluna: 21
-Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 22
-Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 6
-Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 12
-Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 8
-Lexema: ; | Tipo: Delimitador | Linha: 5 | Coluna: 13
-Lexema: * | Tipo: Operador Aritmético | Linha: 6 | Coluna: 4
-Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 5
-Lexema: ; | Tipo: Delimitador | Linha: 8 | Coluna: 8
-Lexema: ; | Tipo: Delimitador | Linha: 9 | Coluna: 4
-Lexema: ; | Tipo: Delimitador | Linha: 10 | Coluna: 4
-Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 3
-Lexema: ; | Tipo: Delimitador | Linha: 12 | Coluna: 6
-Lexema: * | Tipo: Operador Aritmético | Linha: 13 | Coluna: 1
-Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 5
-Lexema: ; | Tipo: Delimitador | Linha: 15 | Coluna: 3
-Lexema: <= | Tipo: Operador Relacional | Linha: 16 | Coluna: 1
-Lexema: < | Tipo: Operador Relacional | Linha: 16 | Coluna: 3
-Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 4
-Lexema: 1 | Tipo: Dígito | Linha: 17 | Coluna: 4
-Lexema: 2 | Tipo: Dígito | Linha: 17 | Coluna: 6
-Lexema: d | Tipo: Identificador | Linha: 17 | Coluna: 8
-Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 9
-Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 14
-Lexema: < | Tipo: Operador Relacional | Linha: 18 | Coluna: 1
-Lexema: <> | Tipo: Operador Relacional | Linha: 18 | Coluna: 2
-Lexema: = | Tipo: Operador Relacional | Linha: 18 | Coluna: 4
-Lexema: <= | Tipo: Operador Relacional | Linha: 18 | Coluna: 5
-Lexema: > | Tipo: Operador Relacional | Linha: 18 | Coluna: 7
-Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 8
-Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 10
-Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 3
-Lexema: + | Tipo: Operador Aritmético | Linha: 24 | Coluna: 3
-Lexema: -1 | Tipo: Dígito | Linha: 24 | Coluna: 5
+Token -> Lexema: "hdsfg" | Tipo: Cadeia de caracteres | Linha: 1 | Coluna: 1
+Token -> Lexema: sdhjkfgshjbv | Tipo: Identificador | Linha: 1 | Coluna: 8
+Token -> Lexema: v | Tipo: Identificador | Linha: 1 | Coluna: 21
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 22
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 6
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 12
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 4 | Coluna: 8
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 5 | Coluna: 13
+Token -> Lexema: * | Tipo: Operador Aritmético | Linha: 6 | Coluna: 4
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 6 | Coluna: 5
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 8 | Coluna: 8
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 9 | Coluna: 4
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 10 | Coluna: 4
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 3
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 12 | Coluna: 6
+Token -> Lexema: * | Tipo: Operador Aritmético | Linha: 13 | Coluna: 1
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 5
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 15 | Coluna: 3
+Token -> Lexema: <= | Tipo: Operador Relacional | Linha: 16 | Coluna: 1
+Token -> Lexema: < | Tipo: Operador Relacional | Linha: 16 | Coluna: 3
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 4
+Token -> Lexema: 1 | Tipo: Dígito | Linha: 17 | Coluna: 4
+Token -> Lexema: 2 | Tipo: Dígito | Linha: 17 | Coluna: 6
+Token -> Lexema: d | Tipo: Identificador | Linha: 17 | Coluna: 8
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 9
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 14
+Token -> Lexema: < | Tipo: Operador Relacional | Linha: 18 | Coluna: 1
+Token -> Lexema: <> | Tipo: Operador Relacional | Linha: 18 | Coluna: 2
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 18 | Coluna: 4
+Token -> Lexema: <= | Tipo: Operador Relacional | Linha: 18 | Coluna: 5
+Token -> Lexema: > | Tipo: Operador Relacional | Linha: 18 | Coluna: 7
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 8
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 10
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 3
+Token -> Lexema: + | Tipo: Operador Aritmético | Linha: 24 | Coluna: 3
+Token -> Lexema: -1 | Tipo: Dígito | Linha: 24 | Coluna: 5
 Erro: 'dfd' -> Caractere Inválido | linha: 2 | coluna: 1
 Erro: 15451.45.15 -> Digito Inválido | linha: 3 | coluna: 1
 Erro: "1vfds" -> Cadeia de caracteres mal formada | linha: 5 | coluna: 2

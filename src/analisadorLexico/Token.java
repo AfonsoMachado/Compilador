@@ -1,6 +1,8 @@
 package analisadorLexico;
 
 /**
+ * compreende todas as formações de um token encontrado em um código, sendo que cada token encontrado é uma instância dessa classe, que contém datalhes sobre o lexema, tipo, linha e coluna do token.
+ * 
  * @author Afonso Machado
  *
  */
