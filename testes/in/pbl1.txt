@@ -2,6 +2,8 @@ exemplo teste;
 
 real f = 3a;
 
+"sdsds
+
 caractere flag = 'teste';
 
 se ( f >= 10) e (f < ) 

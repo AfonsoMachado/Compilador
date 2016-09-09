@@ -176,23 +176,41 @@ public class AnalisadorLexico {
         	erro = true;
         }
         
-        while (ch != '"' && ch != EOF) {
-        	this.coluna++;
-        	if (Character.isLetterOrDigit(ch) || Character.isSpaceChar(ch)) {
+        while (ch != '"' && linha == linhaInicial && ch != EOF) {
+        	if (Character.isLetterOrDigit(ch)) {
+        		this.coluna++;
         		lexema = lexema + ch;
         		ch = this.leCaractere();
         	} 
+        	else if (Character.isSpaceChar(ch)) {
+                this.coluna++;
+                ch = this.leCaractere();
+                if (ch == ' ' && linhaInicial == this.linha) { // Se o próximo caractere for espaço e se mantém na linha atual, o espaço anterior é inserido ao lexema. 
+                    lexema += " ";
+                } else if (ch != EOF && linhaInicial == this.linha) {
+                    lexema += " "; // Já se sabe que o caractere lido não representa quebra de linha, logo, o espaço anterior é inserido ao lexema. 
+                    if (ch != '"') { // Se o próximo caractere não for espaço nem aspas duplas e estiver na linha atual, o espaço anterior e este novo caractere são inseridos ao lexema. 
+                        lexema += ch;
+                        this.coluna++;
+                        ch = this.leCaractere();
+                    }
+                }
+            }
         	else {
+        		this.coluna++;
         		lexema = lexema + ch;
         		ch = this.leCaractere();
         		erro = true;
         	}
         }
+        //se o ultimo nçao for um ".. dá erro
         
-        this.coluna++;
-        lexema = lexema + ch;
+        if (ch == '"' && linhaInicial == this.linha) {  // Verifica se a cadeia constante foi fechada na mesma linha.
+            lexema += ch;
+            this.coluna++;
+        }
         
-        if (!erro) {
+        if (!erro  && linhaInicial == this.linha) {
         	Token token;
         	token = new Token(linhaInicial + 1, colunaInicial + 1, "Cadeia de caracteres", lexema);
         	this.tokens.add(token);
