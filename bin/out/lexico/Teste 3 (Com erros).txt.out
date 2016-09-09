@@ -1,7 +1,8 @@
+Token -> Lexema: {CODIGO TESTE DA DUPLA AFONSO MACHADO E HENDERSON CHALEGRE} | Tipo: Comentário | Linha: 1 | Coluna: 1
 Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
 Token -> Lexema: int | Tipo: Identificador | Linha: 2 | Coluna: 7
 Token -> Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 23
-Token -> Lexema: 3.0 | Tipo: Dígito | Linha: 2 | Coluna: 25
+Token -> Lexema: 3.0 | Tipo: Número | Linha: 2 | Coluna: 25
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 28
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 3 | Coluna: 1
 Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 3 | Coluna: 5
@@ -29,8 +30,8 @@ Token -> Lexema: ( | Tipo: Delimitador | Linha: 8 | Coluna: 7
 Token -> Lexema: c | Tipo: Identificador | Linha: 13 | Coluna: 20
 Token -> Lexema: ) | Tipo: Delimitador | Linha: 13 | Coluna: 22
 Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 14 | Coluna: 1
-Erro: 1constante1 -> Digito Inválido | linha: 2 | coluna: 11
+Erro: 1constante1 -> Número Inválido | linha: 2 | coluna: 11
 Erro: b_w3# -> Identificador incorreto | linha: 4 | coluna: 12
 Erro: prog&&rama -> Identificador incorreto | linha: 5 | coluna: 8
-Erro: 1inicio -> Digito Inválido | linha: 5 | coluna: 22
+Erro: 1inicio -> Número Inválido | linha: 5 | coluna: 22
 Erro: "escreva um valor ); 	escreva a); 	c = a + b; 	 	se (a >=< b) 		leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 9

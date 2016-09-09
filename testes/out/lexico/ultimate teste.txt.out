@@ -33,29 +33,29 @@ Token -> Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 8
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 10
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 3
 Token -> Lexema: + | Tipo: Operador Aritmético | Linha: 24 | Coluna: 3
-Token -> Lexema: -1 | Tipo: Dígito | Linha: 24 | Coluna: 5
+Token -> Lexema: -1 | Tipo: Número | Linha: 24 | Coluna: 5
 Erro: 'dfd' -> Caractere Inválido | linha: 2 | coluna: 1
-Erro: 15451.45.15 -> Digito Inválido | linha: 3 | coluna: 1
+Erro: 15451.45.15 -> Número Inválido | linha: 3 | coluna: 1
 Erro: "1vfds" -> Cadeia de caracteres mal formada | linha: 5 | coluna: 2
-Erro: 1d3t1f1c4d0R -> Digito Inválido | linha: 5 | coluna: 1
+Erro: 1d3t1f1c4d0R -> Número Inválido | linha: 5 | coluna: 1
 Erro: n&m -> Identificador incorreto | linha: 6 | coluna: 1
 Erro: 'd;  -> Caractere Inválido | linha: 7 | coluna: 1
 Erro: "_fsfd" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 2
 Erro: " " -> Cadeia de caracteres mal formada | linha: 10 | coluna: 2
-Erro: 1.k -> Digito Inválido | linha: 10 | coluna: 1
+Erro: 1.k -> Número Inválido | linha: 10 | coluna: 1
 Erro: ‘s -> Sequência Inválida | linha: 11 | coluna: 1
 Erro: “as#” -> Sequência Inválida | linha: 12 | coluna: 1
 Erro: y1& -> Identificador incorreto | linha: 13 | coluna: 2
 Erro: ‘as’ -> Sequência Inválida | linha: 14 | coluna: 1
 Erro: &% -> Sequência Inválida | linha: 15 | coluna: 1
 Erro: “S -> Sequência Inválida | linha: 17 | coluna: 1
-Erro: 1tr -> Digito Inválido | linha: 17 | coluna: 11
+Erro: 1tr -> Número Inválido | linha: 17 | coluna: 11
 Erro: “2coisas” -> Sequência Inválida | linha: 19 | coluna: 1
-Erro: 9. -> Digito Inválido | linha: 20 | coluna: 1
+Erro: 9. -> Número Inválido | linha: 20 | coluna: 1
 Erro: ‘’ -> Sequência Inválida | linha: 21 | coluna: 1
 Erro: "		f" -> Cadeia de caracteres mal formada | linha: 23 | coluna: 2
 Erro: "134" -> Cadeia de caracteres mal formada | linha: 24 | coluna: 2
-Erro: 1@ -> Digito Inválido | linha: 24 | coluna: 1
+Erro: 1@ -> Número Inválido | linha: 24 | coluna: 1
 Erro: ¹²³ -> Sequência Inválida | linha: 25 | coluna: 1
 Erro: f¢ -> Identificador incorreto | linha: 26 | coluna: 1
 Erro: tt¬ -> Identificador incorreto | linha: 27 | coluna: 1

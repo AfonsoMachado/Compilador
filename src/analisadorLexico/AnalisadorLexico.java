@@ -116,7 +116,7 @@ public class AnalisadorLexico {
 				
 				//Autômato para tratamento de comentario
 				else if (c == '{') {
-					this.comentario(c);
+					this.comentario(lexema, c);
 				} 
 				else {
 					this.caractereInvalido(lexema, c);
@@ -212,22 +212,30 @@ public class AnalisadorLexico {
 	 * 
 	 * @param ch - Caractere inicial do comentário: {
 	 */
-	private void comentario(char ch) {
+	private void comentario(String lexema, char ch) {
 		int linhaInicial = this.linha; // Linha onde se inicia a sequência.
         int colunaInicial = this.coluna; // Coluna onde se inicia a sequência.
 
+        lexema = lexema + ch;
         this.coluna++;
+        ch = this.leCaractere();
         
         while (ch != '}' && ch != EOF) {
         	//consome os caracteres
         	this.coluna++;
+        	lexema = lexema + ch;
         	ch = this.leCaractere();
         }
         
         this.coluna++;
+        lexema = lexema + ch;
         
         if (ch == EOF) {
         	this.addErro("Comentario", "Comentario não finalizado", linhaInicial, colunaInicial - 1);
+        }
+        else {
+        	Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Comentário", lexema);
+            this.tokens.add(token);
         }
 	}
 	
@@ -268,15 +276,18 @@ public class AnalisadorLexico {
 
         lexema = lexema + ch; // Cria o lexema apartir da composição do caractere lido. 
         this.coluna++;
-        
         ch = this.leCaractere();
+        
         if (Character.isLetterOrDigit(ch)){
         	lexema = lexema + ch;
         	this.coluna++;
         	ch = this.leCaractere();
         	if (ch != '\'')
         		erro = true;
-        	//lexema = lexema + ch;
+        	else {
+        		lexema = lexema + ch;
+        		this.coluna++;
+        	}
         } else {
         	erro = true;
         }
@@ -417,11 +428,15 @@ public class AnalisadorLexico {
         	this.numeroAntes = true;
         }*/
         if (!erro){
-        	Token token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
+        	Token token;
+        	if (lexema.length() > 1)
+        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Número", lexema);
+        	else
+        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
         	tokens.add(token);
         }
         else
-        	addErro("Digito Inválido", lexema, linhaInicial, colunaInicial);
+        	addErro("Número Inválido", lexema, linhaInicial, colunaInicial);
 	}
 	
 	//Pode ser um identificador, uma palavra reservada ou um operador lógico

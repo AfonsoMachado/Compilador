@@ -1,0 +1,10 @@
+Token -> Lexema: 1 | Tipo: Dígito | Linha: 1 | Coluna: 1
+Token -> Lexema: 1156 | Tipo: Número | Linha: 2 | Coluna: 1
+Token -> Lexema: 1.4565 | Tipo: Número | Linha: 3 | Coluna: 1
+Token -> Lexema: 42 | Tipo: Número | Linha: 4 | Coluna: 1
+Token -> Lexema: 'a' | Tipo: Caractere | Linha: 5 | Coluna: 1
+Token -> Lexema: "oi" | Tipo: Cadeia de caracteres | Linha: 6 | Coluna: 1
+Token -> Lexema: {ddodoajfweij ou decantas} | Tipo: Comentário | Linha: 7 | Coluna: 1
+Token -> Lexema: 55 | Tipo: Número | Linha: 8 | Coluna: 1
+
+Sucesso! Não existem erros léxicos

@@ -1,3 +1,4 @@
+Token -> Lexema: {CODIGO TESTE DA DUPLA AFONSO MACHADO E HENDERSON CHALEGRE} | Tipo: Comentário | Linha: 1 | Coluna: 1
 Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
 Token -> Lexema: int | Tipo: Identificador | Linha: 2 | Coluna: 7
 Token -> Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 23
@@ -32,9 +33,9 @@ Token -> Lexema: c | Tipo: Identificador | Linha: 11 | Coluna: 19
 Token -> Lexema: ) | Tipo: Delimitador | Linha: 11 | Coluna: 21
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 22
 Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 12 | Coluna: 1
-Erro: 1constante1 -> Digito Inválido | linha: 2 | coluna: 11
-Erro: 9.h0 -> Digito Inválido | linha: 2 | coluna: 25
-Erro: 1a -> Digito Inválido | linha: 4 | coluna: 9
+Erro: 1constante1 -> Número Inválido | linha: 2 | coluna: 11
+Erro: 9.h0 -> Número Inválido | linha: 2 | coluna: 25
+Erro: 1a -> Número Inválido | linha: 4 | coluna: 9
 Erro: b_w3# -> Identificador incorreto | linha: 4 | coluna: 13
-Erro: 1inicio -> Digito Inválido | linha: 5 | coluna: 20
+Erro: 1inicio -> Número Inválido | linha: 5 | coluna: 20
 Erro: "escreva um valor ); 	escreva (a); 	c = a + b; 	leia (a soma eh" -> Cadeia de caracteres mal formada | linha: 9 | coluna: 9

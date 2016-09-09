@@ -1,8 +1,9 @@
+Token -> Lexema: {CODIGO TESTE DA DUPLA AFONSO MACHADO E HENDERSON CHALEGRE} | Tipo: Comentário | Linha: 1 | Coluna: 1
 Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
 Token -> Lexema: int | Tipo: Identificador | Linha: 2 | Coluna: 7
 Token -> Lexema: constante1 | Tipo: Identificador | Linha: 2 | Coluna: 11
 Token -> Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 22
-Token -> Lexema: -5.0 | Tipo: Dígito | Linha: 2 | Coluna: 25
+Token -> Lexema: -5.0 | Tipo: Número | Linha: 2 | Coluna: 25
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 28
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 3 | Coluna: 1
 Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 3 | Coluna: 5
