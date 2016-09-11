@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import analisadorLexico.AnalisadorLexico;
+import analisadorLexico.Token;
+import analisadorSintatico.AnalisadorSintatico;
 import arquivo.Arquivo;
 
 /**
@@ -26,6 +28,7 @@ public class Principal {
 		
 		Arquivo arquivo = new Arquivo();
 		AnalisadorLexico lexico = new AnalisadorLexico();
+		AnalisadorSintatico sintatico = new AnalisadorSintatico();
 		
 		ArrayList<String> codigos = new ArrayList<>(); // Recebe a lista com todos os códigos da pasta.
         codigos = arquivo.lerCodigos();
@@ -48,6 +51,10 @@ public class Principal {
 				System.out.println("Foram detectados erros - Verifique-os no arquivo de saída");
 			}
 			System.out.println(" ");
+			
+			ArrayList<Token> listaTokens = lexico.getTokens();
+			sintatico = new AnalisadorSintatico();
+			sintatico.analise(listaTokens);
 		}
 	}
 
