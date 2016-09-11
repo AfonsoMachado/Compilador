@@ -21,12 +21,20 @@ public class AnalisadorSintatico {
         //analiseConstantes();
     }
     
+    private void erroSintatico(String erro) {
+        if (!token.getLexema().equals("EOF")) {
+            erros.add(token.getLinha() + " " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
+        } else {
+            erros.add(erro);
+        }
+    }
+    
     private void terminal(String esperado) {
         if ((!token.getLexema().equals("EOF")) && token.getLexema().equals(esperado)) { //verifica se o token atual e o que era esperado
             token = proximo();
         } else {
         	System.out.println("ERRO PORRA");
-            //erroSintatico("falta " + esperado); //gera o erro se o token nao e o esperado 
+        	erroSintatico("falta " + esperado);   //gera o erro se o token nao e o esperado 
         }
     }
     
@@ -39,19 +47,65 @@ public class AnalisadorSintatico {
 	}
     
     private void constx() {
-    	dec_const();
+    	switch (token.getLexema()) {
+		case "const":
+			dec_const();
+	    	constx();
+			break;
+		default:
+			break;
+		}
     }
     
     private void dec_const() {
     	switch (token.getLexema()) {
 		case "const":
-			
+			terminal("const");
+			tipo();
+			identificador("Identificador");
+			terminal("=");
+			//falta o valor
+			terminal(";");
 			break;
-
 		default:
+			erroSintatico("Esperava um bloco de contantes");
 			break;
 		}
     }
+
+	private void tipo() {
+		switch (token.getLexema()) {
+		case "inteiro":
+			terminal("inteiro");
+			break;
+		case "cadeia":
+			terminal("cadeia");
+			break;
+		case "real":
+			terminal("real");
+			break;
+		case "booleano":
+			terminal("booleano");
+			break;
+		case "caractere":
+			terminal("caractere");
+			break;
+		default:
+			erroSintatico("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
+            token = proximo();
+			break;
+		}
+		
+	}
+
+	private void identificador(String esperado) {
+		if (!token.getLexema().equals("EOF") && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
+            token = proximo();
+        } else {
+            erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
+        }
+		
+	}
 
 	private void analiseVariáveis() {
 		//<declaracao_var>   ::=<DECX>
