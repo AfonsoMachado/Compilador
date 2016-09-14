@@ -1,0 +1,3 @@
+const intero teste = ;
+
+const real teste = ;

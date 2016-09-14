@@ -10,14 +10,18 @@ public class AnalisadorSintatico {
 	private ArrayList<Token> tokens;    //lista com os tokens recebidos
     private ArrayList<String> erros;    //lista com os erros encontrados na análise.
     private int contTokens = 0;         //contador que aponta para o proximo token da lista
+    private boolean erro = false;
     
     public void analise(ArrayList<Token> tokens) {
         this.tokens = tokens; //recebe os tokens vindos do lexico.
         token = proximo();  //recebe o primeiro token da lista
         erros = new ArrayList<>(); //cria a lista de erros
         
+        //QUANDO ACHAR ERRO, DESCONSIDERAR TUDO ATÉ O PRÓXIMO TOKEN DE SINCRONIZAÇÃO
         
-        analiseVariáveis();
+        declaracao_const();
+        
+        System.out.println(erros);
         //analiseConstantes();
     }
     
@@ -53,6 +57,7 @@ public class AnalisadorSintatico {
 	    	constx();
 			break;
 		default:
+			erroSintatico("Esperava uma declaração de constante");
 			break;
 		}
     }
@@ -66,6 +71,7 @@ public class AnalisadorSintatico {
 			terminal("=");
 			//falta o valor
 			terminal(";");
+			System.out.println("terminou");
 			break;
 		default:
 			erroSintatico("Esperava um bloco de contantes");
@@ -92,7 +98,7 @@ public class AnalisadorSintatico {
 			break;
 		default:
 			erroSintatico("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
-            token = proximo();
+            //token = proximo();
 			break;
 		}
 		

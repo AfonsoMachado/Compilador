@@ -1,0 +1,12 @@
+Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 1 | Coluna: 1
+Token -> Lexema: intero | Tipo: Identificador | Linha: 1 | Coluna: 7
+Token -> Lexema: teste | Tipo: Identificador | Linha: 1 | Coluna: 14
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 1 | Coluna: 20
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 22
+Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
+Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 2 | Coluna: 7
+Token -> Lexema: teste | Tipo: Identificador | Linha: 2 | Coluna: 12
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 2 | Coluna: 18
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 20
+
+Sucesso! Não existem erros léxicos
