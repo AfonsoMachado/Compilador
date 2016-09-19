@@ -1,6 +1,0 @@
-Token -> Lexema: ffw | Tipo: Identificador | Linha: 2 | Coluna: 1
-Token -> Lexema: wefw | Tipo: Identificador | Linha: 3 | Coluna: 1
-Token -> Lexema: wqdqwedwdeqwwq | Tipo: Identificador | Linha: 4 | Coluna: 1
-Token -> Lexema: se | Tipo: Palavra Reservada | Linha: 5 | Coluna: 1
-Erro: "oidd hfuwefhwie -> Cadeia de caracteres mal formada | linha: 2 | coluna: 2
-Erro: " -> Cadeia de caracteres mal formada | linha: 5 | coluna: 16

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import analisadorLexico.AnalisadorLexico;
 import analisadorLexico.Token;
 import analisadorSintatico.AnalisadorSintatico;
+import analisadorSintatico.Analise;
 import arquivo.Arquivo;
 
 /**
@@ -52,9 +53,12 @@ public class Principal {
 			}
 			System.out.println(" ");
 			
+			
+			
 			ArrayList<Token> listaTokens = lexico.getTokens();
-			sintatico = new AnalisadorSintatico();
-			sintatico.analise(listaTokens);
+			Analise a = new Analise();
+			a.principal(listaTokens, 0);
+						
 		}
 	}
 
