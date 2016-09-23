@@ -1,2 +1,3 @@
 var inteiro teste;
 var caractere teste1, teste2;
+const inteiro c1 = ;
