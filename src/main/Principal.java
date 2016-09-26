@@ -45,9 +45,9 @@ public class Principal {
 			lexico.analiseCodigo(codigoFonte, arquivo.getLocalFile());
 			arquivo.gravaSaida(lexico.getTokens(), lexico.getErros());
 			
-			System.out.println("An�lise L�xica feita com sucesso!");
+			System.out.println("Analise Lexica feita com sucesso!");
 			if (lexico.getErros().isEmpty()) {
-				System.out.println("N�o foram encontrados erros");
+				System.out.println("Nenhum foram encontrados erros");
 			} else {
 				System.out.println("Foram detectados erros - Verifique-os no arquivo de sa�da");
 			}
@@ -57,8 +57,10 @@ public class Principal {
 			
 			ArrayList<Token> listaTokens = lexico.getTokens();
 			Analise a = new Analise();
+			
+			System.out.println("Iniciando a analise sitantica... ");
 			a.principal(listaTokens, 0);
-			System.out.println(a.getErros());
+			//System.out.println(a.getErros());
 						
 		}
 	}

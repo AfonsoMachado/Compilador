@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package analisadorSintatico;
 
 import java.util.ArrayList;
@@ -44,7 +43,11 @@ public class Analise {
 		//	pos = v.getPosicao()+1;
 			//principal(tokens, pos);
 			 
-		case "leia": pos = verificacaoLeia (tokens, pos++, 1);	
+		case "leia":
+			System.out.println(pos + "  " +t.getLexema() );
+
+			pos = pos +1;
+			v = verificacaoLeia (tokens, pos, 1);	
 		
 			//	principal(tokens, pos +1);
 		}
@@ -70,19 +73,16 @@ public class Analise {
 	
 	
 	
-	
-	private Vasculhador declaracaoConstante(ArrayList<Token> tokens, int posicao, int cont) {
-=======
+
 private Vasculhador declaracaoConstante(ArrayList<Token> tokens, int posicao, int cont) {
->>>>>>> origin/master
+
 		if(posicao < tokens.size() ){
 			Token t = tokens.get(posicao);
 			System.out.println();
 			switch (cont){
 			case 1: 
 				if (t.getTipo().equals("Palavra Reservada")){
-<<<<<<< HEAD
-					if (verif.ehTipo(t.getLexema())){
+		if (verif.ehTipo(t.getLexema())){
 						Vasculhador v1 = new Vasculhador();
 						posicao ++;
 						cont ++;
@@ -149,10 +149,101 @@ private Vasculhador declaracaoConstante(ArrayList<Token> tokens, int posicao, in
 
 
 
-	private int verificacaoLeia(ArrayList<Token> tokens, int posicao, int cont) {
+	private Vasculhador verificacaoLeia(ArrayList<Token> tokens, int posicao, int cont) {
+		
+		if(posicao < tokens.size() ){
+			Token t = tokens.get(posicao);
+						switch (cont){
+			case 1: 
+				System.out.println(posicao + "  " +t.getLexema() + "  " + cont);
+
+				if (verif.ehAbreParentese(t)){
+					
+					Vasculhador v1 = new Vasculhador();
+					posicao ++;
+					cont ++;
+					v1 = this.verificacaoLeia(tokens, posicao, cont);
+					
+					posicao = v1.getPosicao();
+					cont = v1.getCont();
+					
+					return v1;
+					
+					
+				}
+				
+			case 2: 
+				System.out.println(posicao + "  " +t.getLexema() + "  " + cont);
+
+				if (verif.ehID(t)){
+				Vasculhador v1 = new Vasculhador();
+				posicao ++;
+				cont ++;
+				v1 = this.verificacaoLeia(tokens, posicao, cont);
+				
+				posicao = v1.getPosicao();
+				cont = v1.getCont();
+				
+				return v1;
+			}
+				
+			case 3: 
+				System.out.println(posicao + "  " + t.getTipo()+ "  "+t.getLexema() + "  " + cont);
+				
+					
+				 if (verif.ehFechaParentese(t)){
+						Vasculhador v1 = new Vasculhador();
+						posicao ++;
+						cont ++;
+						//System.out.println(cont);
+						v1 = this.verificacaoLeia(tokens, posicao, cont);
+						
+						posicao = v1.getPosicao();
+						cont = v1.getCont();
+						
+						return v1;
+					}
+				
+				 if (verif.ehVirgula(t)){
+					Vasculhador v1 = new Vasculhador();
+					posicao ++;
+					cont= cont -1;
+					System.out.println(cont);
+					
+					v1 = this.verificacaoLeia(tokens, posicao, cont);
+					cont++;
+					posicao = v1.getPosicao() + 1;
+					
+					v1.setCont(cont);
+					v1.setPosicao(posicao);
+					
+					
+					return v1;
+				 
+				}
+			case 4:	
+				System.out.println(posicao + "  " +t.getLexema() + "  " + cont);
+				if (verif.ehPontoVirgula(t)){
+			Vasculhador v1 = new Vasculhador();
+			posicao ++;
+			cont ++;
+			
+			v1.setCont(cont);
+			v1.setPosicao(posicao);
+	
+			System.out.println("fim");
+
+			return v1;
+				}
+			}
+			
+		
+		}else {
+			System.out.println("erro");
+		}
 		
 		
-		return posicao;
+		return null;
 	}
 
 
@@ -355,68 +446,5 @@ private Vasculhador declaracaoConstante(ArrayList<Token> tokens, int posicao, in
 		
 	}
 
-=======
-					if (verif.tipo(t.getLexema())){
-						Vasculhador v1 = new Vasculhador();
-						posicao ++;
-						cont ++;
-						v1 = declaracaoConstante(tokens, posicao, cont);					
-						posicao = v1.getPosicao();
-						cont = v1.getCont();
-						return v1;
-					} else {
-						erro("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
-					}
-				} else {
-					erro("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
-				}
-			case 2:
-				if (t.getTipo().equals("Identificador")){
-					Vasculhador v1 = new Vasculhador();
-					posicao ++;
-					cont ++;
-					v1 = declaracaoConstante(tokens, posicao, cont);	
-					posicao = v1.getPosicao();
-					cont = v1.getCont();
-					return v1;
-				} else {
-					erro(posicao + "falta de identificador" );
-				}
-			case 3:
-				if (t.getTipo().equals("Operador Relacional")){
-					if (t.getLexema().equals("=")){
-						Vasculhador v1 = new Vasculhador();
-						posicao ++;
-						cont ++;
-						v1 = declaracaoConstante(tokens, posicao, cont);	
-						posicao = v1.getPosicao();
-						cont = v1.getCont();
-						return v1;
-					} else {
-						erro("Operador relacional incorreto");
-					}
-				} else {
-					erro(posicao + "falta de operador relacional");
-				}
-			case 4: //VALOR
-				
-			case 5:
-				if (t.getTipo().equals("Delimitador")){
-					if (t.getLexema().equals(";")){	
-						Vasculhador v1 = new Vasculhador();
-						v1.setCont(cont++);
-						v1.setPosicao(posicao ++);
-						return v1;
-					} else {
-						erro("Delimitador incorreto");
-					}
-				} else {
-					erro("Inexistencia de um delimitador");
-				}
-			} // fim do switch case
-		} else {
-			System.out.println("erro");
-		}
-		return null;
->>>>>>> origin/master
 }
+					

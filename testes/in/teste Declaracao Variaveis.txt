@@ -1,9 +1,1 @@
-var inteiro teste;
-<<<<<<< HEAD
-var caractere teste2, teste3;
-const inteiro teste4 = 4;
-
-=======
-var caractere teste1, teste2;
-const inteiro c1 = ;
->>>>>>> origin/master
+leia (a);

@@ -32,6 +32,7 @@ public class Verificacoes {
 	public boolean ehVirgula(Token token){
 		
 		if (ehDelimitador(token)){
+			System.out.println("h");
 		if (token.getLexema().equals(",")){	
 		}
 		return true;
