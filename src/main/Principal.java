@@ -10,7 +10,7 @@ import analisadorSintatico.Analise;
 import arquivo.Arquivo;
 
 /**
- * Contém as chamadas de métodos necessários e as classes instanciadas para o uso do analisador. Executando ela uma única vez, ela vai ler todos os código da pasta testes/in, fazer as suas análises e armazenar os resultados na pasta teste/out/lexico
+ * Contï¿½m as chamadas de mï¿½todos necessï¿½rios e as classes instanciadas para o uso do analisador. Executando ela uma ï¿½nica vez, ela vai ler todos os cï¿½digo da pasta testes/in, fazer as suas anï¿½lises e armazenar os resultados na pasta teste/out/lexico
  * 
  * @author Afonso Machado
  *
@@ -18,10 +18,10 @@ import arquivo.Arquivo;
 public class Principal {
 
 	/**
-	 * Método principal do análisador léxico, responsável por
-	 * instanciar a estrutura léxica da linguagem, verificar a existencia
-	 * de códigos fontes, ler os mesmo e realizas a sua análise léxica.
-	 * Ao final armazenando o resultado da análise em um arquivo de texto.
+	 * Mï¿½todo principal do anï¿½lisador lï¿½xico, responsï¿½vel por
+	 * instanciar a estrutura lï¿½xica da linguagem, verificar a existencia
+	 * de cï¿½digos fontes, ler os mesmo e realizas a sua anï¿½lise lï¿½xica.
+	 * Ao final armazenando o resultado da anï¿½lise em um arquivo de texto.
 	 * 
 	 * @throws IOException 
 	 */
@@ -31,25 +31,25 @@ public class Principal {
 		AnalisadorLexico lexico = new AnalisadorLexico();
 		AnalisadorSintatico sintatico = new AnalisadorSintatico();
 		
-		ArrayList<String> codigos = new ArrayList<>(); // Recebe a lista com todos os códigos da pasta.
+		ArrayList<String> codigos = new ArrayList<>(); // Recebe a lista com todos os cï¿½digos da pasta.
         codigos = arquivo.lerCodigos();
-		if (codigos.isEmpty()) { // Pasta de códigos de entrada vazia.
-            System.out.println("Sem Códigos");
+		if (codigos.isEmpty()) { // Pasta de cï¿½digos de entrada vazia.
+            System.out.println("Sem Cï¿½digos");
             System.exit(0);
         }
 		
-		for(String codigo : codigos) { //pra cada código
+		for(String codigo : codigos) { //pra cada cï¿½digo
 			lexico = new AnalisadorLexico();
 			ArrayList<String> codigoFonte = arquivo.lerCodigoFonte(codigo);
 			codigoFonte = arquivo.lerCodigoFonte(codigo);
 			lexico.analiseCodigo(codigoFonte, arquivo.getLocalFile());
 			arquivo.gravaSaida(lexico.getTokens(), lexico.getErros());
 			
-			System.out.println("Análise Léxica feita com sucesso!");
+			System.out.println("Anï¿½lise Lï¿½xica feita com sucesso!");
 			if (lexico.getErros().isEmpty()) {
-				System.out.println("Não foram encontrados erros");
+				System.out.println("Nï¿½o foram encontrados erros");
 			} else {
-				System.out.println("Foram detectados erros - Verifique-os no arquivo de saída");
+				System.out.println("Foram detectados erros - Verifique-os no arquivo de saï¿½da");
 			}
 			System.out.println(" ");
 			
@@ -58,6 +58,7 @@ public class Principal {
 			ArrayList<Token> listaTokens = lexico.getTokens();
 			Analise a = new Analise();
 			a.principal(listaTokens, 0);
+			System.out.println(a.getErros());
 						
 		}
 	}

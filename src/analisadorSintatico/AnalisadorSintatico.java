@@ -8,7 +8,7 @@ public class AnalisadorSintatico {
 	
 	private Token token; // Proximo token da lista
 	private ArrayList<Token> tokens;    //lista com os tokens recebidos
-    private ArrayList<String> erros;    //lista com os erros encontrados na análise.
+    private ArrayList<String> erros;    //lista com os erros encontrados na anï¿½lise.
     private int contTokens = 0;         //contador que aponta para o proximo token da lista
     private boolean erro = false;
     
@@ -17,7 +17,7 @@ public class AnalisadorSintatico {
         token = proximo();  //recebe o primeiro token da lista
         erros = new ArrayList<>(); //cria a lista de erros
         
-        //QUANDO ACHAR ERRO, DESCONSIDERAR TUDO ATÉ O PRÓXIMO TOKEN DE SINCRONIZAÇÃO
+        //QUANDO ACHAR ERRO, DESCONSIDERAR TUDO ATï¿½ O PRï¿½XIMO TOKEN DE SINCRONIZAï¿½ï¿½O
         
         declaracao_const();
         
@@ -57,7 +57,7 @@ public class AnalisadorSintatico {
 	    	constx();
 			break;
 		default:
-			erroSintatico("Esperava uma declaração de constante");
+			erroSintatico("Esperava uma declaraï¿½ï¿½o de constante");
 			break;
 		}
     }
@@ -113,7 +113,7 @@ public class AnalisadorSintatico {
 		
 	}
 
-	private void analiseVariáveis() {
+	private void analiseVariaveis() {
 		//<declaracao_var>   ::=<DECX>
 	    //      <DECX>       ::=<DEC><DECX>|<DEC>
 		
