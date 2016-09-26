@@ -4,6 +4,7 @@ public class Vasculhador {
 	
 	
 	private int posicao, cont;
+	private boolean matriz = false; 
 
 	public Vasculhador() {
 		posicao = 0;
@@ -24,6 +25,17 @@ public class Vasculhador {
 
 	public void setCont(int cont) {
 		this.cont = cont;
+	}
+
+	public void setMatriz(boolean b) {
+
+		matriz = b;
+		
+	}
+	
+	public boolean getMatriz(){
+		
+		return matriz;
 	}
 
 }

@@ -4,9 +4,15 @@ Token -> Lexema: teste | Tipo: Identificador | Linha: 1 | Coluna: 13
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 18
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 2 | Coluna: 1
 Token -> Lexema: caractere | Tipo: Palavra Reservada | Linha: 2 | Coluna: 5
-Token -> Lexema: teste1 | Tipo: Identificador | Linha: 2 | Coluna: 15
+Token -> Lexema: teste2 | Tipo: Identificador | Linha: 2 | Coluna: 15
 Token -> Lexema: , | Tipo: Delimitador | Linha: 2 | Coluna: 21
-Token -> Lexema: teste2 | Tipo: Identificador | Linha: 2 | Coluna: 23
+Token -> Lexema: teste3 | Tipo: Identificador | Linha: 2 | Coluna: 23
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 2 | Coluna: 29
+Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 3 | Coluna: 1
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 3 | Coluna: 7
+Token -> Lexema: teste4 | Tipo: Identificador | Linha: 3 | Coluna: 15
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 3 | Coluna: 22
+Token -> Lexema: 4 | Tipo: Dígito | Linha: 3 | Coluna: 24
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 3 | Coluna: 25
 
 Sucesso! Não existem erros léxicos
