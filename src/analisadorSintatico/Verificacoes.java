@@ -61,6 +61,22 @@ public class Verificacoes {
 		return false;
 	}
 	
+	public boolean ehValor (Token token) {
+		if(ehNumeroDigito(token)) {
+			return true;
+		}
+		else if(token.getLexema() == "verdadeiro" | token.getLexema() == "falso"){
+			return true;
+		}
+		/*else if (){
+			EXPRESSÃO BOOLEANA
+		}*/
+		/*else (){
+			MATRIZ
+		}*/
+		return false;
+	}
+	
 	
 	public boolean ehTipo(String lexema) {
 		
@@ -103,6 +119,7 @@ public class Verificacoes {
 		
 		return false;
 	}
+	
 
 
 }

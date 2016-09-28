@@ -1,7 +1,7 @@
-Token -> Lexema: leia | Tipo: Palavra Reservada | Linha: 1 | Coluna: 1
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 1 | Coluna: 6
-Token -> Lexema: a | Tipo: Identificador | Linha: 1 | Coluna: 7
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 1 | Coluna: 8
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 9
+Token -> Lexema: const | Tipo: Palavra Reservada | Linha: 1 | Coluna: 1
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 1 | Coluna: 7
+Token -> Lexema: tsete | Tipo: Identificador | Linha: 1 | Coluna: 15
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 1 | Coluna: 21
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 1 | Coluna: 23
 
-Sucesso! N?o existem erros l?xicos
+Sucesso! Não existem erros léxicos

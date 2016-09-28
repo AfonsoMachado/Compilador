@@ -56,10 +56,12 @@ public class Principal {
 			
 			
 			ArrayList<Token> listaTokens = lexico.getTokens();
-			Analise a = new Analise();
+			//Analise a = new Analise();
 			
 			System.out.println("Iniciando a analise sitantica... ");
-			a.principal(listaTokens, 0);
+			sintatico.analise(listaTokens);
+			
+			//a.principal(listaTokens, 0);
 			//System.out.println(a.getErros());
 						
 		}

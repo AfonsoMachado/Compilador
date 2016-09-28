@@ -54,10 +54,13 @@ public class AnalisadorSintatico {
     	switch (token.getLexema()) {
 		case "const":
 			dec_const();
-	    	constx();
+			if(token.getLexema() != ","){
+				break;
+			} else
+				constx();
 			break;
 		default:
-			erroSintatico("Esperava uma declara��o de constante");
+			erroSintatico("Esperava uma declaracao de constante");
 			break;
 		}
     }
@@ -118,6 +121,7 @@ public class AnalisadorSintatico {
 	    //      <DECX>       ::=<DEC><DECX>|<DEC>
 		
 	}
+	
 
 	private Token proximo() {
         if (contTokens < tokens.size()) { //verifica se ainda possuem tokens para a analise.

@@ -1,7 +1,7 @@
-﻿"Name"     = 'Enter the name of the grammar'
-"Author"   = 'Enter your name'
-"Version"  = 'The version of the grammar and/or language'
-"About"    = 'A short description of the grammar'
+﻿"Name"     = 'Analisador Lexico 2016.1'
+"Author"   = 'Turma de Compiladores 2016.1'
+"Version"  = '1.2'
+"About"    = 'Gramatica da galera'
 
 "Start Symbol" = <Program>
 
@@ -21,7 +21,7 @@
 ! -------------------------------------------------
 
 BooleanLiteral   = 'verdadeiro' | 'falso'
-Identificador    = {ID Head}{IdAlphaNumeric}*|{ID Head}[_]{IdAlphaNumeric}*
+Identificador    = {ID Head}{ID Tail}*
 numero           ={Digit}+ |{Digit}+[.]{Digit}+
 tipo_cadeia      = ["]{Letter}{Alphanumeric}*["]
 tipo_caractere   ={quote}[qazwsxedcrfvtgbyhnujmikolpAZQWSXCDEVFRTGBNHYUJMKILOP0123456789]{quote}
@@ -30,25 +30,27 @@ tipo_caractere   ={quote}[qazwsxedcrfvtgbyhnujmikolpAZQWSXCDEVFRTGBNHYUJMKILOP01
 ! -------------------------------------------------
 
 !Configurações Iniciais
-<bloco_de_codigo>    ::='inicio'<BXR>'fim'|<BX>
-<BX>                 ::= <se_entao_senao>|<declaracao_var>|<TESTE_ID>|<Enquanto>|<Leia>|<Escreva>
+<bloco_de_codigo>    ::='inicio'<BXR>'fim'
+<BX>                 ::= <se_entao_senao>|<DEC>|<Attr>|<Enquanto>|<Leia>|<Escreva>
 <BXR>                ::= <BX><BXR2>
 <BXR2>               ::= <BXR> | 
 
 ! The grammar starts below
 
-<Program> ::= <BLOCO_DECLARACAO_GLOBAL><declaracao_programa><FX>|<BLOCO_DECLARACAO_GLOBAL><declaracao_programa>|<declaracao_programa>
-<FX>      ::=<Funcao><FX>|<Funcao>
+<Program> ::= <declaracao_var_global><declaracao_programa><funcoes>
+<declaracao_var_global> ::= <DEC_CONST><declaracao_var_global>|<DEC><declaracao_var_global>|
+<funcoes> ::=<Funcao><FX>|                            
+<FX>      ::=<Funcao>|
 
 !Declaracao de Programa
 
-<declaracao_programa>::='programa'<tipo> <id>'('<parametro_programa>')''inicio'<BXR>'fim'<return>
-<parametro_programa> ::=<tipo> <id> <parametro3> |<tipo> <id>
+<declaracao_programa>::='programa'<tipo> <id>'('<parametro_programa>')''inicio'<BXR>'fim''('<RETORNO>')'';'
+<parametro_programa> ::=<tipo> <id> <parametro3> |<tipo> <id>|
 <parametro3>         ::=','<parametro_programa> 
 <RETORNO>            ::=<expressao_booleana>|tipo_caractere|tipo_cadeia|
 
-!Correcao de Conflito
-<id> ::= Identificador   !Falta fazer a parte de Matriz                        
+!Identificador
+<id> ::= Identificador                    
        
 !Expressão Booleana
 
@@ -71,7 +73,6 @@ tipo_caractere   ={quote}[qazwsxedcrfvtgbyhnujmikolpAZQWSXCDEVFRTGBNHYUJMKILOP01
 
 <nao_expressao_aritmetica> ::= 'nao' <expressao_aritmetica> 
                             | <expressao_aritmetica> 
-                            | '(' <expressao_booleana> ')'
                             
 !Expressão Aritmetica
 
@@ -93,12 +94,15 @@ tipo_caractere   ={quote}[qazwsxedcrfvtgbyhnujmikolpAZQWSXCDEVFRTGBNHYUJMKILOP01
 
 !Add more values to the rule below - as needed
 
-<Valor>       ::= <id>
+<Valor>       ::= <id><aux_valor1>
                | numero
-               |  '(' <expressao_aritmetica> ')'
+               |  '(' <expressao_booleana> ')'
                | BooleanLiteral
-               |<chamada_funcao>
-               |<acessa_matriz>
+               
+<aux_valor1> ::= '('<aux_valor2>|
+<aux_valor2> ::= '('<aux_valor3>|<parametro>')'
+<aux_valor3> ::= <Valor>')'')'<aux_valor4>
+<aux_valor4> ::= '(''('<Valor>')'')'<aux_valor4> |
                
 
 !Enquanto Faca
@@ -114,59 +118,42 @@ tipo_caractere   ={quote}[qazwsxedcrfvtgbyhnujmikolpAZQWSXCDEVFRTGBNHYUJMKILOP01
 !Chamada de Função
 
 !<chamada_funcao>::= <id>'('<parametro>')'
-<chamada_funcao>::='('<parametro>
-<parametro>     ::= <Valor><R> |tipo_cadeia<R>|<acessa_matriz><R>|tipo_caractere<R>|')'';'
-<R>             ::=','<parametro> | ')'';'
+<parametro>     ::= tipo_cadeia<R>|<expressao_booleana><R>|tipo_caractere<R>|
+<R>             ::=','<parametro> |
 
 !Atribuicao
 
-!<Attr> ::= <id> '='<AttR2>
-<Attr> ::= '='<AttR2>
-<declaracao_matriz>::=<A>'='<AttR2>
-<acessa_matriz>::=<id><A>
-<AttR2>::= numero';'| <id>';' |<expressao_aritmetica>';'|tipo_cadeia';'|tipo_caractere';'|BooleanLiteral';'|<chamada_funcao>';'|<acessa_matriz>';'
-          
-
-!Correcao de Conflito
-                        
-<Teste_ID>::=<id><TESTE_ID2>
-<TESTE_ID2>::=<Attr>|<chamada_funcao>|<declaracao_matriz>
+<Attr> ::= <id><aux_valor1><AttR1>
+<AttR1> ::= '='<AttR2> | ';'
+<AttR2>::= <expressao_aritmetica>';'|tipo_cadeia';'|tipo_caractere';'
+         
             
 ! Declaração de Variaveis
 
-<DEC>  ::='var'<tipo><CAT>';' | 'var'<tipo><CAT>','<V1> 
-<V1>   ::=<CAT>','<V1> | <CAT>';'  !alteracao
-<CAT>  ::= <id> | <id><A>
-<A>    ::= '(''('numero')'')'<A>|'(''('<id>')'')'<A> |'(''('<acessa_matriz>')'')'<A>|'(''('numero')'')'|'(''('<id>')'')'|'(''('<acessa_matriz>')'')'
+<DEC>  ::= 'var'<tipo><id><A><V1>';'
+<V1>   ::= ','<id><A><V1>|
+<A>    ::= '(''('numero')'')'<A>|
 <tipo> ::='inteiro' | 'cadeia' |'real'|'booleano'|'caractere'
 
-!declaracao
-
-<declaracao_var>   ::=<DECX>
-      <DECX>       ::=<DEC><DECX>|<DEC>
- <declaracao_const>::=<CONSTX>
-          <CONSTX> ::=<DEC_CONST><CONSTX>|<DEC_CONST>             
 !Declaração de constante
-<DEC_CONST>::='const' <tipo> <id> '=' <valor>';'
-
-<BLOCO_DECLARACAO_GLOBAL>::=<declaracao_var><BLOCO_DECLARACAO_GLOBAL>|<declaracao_const><BLOCO_DECLARACAO_GLOBAL>|
+<DEC_CONST>::='const' <tipo> <id> '=' <DEC_CONST2>';'
+<DEC_CONST2> ::=numero|tipo_cadeia|tipo_caractere
                           
 !Leia
 
-<Leia>  ::='leia''('<Exp>
-<Exp>::=<id>')'';'| <id><FATOR_LEIA> |')'';'
-<FATOR_LEIA>  ::=','<Exp>
+<Leia>  ::='leia''('<Exp>')'';'
+<Exp>::=<id><aux_valor4><Exp2>
+<Exp2> ::= ','<Exp> |
 
 !Escreva
 
 <Escreva>  ::='escreva''('<EXPRESSAO>
-<EXPRESSAO>::=<RETORNO>')'';'|<RETORNO><FATOR_ESCREVA>|<expressao_booleana>')'';'|<expressao_booleana><FATOR_ESCREVA>
-<FATOR_ESCREVA>  ::=','<EXPRESSAO>
+<EXPRESSAO>::=<RETORNO>')'';'
 
 !Funcoes
       
- <Funcao>      ::='funcao' <tipo> <id> '('<D>')' 'inicio'<BXR> 'fim'<return>
- <return>::='('<RETORNO>')'';'|<RETORNO>
- <D>      ::=<tipo><id><Q> |<tipo><id>
+ <Funcao>      ::='funcao' <tipo> <id> '('<D>')' 'inicio'<BXR> 'fim''('<RETORNO>')'';'
+ <D>      ::=<tipo><id><D2>
+ <D2>     ::= <Q>|           
  <Q>      ::=','<D>
 

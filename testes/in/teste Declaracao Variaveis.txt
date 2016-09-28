@@ -1,1 +1,1 @@
-leia (a);
+const inteiro tsete = ;
