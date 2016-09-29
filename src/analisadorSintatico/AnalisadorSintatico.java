@@ -223,15 +223,42 @@ public class AnalisadorSintatico {
 		switch (token.getTipo()) {
 		case "Cadeia de caracteres":
 			token = proximo();
+			Rparametro();
 			break;
 		case "Caractere":
 			token = proximo();
+			Rparametro();
 			break;
+		case "Identificador":
+			identificador("Identificador");
+			Rparametro();
+			break;
+		case "Palavra Reservada":
+			if(token.getLexema().equals("verdadeiro"))
+				terminal("verdadeiro");
+			else if(token.getLexema().equals("falso"))
+				terminal("falso");
+			Rparametro();
+			break;
+		case "Numero":
+			verificaTipo("Numero");
+			Rparametro();
+			break;
+		case "Digito":
+			verificaTipo("Digito");
+			Rparametro();
+			break;
+		case "Delimitador":
+			if(token.getLexema().equals("(")){
+				terminal("(");
+				expressaoBooleana();
+				terminal(")");
+				Rparametro();
+			}
 		default:
-			expressaoBooleana();
+			erroSintatico("Esperava um parâmetro");
 			break;
 		}
-		// TODO Auto-generated method stub
 		
 	}
 	
