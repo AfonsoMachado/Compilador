@@ -513,6 +513,38 @@ public class AnalisadorSintatico {
 		}
 	}
 	
+	private void seEntao() {
+		switch (token.getLexema()) {
+		case "se":
+			terminal("se");
+			terminal("(");
+			expressaoBooleana();
+			terminal(")");
+			terminal("entao");
+			terminal("inicio");
+			blocoDeCodigo();
+			terminal("fim");
+			seAninhado();
+			break;
+		default:
+			erroSintatico("Esperava um bloco de 'se entao senao'");
+			break;
+		}
+	}
+	
+	private void seAninhado() {
+		negacao();
+		
+	}
+
+	private void negacao() {
+		terminal("senao");
+		terminal("inicio");
+		blocoDeCodigo();
+		terminal("fim");
+		
+	}
+
 	//BX
 	private void blocoDeCodigo() {
 		switch (token.getTipo()) {
@@ -588,6 +620,8 @@ public class AnalisadorSintatico {
 			break;
 			
 		case "se":
+			seEntao();
+			break;
 			
 		case "enquanto":
 			enquanto();
@@ -619,21 +653,27 @@ public class AnalisadorSintatico {
 	private void auxExpressionR() {
 		switch (token.getLexema()) {
 		case ">":
+			terminal(">");
 			auxExpression();
 			break;
 		case "<":
+			terminal("<");
 			auxExpression();
 			break;
 		case "<=":
+			terminal("<=");
 			auxExpression();
 			break;
 		case ">=":
+			terminal(">=");
 			auxExpression();
 			break;
 		case "=":
+			terminal("=");
 			auxExpression();
 			break;
 		case "<>":
+			terminal("M>");
 			auxExpression();
 			break;
 		default:
