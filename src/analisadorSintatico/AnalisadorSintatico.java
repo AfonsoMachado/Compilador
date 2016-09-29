@@ -2,48 +2,75 @@ package analisadorSintatico;
 
 import java.util.ArrayList;
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
-
+import analisadorLexico.AnalisadorLexico;
 import analisadorLexico.Token;
 
+/**
+ * @author Afonso Machado
+ * @author Henderson Chalegre
+ * 
+ * @see AnalisadorLexico
+ *
+ */
 public class AnalisadorSintatico {
 	
+	/**
+	 * Proximo token da lista
+	 */
 	private Token token; // Proximo token da lista
+	/**
+	 * Lista com os tokens recebidos do analisador lexico
+	 */
 	private ArrayList<Token> tokens;    //lista com os tokens recebidos
+    /**
+     * Lista com os erros encontrados na analise sintatica
+     */
     private ArrayList<String> erros;    //lista com os erros encontrados na anï¿½lise.
+    /**
+     * Contador que aponta para o proximo token da lista
+     */
     private int contTokens = 0;         //contador que aponta para o proximo token da lista
-    private boolean erro = false;
     
+    /**
+     * Metodo que faz a analise por completo a partir do simbolo inicial da gramatica
+     * 
+     * @param tokens - tokens encontrados pelo analisador lexico
+     */
     public void analise(ArrayList<Token> tokens) {
         this.tokens = tokens; //recebe os tokens vindos do lexico.
         token = proximo();  //recebe o primeiro token da lista
         erros = new ArrayList<>(); //cria a lista de erros
         
-        //QUANDO ACHAR ERRO, DESCONSIDERAR TUDO ATï¿½ O PRï¿½XIMO TOKEN DE SINCRONIZAï¿½ï¿½O
-        programa();
-        //declaracaoPrograma();
+        programa(); //invoca o simbolo inicial da gramatica
         
-       // enquanto();
-        //escreva();
-        //funcao();
-        //declaracao_const();
-        
-        System.out.println(erros);
-        //analiseConstantes();
+        if(erros.size() != 0) {
+        	System.out.println("Ocorreram erros na analise sintatica");
+        	System.out.println(erros); //imprime os erros na tela
+        }
+        else
+        	System.out.println("Analise Sintatica feita com sucesso\n");
     }
     
+    /**
+     * 
+     * 
+     * @param erro - String indicando um erro disparado pela analise
+     */
     private void erroSintatico(String erro) {
         if (!token.getLexema().equals("EOF")) {
-            erros.add(token.getLinha() + " " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
+            erros.add("Linha: " + (token.getLinha()+1) + " -> " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
             //token = proximo();
-            this.erro = true;
         } else {
-        	this.erro = true;
             erros.add(erro);
-            token = proximo();
+            //token = proximo();
         }
     }
     
+    /**
+     * Verifica se um dado token é do tipo esperado
+     * 
+     * @param esperado
+     */
     private void verificaTipo(String esperado) {
         if ((!token.getLexema().equals("EOF")) && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
             token = proximo();
@@ -52,20 +79,44 @@ public class AnalisadorSintatico {
         }
     }
     
+    /**
+     * Verifica se é um terminal, caso não seja, um erro é disparado
+     * 
+     * @param esperado
+     */
     private void terminal(String esperado) {
         if ((!token.getLexema().equals("EOF")) && token.getLexema().equals(esperado)) { //verifica se o token atual e o que era esperado
             token = proximo();
         } else {
-        	System.out.println("ERRO PORRA");
-        	erroSintatico("falta " + esperado);   //gera o erro se o token nao e o esperado 
+        	erroSintatico("Falta o token: " + esperado);   //gera o erro se o token nao e o esperado 
         }
     }
     
+    /**
+     * Retorna o proximo token da lista
+     * 
+     * @return próximo token da lista de tokens
+     */
+    private Token proximo() {
+        if (contTokens < tokens.size()) { //verifica se ainda possuem tokens para a analise.
+            return tokens.get(contTokens++);
+        } else {
+            return new Token(0, 0, "EOF", "EOF");  //cria um token de fim de arquivo. 
+        }
+    }
+	
+	/**
+	 * @return erros disparados pelo analisador sintatico
+	 */
+	public ArrayList<String> getErros(){
+		return this.erros;
+	}
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /*INICIO DOS METODOS USADOS PARA REALIZAR AS PRODUCOES DA GRAMATICA, SENDO CADA NAO TERMINAL UM METODO*/
+    
     private void declaracao_const() {
     	constx();
-    	//<declaracao_const>::=<CONSTX>
-        //<CONSTX> ::=<DEC_CONST><CONSTX>|<DEC_CONST>             
-        //<DEC_CONST>::='const' <tipo> <id> '=' <valor>';'
 		
 	}
     
@@ -166,7 +217,7 @@ public class AnalisadorSintatico {
 			break;
 
 		default:
-			erroSintatico("Experava um leia");
+			erroSintatico("Esperava um leia");
 			break;
 		}
     }
@@ -278,8 +329,6 @@ public class AnalisadorSintatico {
 		terminal(")");
 		terminal(")");
 		aux_valor4();
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void aux_valor4() {
@@ -362,7 +411,6 @@ public class AnalisadorSintatico {
 			terminal("=");
 			valor();
 			terminal(";");
-			System.out.println("terminou");
 			break;
 		default:
 			erroSintatico("Esperava um bloco de contantes");
@@ -563,17 +611,11 @@ public class AnalisadorSintatico {
 		}
 		
 	}
-	
-	private void chamadaFuncao() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void Attr() {
 		//identificador("Identificador");
 		aux_valor1();
 		Attr1();
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -608,7 +650,6 @@ public class AnalisadorSintatico {
 			terminal(";");
 			break;
 		}
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -792,15 +833,26 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	//OPERADORES REFERENTES À EXPRESSÃO BOOLEANA
 	
 	private void retornoFuncao() {
 		if(token.getTipo().equals("Identificador") || token.getTipo().equals("Numero") || token.getTipo().equals("Digito") || token.getTipo().equals("Caractere") || token.getTipo().equals("Cadeia de caracteres")){
 			token = proximo();
-		} else {
+			verificaExpressaoBooleana();
+		} else if (token.getLexema().equals("nao"))
+			expressaoBooleana();
+		else {
 			erroSintatico("Retorno Incorreto");
 			//token = proximo();
 			//EXPRESSAO BOOLEANA
+		}
+	}
+	
+	private void verificaExpressaoBooleana() {
+		if(token.getTipo().equals("Operador Aritmetico") || token.getTipo().equals("Operador Relacional") || token.getTipo().equals("Operador Logico")){
+			contTokens--;
+			contTokens--;
+			token = proximo();
+			expressaoBooleana();
 		}
 	}
 	
@@ -821,16 +873,5 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
-	
-	
-
-	private Token proximo() {
-        if (contTokens < tokens.size()) { //verifica se ainda possuem tokens para a analise.
-            return tokens.get(contTokens++);
-        } else {
-            return new Token(0, 0, "EOF", "EOF");  //cria um token de fim de arquivo. 
-        }
-    }
 
 }

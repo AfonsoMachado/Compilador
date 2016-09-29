@@ -94,6 +94,19 @@ public class Arquivo {
         arq.close();
     }
 	
+	public void gravaSaidaSintatico(ArrayList<String> erros) throws IOException {
+		FileWriter arq = new FileWriter("testes/out/sintatico/" + this.localFile + ".out", false); // Cria o arquivo de saída relacionado ao seu respectivo arquivo de entrada ("mesmo" nome). 
+        PrintWriter gravar = new PrintWriter(arq);
+        if (erros.isEmpty()) { // Se não houver erros léxicos.
+            gravar.printf("\nSucesso! Não existem erros Sintaticos\n");
+        } else { // Se houver erros léxicos, os insere no arquivo de saída.
+            for (String erro : erros) {
+                gravar.println("Erro: " + erro);
+            }
+        }
+        arq.close();
+	}
+	
 	/**
 	 * 
 	 * @return nome do arquivo que está sendo analisado

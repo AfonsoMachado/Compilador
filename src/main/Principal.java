@@ -42,27 +42,26 @@ public class Principal {
 			lexico = new AnalisadorLexico();
 			ArrayList<String> codigoFonte = arquivo.lerCodigoFonte(codigo);
 			codigoFonte = arquivo.lerCodigoFonte(codigo);
+			System.out.println("Iniciando a analise lexica...");
 			lexico.analiseCodigo(codigoFonte, arquivo.getLocalFile());
 			arquivo.gravaSaida(lexico.getTokens(), lexico.getErros());
 			
-			System.out.println("Analise Lexica feita com sucesso!");
+			System.out.println("Analise Lexica feita com sucesso!\n");
 			if (lexico.getErros().isEmpty()) {
-				System.out.println("Nenhum foram encontrados erros");
+				System.out.println("Nao foram encontrados erros");
 			} else {
-				System.out.println("Foram detectados erros - Verifique-os no arquivo de sa�da");
+				System.out.println("Foram detectados erros - Verifique-os no arquivo de saida");
 			}
 			System.out.println(" ");
 			
 			
 			
 			ArrayList<Token> listaTokens = lexico.getTokens();
-			//Analise a = new Analise();
-			
-			System.out.println("Iniciando a analise sitantica... ");
+			System.out.println("Iniciando a analise sintatica... ");
+			System.out.println("Analisando: " + arquivo.getLocalFile());
 			sintatico.analise(listaTokens);
+			arquivo.gravaSaidaSintatico(sintatico.getErros());
 			
-			//a.principal(listaTokens, 0);
-			//System.out.println(a.getErros());
 						
 		}
 	}
