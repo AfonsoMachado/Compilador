@@ -387,7 +387,7 @@ public class AnalisadorLexico {
         
         Token token;
        	if (aritimetico)
-       		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmético", lexema);
+       		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Aritmetico", lexema);
        	else
        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Relacional", lexema);
        	
@@ -493,7 +493,7 @@ public class AnalisadorLexico {
 			if(estruturaLexica.isPalavraResevada(lexema))
 				token = new Token(linhaInicial + 1, colunaInicial + 1, "Palavra Reservada", lexema);
 			else if (estruturaLexica.isOperadorLogico(lexema))
-				token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Lógico", lexema);
+				token = new Token(linhaInicial + 1, colunaInicial + 1, "Operador Logico", lexema);
 			else
 				token = new Token(linhaInicial + 1, colunaInicial + 1, "Identificador", lexema);
 			tokens.add(token);
