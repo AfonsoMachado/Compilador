@@ -448,9 +448,9 @@ public class AnalisadorLexico {
         if (!erro){
         	Token token;
         	if (lexema.length() > 1)
-        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Número", lexema);
+        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Numero", lexema);
         	else
-        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Dígito", lexema);
+        		token = new Token(linhaInicial + 1, colunaInicial + 1, "Digito", lexema);
         	tokens.add(token);
         }
         else

@@ -18,8 +18,12 @@ public class AnalisadorSintatico {
         erros = new ArrayList<>(); //cria a lista de erros
         
         //QUANDO ACHAR ERRO, DESCONSIDERAR TUDO ATï¿½ O PRï¿½XIMO TOKEN DE SINCRONIZAï¿½ï¿½O
+       
+        declaracaoPrograma();
         
-        declaracao_const();
+        //escreva();
+        //funcao();
+        //declaracao_const();
         
         System.out.println(erros);
         //analiseConstantes();
@@ -28,8 +32,18 @@ public class AnalisadorSintatico {
     private void erroSintatico(String erro) {
         if (!token.getLexema().equals("EOF")) {
             erros.add(token.getLinha() + " " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
+            token = proximo();
         } else {
             erros.add(erro);
+            token = proximo();
+        }
+    }
+    
+    private void verificaTipo(String esperado) {
+        if ((!token.getLexema().equals("EOF")) && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
+            token = proximo();
+        } else {
+            erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
         }
     }
     
@@ -49,6 +63,34 @@ public class AnalisadorSintatico {
         //<DEC_CONST>::='const' <tipo> <id> '=' <valor>';'
 		
 	}
+    
+    private void programa() {
+    	
+    }
+    
+    private void declaracaoPrograma() {
+    	switch (token.getLexema()) {
+		case "programa":
+			token = proximo();
+			tipo();
+			identificador("Identificador");
+			terminal("(");
+			//PARAMETRO PROGRAMA
+			terminal(")");
+			terminal("inicio");
+			//bloco de código
+			terminal("fim");
+			terminal("(");
+			if (!(token.getLexema().equals(")")))
+				retornoFuncao();
+			terminal(")");
+			terminal(";");
+			break;
+		default:
+			erroSintatico("Esperava uma declaracao de programa");
+			break;
+		}
+    }
     
     private void constx() {
     	switch (token.getLexema()) {
@@ -101,7 +143,6 @@ public class AnalisadorSintatico {
 			break;
 		default:
 			erroSintatico("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
-            //token = proximo();
 			break;
 		}
 		
@@ -116,11 +157,169 @@ public class AnalisadorSintatico {
 		
 	}
 
-	private void analiseVariaveis() {
+	private void declaracaoVariaveis() {
+		switch (token.getLexema()) {
+		case "var":
+			token = proximo();
+			tipo();
+			identificador("Identificador");
+			if (token.getLexema().equals("(")) {
+				declaracaoMatriz();
+			}
+			listaVariavel();
+			break;
+		default:
+			erroSintatico("Esperava uma declaracao de variavel");
+			break;
+		}
 		//<declaracao_var>   ::=<DECX>
 	    //      <DECX>       ::=<DEC><DECX>|<DEC>
 		
 	}
+	
+	private void listaVariavel() {
+		switch (token.getLexema()) {
+		case ",":
+			terminal(",");
+			identificador("Identificador");
+			if (token.getLexema().equals("(")) {
+				declaracaoMatriz();
+			}
+			listaVariavel();
+			break;
+		case ";":
+			terminal(";");
+			break;
+		default:
+			erroSintatico("Esperava um delimitador");
+			break;
+		}
+	}
+	
+	private void declaracaoMatriz() {
+		switch (token.getLexema()) {
+		case "(":
+			token = proximo();
+			terminal("(");
+			verificaTipo("Numero");
+			terminal(")");
+			terminal(")");
+			if(token.getLexema().equals("("))
+				declaracaoMatriz();
+			break;
+		default:
+			erroSintatico("Esperava um abre parenteses");
+			break;
+		}
+	}
+	
+	private void funcao() {
+		switch (token.getLexema()) {
+		case "funcao":
+			token = proximo();
+			tipo();
+			identificador("Identificador");
+			terminal("(");
+			if(token.getTipo().equals("Palavra Reservada"))
+				parametroFuncao();
+			terminal(")");
+			terminal("inicio");
+			
+			while(!(token.getLexema().equals("fim"))){
+				blocoDeCodigo();
+			}
+			
+			//BLOCO DE CODIGO
+			terminal("fim");
+			terminal("(");
+			if (!(token.getLexema().equals(")")))
+				retornoFuncao();
+			terminal(")");
+			break;
+
+		default:
+			erroSintatico("Esperava um bloco de funcao");
+			break;
+		}
+	}
+	
+	private void escreva() {
+		switch (token.getLexema()) {
+		case "escreva":
+			token = proximo();
+			terminal("(");
+			retornoFuncao();
+			terminal(")");
+			terminal(";");
+			break;
+
+		default:
+			erroSintatico("Esperava a funcao escreva");
+			break;
+		}
+	}
+	
+	//BX
+	private void blocoDeCodigo() {
+		switch (token.getLexema()) {
+		case "leia":
+			
+			break;
+		case "se":
+			
+		case "enquanto":
+			
+		case "escreva":
+			escreva();
+			
+		case "var":
+			declaracaoVariaveis();
+			
+		//case atribuição
+		default:
+			erroSintatico("Esperava um bloco de código");
+			break;
+		}
+		
+	}
+	
+	private void expressaoBooleana() {
+		
+	}
+	
+	private void expressoaAritmetica() {
+		
+	}
+	//OPERADORES REFERENTES À EXPRESSÃO BOOLEANA
+	
+	private void retornoFuncao() {
+		if(token.getTipo().equals("Identificador") || token.getTipo().equals("Numero") || token.getTipo().equals("Digito") || token.getTipo().equals("Caractere") || token.getTipo().equals("Cadeia de caracteres")){
+			token = proximo();
+		} else {
+			erroSintatico("Retorno Incorreto");
+			//EXPRESSAO BOOLEANA
+		}
+	}
+	
+	
+	private void parametroFuncao() {
+		tipo();
+		identificador("Identificador");
+		listaParametros();
+	}
+
+	private void listaParametros() {
+		switch (token.getLexema()) {
+		case ",":
+			token = proximo();
+			parametroFuncao();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	
 	
 
 	private Token proximo() {
