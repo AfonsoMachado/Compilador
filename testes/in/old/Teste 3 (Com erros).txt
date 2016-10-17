@@ -1,0 +1,37 @@
+{CODIGO TESTE DA DUPLA AFONSO MACHADO E HENDERSON CHALEGRE}
+
+
+const int 1constante1 = 3.0; 
+var real cw; 
+var int a, b_w3#; 
+
+
+
+funcao prog&&rama () 1inicio
+
+
+	leia ("escreva um valor" ;
+
+
+	escreva (a);
+
+	leia ("escreva um valor );
+
+
+	escreva a);
+
+	c = a + b;
+	
+	se (a >=< b)
+
+		leia (a soma eh" c )
+
+
+
+fim
+
+
+
+
+
+
