@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import analisadorLexico.AnalisadorLexico;
 import analisadorLexico.Token;
+import analisadorSemantico.Funcao;
+import analisadorSemantico.Variavel;
 
 /**
  * @author Afonso Machado
@@ -17,7 +19,8 @@ public class AnalisadorSintatico {
 	private ArrayList<Token> varEscopoLocalAtual = new ArrayList<>();
 	private ArrayList<Token> varEscopoGlobal = new ArrayList<>();
 	private ArrayList<String> constantes = new ArrayList<>();
-	private ArrayList<Token> funcoes = new ArrayList<>();
+	private ArrayList<Funcao> funcoes = new ArrayList<>();
+	private ArrayList<Variavel> variaveis = new ArrayList<>();
 	
 	/**
 	 * Proximo token da lista
@@ -131,6 +134,7 @@ public class AnalisadorSintatico {
     	varGlobal();
     	declaracaoPrograma();
     	Funcoes();
+    	System.out.println(variaveis);
     	
     }
     
@@ -487,12 +491,17 @@ public class AnalisadorSintatico {
 		switch (token.getLexema()) {
 		case "var":
 			token = proximo();
+			Variavel v = new Variavel();
+			String tipo = token.getLexema(); 
+			v.setTipo(tipo);
 			tipo();
+			v.setNome(token.getLexema());
+			variaveis.add(v);
 			identificador("Identificador");
 			if (token.getLexema().equals("/")) {
 				declaracaoMatriz();
 			}
-			listaVariavel();
+			listaVariavel(tipo);
 			break;
 		default:
 			erroSintatico("Esperava uma declaracao de variavel");
@@ -503,15 +512,19 @@ public class AnalisadorSintatico {
 		
 	}
 	
-	private void listaVariavel() {
+	private void listaVariavel(String tipo) {
 		switch (token.getLexema()) {
 		case ",":
+			Variavel v = new Variavel();
+			v.setTipo(tipo);
 			terminal(",");
+			v.setNome(token.getLexema());
+			variaveis.add(v);
 			identificador("Identificador");
 			if (token.getLexema().equals("/")) {
 				declaracaoMatriz();
 			}
-			listaVariavel();
+			listaVariavel(tipo);
 			break;
 		case ";":
 			terminal(";");
@@ -519,7 +532,7 @@ public class AnalisadorSintatico {
 		default:
 			erroSintatico("Esperava um delimitador");
 			sincroniza();
-			listaVariavel();
+			listaVariavel(tipo);
 			break;
 		}
 	}
@@ -550,7 +563,9 @@ public class AnalisadorSintatico {
 		switch (token.getLexema()) {
 		case "funcao":
 			token = proximo();
+			//String tipo = token.getLexema();
 			tipo();
+			//String nome = token.getLexema();
 			identificador("Identificador");
 			terminal("(");
 			if(token.getTipo().equals("Palavra Reservada"))
@@ -568,6 +583,7 @@ public class AnalisadorSintatico {
 				retornoFuncao();
 			terminal(")");
 			terminal(";");
+			//Funcao f = new Funcao(tipo, nome);
 			break;
 
 		default:

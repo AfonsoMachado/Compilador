@@ -1,0 +1,14 @@
+var inteiro a;
+const inteiro b = fff;
+var inteiro a;
+const inteiro b = 10;
+
+programa inteiro a()
+inicio
+    var inteiro oo;
+    var inteiro wed, a1, a2, a3;
+fim();
+
+funcao inteiro a(inteiro v, cadeia s) inicio
+    A/*b*/ = k*B/*b*/-C(f);
+fim(a>b);
