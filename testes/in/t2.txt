@@ -6,21 +6,24 @@ const inteiro b = 10;
 programa inteiro a()
 inicio
     se((a>b)e(b>g)) entao
-    inicio
     
-     leia(a,b/*5*/);     
-     a();
+     leia(a,b/*5*/);
+     
+     
+     
+     
      
     fim
     senao
     inicio
-        escreva("asdjaks");  
+        escreva("asdjaks")  
     fim
     enquanto(nao a e b) faca
     inicio
         A = A*b-c/(-c);    
     fim
     AJSHD(a,b,10,verdadeiro);
+    a(v = x;
     a/*f*/ = s;
 fim();
 

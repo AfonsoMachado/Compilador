@@ -55,7 +55,7 @@ public class Principal {
 			System.out.println(" ");
 			
 			
-			
+			sintatico = new AnalisadorSintatico();
 			ArrayList<Token> listaTokens = lexico.getTokens();
 			System.out.println("Iniciando a analise sintatica... ");
 			System.out.println("Analisando: " + arquivo.getLocalFile());

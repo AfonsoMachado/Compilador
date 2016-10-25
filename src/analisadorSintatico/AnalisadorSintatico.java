@@ -14,6 +14,11 @@ import analisadorLexico.Token;
  */
 public class AnalisadorSintatico {
 	
+	private ArrayList<Token> varEscopoLocalAtual = new ArrayList<>();
+	private ArrayList<Token> varEscopoGlobal = new ArrayList<>();
+	private ArrayList<String> constantes = new ArrayList<>();
+	private ArrayList<Token> funcoes = new ArrayList<>();
+	
 	/**
 	 * Proximo token da lista
 	 */
@@ -49,6 +54,8 @@ public class AnalisadorSintatico {
         }
         else
         	System.out.println("Analise Sintatica feita com sucesso\n");
+        
+        System.out.println(constantes);
     }
     
     /**
@@ -223,9 +230,15 @@ public class AnalisadorSintatico {
     }
     
     private void exp(){
-    	identificador("Identificador");
-    	aux_valor4();
-    	exp2();
+    	switch (token.getTipo()) {
+		case "Identificador":
+			identificador("Identificador");
+	    	aux_valor4();
+	    	exp2();
+			break;
+		default:
+			break;
+		}
     }
     
     private void exp2(){
@@ -234,10 +247,8 @@ public class AnalisadorSintatico {
 			terminal(",");
 			exp();
 			break;
-		case ")":
-			break;
 		default:
-			erroSintatico("Esperava um conjunto de parametros");
+			//erroSintatico("Esperava um conjunto de parametros");
 			break;
 		}
     }
@@ -249,25 +260,36 @@ public class AnalisadorSintatico {
 			aux_valor2();
 			
 			break;
-
+		case "/":
+			terminal("/");
+			dxyz();
 		default:
+			//token = proximo();
 			break;
 		}
     }
     
-    private void aux_valor2() {
-		switch (token.getLexema()) {
-		case "(":
-			terminal("(");
-			aux_valor3();
+    private void dxyz() {
+		switch(token.getLexema()) {
+		case "*":
+			aux_valor5();
 			break;
-
 		default:
-			parametro();
-			terminal(")");
+			expressaoAritmetica();
 			break;
 		}
 		
+	}
+
+	private void aux_valor5() {
+		terminal("*");
+		aux_valor3();
+		
+	}
+
+	private void aux_valor2() {
+			parametro();
+			terminal(")");
 	}
 
 	private void parametro() {
@@ -307,7 +329,7 @@ public class AnalisadorSintatico {
 				Rparametro();
 			}
 		default:
-			erroSintatico("Esperava um parâmetro");
+
 			break;
 		}
 		
@@ -326,22 +348,27 @@ public class AnalisadorSintatico {
 
 	private void aux_valor3() {
 		valor();
-		terminal(")");
-		terminal(")");
+		terminal("*");
+		terminal("/");
 		aux_valor4();
 	}
 
 	private void aux_valor4() {
-    	switch (token.getLexema()) {
-		case "(":
-			terminal("(");
-	    	terminal("(");
+    	switch (token.getTipo()) {
+		case "Operador Aritmetico":
+			if(token.getLexema().equals("+") || token.getLexema().equals("-")) {
+				expressaoAritmetica();
+				break;
+			}
+			terminal("/");
+	    	terminal("*");
 	    	valor();
-	    	terminal(")");
-	    	terminal(")");
+	    	terminal("*");
+	    	terminal("/");
 	    	aux_valor4();
 			break;
 		default:
+
 			break;
 		}
     }
@@ -407,6 +434,11 @@ public class AnalisadorSintatico {
 		case "const":
 			terminal("const");
 			tipo();
+			if(constantes.contains(token.getLexema())){
+				System.out.println("ERRO SEMANTICO");
+			} else {
+				constantes.add(token.getLexema());
+			}
 			identificador("Identificador");
 			terminal("=");
 			valor();
@@ -457,7 +489,7 @@ public class AnalisadorSintatico {
 			token = proximo();
 			tipo();
 			identificador("Identificador");
-			if (token.getLexema().equals("(")) {
+			if (token.getLexema().equals("/")) {
 				declaracaoMatriz();
 			}
 			listaVariavel();
@@ -476,7 +508,7 @@ public class AnalisadorSintatico {
 		case ",":
 			terminal(",");
 			identificador("Identificador");
-			if (token.getLexema().equals("(")) {
+			if (token.getLexema().equals("/")) {
 				declaracaoMatriz();
 			}
 			listaVariavel();
@@ -501,16 +533,15 @@ public class AnalisadorSintatico {
 	private void declaracaoMatriz() {
 		switch (token.getLexema()) {
 		case "(":
-			token = proximo();
-			terminal("(");
+			terminal("/");
+			terminal("*");
 			verificaTipo("Numero");
-			terminal(")");
-			terminal(")");
-			if(token.getLexema().equals("("))
+			terminal("*");
+			terminal("/");
+			if(token.getLexema().equals("/"))
 				declaracaoMatriz();
 			break;
 		default:
-			erroSintatico("Esperava um abre parenteses");
 			break;
 		}
 	}
@@ -570,9 +601,11 @@ public class AnalisadorSintatico {
 			terminal(")");
 			terminal("entao");
 			terminal("inicio");
-			blocoDeCodigo();
+			while (!(token.getLexema().equals("fim")))
+				blocoDeCodigo();
 			terminal("fim");
-			seAninhado();
+			if (token.getLexema().equals("senao"))
+				seAninhado();
 			break;
 		default:
 			erroSintatico("Esperava um bloco de 'se entao senao'");
@@ -588,7 +621,8 @@ public class AnalisadorSintatico {
 	private void negacao() {
 		terminal("senao");
 		terminal("inicio");
-		blocoDeCodigo();
+		while (!(token.getLexema().equals("fim")))
+			blocoDeCodigo();
 		terminal("fim");
 		
 	}
@@ -602,8 +636,7 @@ public class AnalisadorSintatico {
 			break;
 			
 		case "Identificador":
-			identificador("Identificador");
-			Attr();
+			Attr_temp();
 			break;
 		default:
 			erroSintatico("Esperava um bloco de código");
@@ -612,10 +645,20 @@ public class AnalisadorSintatico {
 		
 	}
 
+	private void Attr_temp() {
+		identificador("Identificador");
+		Attr();
+		System.out.println("ughku");
+	}
+
 	private void Attr() {
 		//identificador("Identificador");
 		aux_valor1();
-		Attr1();
+		if (token.getLexema().equals(";")) {
+			terminal(";");
+		}
+		else
+			Attr1();
 		
 	}
 
@@ -625,9 +668,6 @@ public class AnalisadorSintatico {
 			terminal("=");
 			Attr2();
 			break;
-		case ";":
-			terminal(";");
-		break;
 		default:
 			break;
 		}
