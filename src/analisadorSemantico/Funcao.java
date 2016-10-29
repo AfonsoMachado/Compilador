@@ -1,14 +1,39 @@
 package analisadorSemantico;
 
+import java.util.ArrayList;
+
 public class Funcao {
 	
 	//private final String retorno;
-	private final String nome;
-	private final String tipoRetorno;
+	private String nome;
+	private String tipoRetorno;
+	private ArrayList<Variavel> parametros = new ArrayList<>();
 
-	public Funcao(String tipoRetorno, String nome) {
-		//this.retorno = retorno;
+	/**
+	 * @return the parametro
+	 */
+	public ArrayList<Variavel> getParametros() {
+		return parametros;
+	}
+
+	/**
+	 * @param parametro the parametro to set
+	 */
+	public void setParametros(ArrayList<Variavel> parametro) {
+		this.parametros = parametro;
+	}
+
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	/**
+	 * @param tipoRetorno the tipoRetorno to set
+	 */
+	public void setTipoRetorno(String tipoRetorno) {
 		this.tipoRetorno = tipoRetorno;
 	}
 
