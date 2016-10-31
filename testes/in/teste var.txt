@@ -1,6 +1,6 @@
 var inteiro a;
 const inteiro b = 50;
-funcao f1(inteiro v, real s);
+funcao f1(inteiro v, inteiro s);
 funcao inteiro f2();
 programa inteiro a()
 inicio
@@ -11,7 +11,6 @@ inicio
 			se ((a>r1) e (a<b)) entao inicio
 				var real i1;
 				i1 = tes;	
-
 			fim
 			senao inicio
 				var inteiro testesenao;
@@ -19,9 +18,7 @@ inicio
 			fim
 		r1 = b;
 	fim
-
-	f1(tes, "ss");
-	
+	f1(tes);
 fim();
 funcao a(inteiro v, cadeia s, real x, caractere h) inicio
     var inteiro i;

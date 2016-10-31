@@ -9,6 +9,7 @@ import analisadorLexico.Token;
 import analisadorSemantico.Constante;
 import analisadorSemantico.Funcao;
 import analisadorSemantico.Variavel;
+import oracle.jrockit.jfr.events.DynamicValueDescriptor;
 
 /**
  * @author Afonso Machado
@@ -197,7 +198,6 @@ public class AnalisadorSintatico {
 				identificador("Identificador");
 			}
 			//String nome = token.getLexema();
-
 			terminal("(");
 			if(token.getTipo().equals("Palavra Reservada"))
 				parametroFuncao();
@@ -374,6 +374,16 @@ public class AnalisadorSintatico {
 	private void aux_valor2() {
 			parametro();
 			terminal(")");
+			for (Funcao ff : funcoes) {
+				if (ff.getNome().equals(funcAtual)) {
+					if(auxFuncao != ff.getParametros().size()) {
+						errosSemanticos.add("Linha " + token.getLinha() + " -> Quantidade incorreta de parametros\n");
+					}
+						
+				}
+			}
+			funcAtual = null;
+			auxFuncao = 0;
 			ehFuncao = false;
 	}
 
@@ -394,13 +404,28 @@ public class AnalisadorSintatico {
 				existe1 = true;
 			}
 			if(!existe1)
-				errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta\n");
+				errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");
 			token = proximo();
+			if(token.getLexema().equals(")")){
+				ehFuncao = false;
+			}	
 			
+			auxFuncao++;
 			Rparametro();
 			break;
 		case "Caractere":
+			boolean existe2 = false;
+			if(f.getParametros().get(auxFuncao).getTipo().equals("cadeia")) {
+				existe1 = true;
+			}
+			if(!existe2)
+				errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");
 			token = proximo();
+			if(token.getLexema().equals(")")){
+				ehFuncao = false;
+			}	
+			
+			auxFuncao++;
 			Rparametro();
 			break;
 		case "Identificador":
@@ -1702,6 +1727,7 @@ public class AnalisadorSintatico {
 	
 	
 	private void parametroFuncao() {
+		int qtdParametros = 0;
 		Variavel v = new Variavel();
 		v.setTipo(token.getLexema());
 		tipo();
