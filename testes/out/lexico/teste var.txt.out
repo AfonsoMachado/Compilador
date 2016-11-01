@@ -39,117 +39,126 @@ Token -> Lexema: ( | Tipo: Delimitador | Linha: 8 | Coluna: 9
 Token -> Lexema: b | Tipo: Identificador | Linha: 8 | Coluna: 10
 Token -> Lexema: ) | Tipo: Delimitador | Linha: 8 | Coluna: 11
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 8 | Coluna: 12
-Token -> Lexema: se | Tipo: Palavra Reservada | Linha: 9 | Coluna: 2
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 9 | Coluna: 5
+Token -> Lexema: leia | Tipo: Palavra Reservada | Linha: 9 | Coluna: 2
 Token -> Lexema: ( | Tipo: Delimitador | Linha: 9 | Coluna: 6
-Token -> Lexema: a | Tipo: Identificador | Linha: 9 | Coluna: 7
-Token -> Lexema: > | Tipo: Operador Relacional | Linha: 9 | Coluna: 8
-Token -> Lexema: b | Tipo: Identificador | Linha: 9 | Coluna: 9
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 9 | Coluna: 10
-Token -> Lexema: e | Tipo: Operador Logico | Linha: 9 | Coluna: 12
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 9 | Coluna: 14
-Token -> Lexema: a | Tipo: Identificador | Linha: 9 | Coluna: 15
-Token -> Lexema: < | Tipo: Operador Relacional | Linha: 9 | Coluna: 16
-Token -> Lexema: b | Tipo: Identificador | Linha: 9 | Coluna: 17
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 9 | Coluna: 18
-Token -> Lexema: ou | Tipo: Operador Logico | Linha: 9 | Coluna: 20
-Token -> Lexema: verdadeiro | Tipo: Palavra Reservada | Linha: 9 | Coluna: 23
-Token -> Lexema: e | Tipo: Operador Logico | Linha: 9 | Coluna: 34
-Token -> Lexema: falso | Tipo: Palavra Reservada | Linha: 9 | Coluna: 36
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 9 | Coluna: 41
-Token -> Lexema: entao | Tipo: Palavra Reservada | Linha: 9 | Coluna: 43
-Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 9 | Coluna: 49
-Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 10 | Coluna: 3
-Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 10 | Coluna: 7
-Token -> Lexema: r1 | Tipo: Identificador | Linha: 10 | Coluna: 15
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 10 | Coluna: 17
-Token -> Lexema: se | Tipo: Palavra Reservada | Linha: 11 | Coluna: 4
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 11 | Coluna: 7
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 11 | Coluna: 8
-Token -> Lexema: a | Tipo: Identificador | Linha: 11 | Coluna: 9
-Token -> Lexema: > | Tipo: Operador Relacional | Linha: 11 | Coluna: 10
-Token -> Lexema: r1 | Tipo: Identificador | Linha: 11 | Coluna: 11
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 11 | Coluna: 13
-Token -> Lexema: e | Tipo: Operador Logico | Linha: 11 | Coluna: 15
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 11 | Coluna: 17
-Token -> Lexema: a | Tipo: Identificador | Linha: 11 | Coluna: 18
-Token -> Lexema: < | Tipo: Operador Relacional | Linha: 11 | Coluna: 19
-Token -> Lexema: b | Tipo: Identificador | Linha: 11 | Coluna: 20
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 11 | Coluna: 21
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 11 | Coluna: 22
-Token -> Lexema: entao | Tipo: Palavra Reservada | Linha: 11 | Coluna: 24
-Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 11 | Coluna: 30
-Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 12 | Coluna: 5
-Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 12 | Coluna: 9
-Token -> Lexema: i1 | Tipo: Identificador | Linha: 12 | Coluna: 14
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 12 | Coluna: 16
-Token -> Lexema: i1 | Tipo: Identificador | Linha: 13 | Coluna: 5
-Token -> Lexema: = | Tipo: Operador Relacional | Linha: 13 | Coluna: 8
-Token -> Lexema: tes | Tipo: Identificador | Linha: 13 | Coluna: 10
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 13
-Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 14 | Coluna: 4
-Token -> Lexema: senao | Tipo: Palavra Reservada | Linha: 15 | Coluna: 4
-Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 15 | Coluna: 10
-Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 16 | Coluna: 5
-Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 16 | Coluna: 9
-Token -> Lexema: testesenao | Tipo: Identificador | Linha: 16 | Coluna: 17
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 16 | Coluna: 27
-Token -> Lexema: r1 | Tipo: Identificador | Linha: 17 | Coluna: 5
-Token -> Lexema: = | Tipo: Operador Relacional | Linha: 17 | Coluna: 8
-Token -> Lexema: 1 | Tipo: Digito | Linha: 17 | Coluna: 10
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 11
-Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 18 | Coluna: 4
-Token -> Lexema: r1 | Tipo: Identificador | Linha: 19 | Coluna: 3
-Token -> Lexema: = | Tipo: Operador Relacional | Linha: 19 | Coluna: 6
-Token -> Lexema: b | Tipo: Identificador | Linha: 19 | Coluna: 8
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 9
-Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 20 | Coluna: 2
-Token -> Lexema: f1 | Tipo: Identificador | Linha: 21 | Coluna: 2
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 21 | Coluna: 4
-Token -> Lexema: 1 | Tipo: Digito | Linha: 21 | Coluna: 5
-Token -> Lexema: , | Tipo: Delimitador | Linha: 21 | Coluna: 6
-Token -> Lexema: 5.5 | Tipo: Numero | Linha: 21 | Coluna: 8
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 21 | Coluna: 11
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 12
-Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 22 | Coluna: 1
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 22 | Coluna: 4
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 22 | Coluna: 5
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 22 | Coluna: 6
-Token -> Lexema: funcao | Tipo: Palavra Reservada | Linha: 23 | Coluna: 1
-Token -> Lexema: a | Tipo: Identificador | Linha: 23 | Coluna: 8
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 23 | Coluna: 9
-Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 23 | Coluna: 10
-Token -> Lexema: v | Tipo: Identificador | Linha: 23 | Coluna: 18
-Token -> Lexema: , | Tipo: Delimitador | Linha: 23 | Coluna: 19
-Token -> Lexema: cadeia | Tipo: Palavra Reservada | Linha: 23 | Coluna: 21
-Token -> Lexema: s | Tipo: Identificador | Linha: 23 | Coluna: 28
-Token -> Lexema: , | Tipo: Delimitador | Linha: 23 | Coluna: 29
-Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 23 | Coluna: 31
-Token -> Lexema: x | Tipo: Identificador | Linha: 23 | Coluna: 36
-Token -> Lexema: , | Tipo: Delimitador | Linha: 23 | Coluna: 37
-Token -> Lexema: caractere | Tipo: Palavra Reservada | Linha: 23 | Coluna: 39
-Token -> Lexema: h | Tipo: Identificador | Linha: 23 | Coluna: 49
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 23 | Coluna: 50
-Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 23 | Coluna: 52
-Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 24 | Coluna: 5
-Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 24 | Coluna: 9
-Token -> Lexema: i | Tipo: Identificador | Linha: 24 | Coluna: 17
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 24 | Coluna: 18
+Token -> Lexema: b | Tipo: Identificador | Linha: 9 | Coluna: 7
+Token -> Lexema: , | Tipo: Delimitador | Linha: 9 | Coluna: 8
+Token -> Lexema: te | Tipo: Identificador | Linha: 9 | Coluna: 9
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 9 | Coluna: 11
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 9 | Coluna: 12
+Token -> Lexema: se | Tipo: Palavra Reservada | Linha: 10 | Coluna: 2
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 10 | Coluna: 5
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 10 | Coluna: 6
+Token -> Lexema: a | Tipo: Identificador | Linha: 10 | Coluna: 7
+Token -> Lexema: > | Tipo: Operador Relacional | Linha: 10 | Coluna: 8
+Token -> Lexema: b | Tipo: Identificador | Linha: 10 | Coluna: 9
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 10
+Token -> Lexema: e | Tipo: Operador Logico | Linha: 10 | Coluna: 12
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 10 | Coluna: 14
+Token -> Lexema: a | Tipo: Identificador | Linha: 10 | Coluna: 15
+Token -> Lexema: < | Tipo: Operador Relacional | Linha: 10 | Coluna: 16
+Token -> Lexema: b | Tipo: Identificador | Linha: 10 | Coluna: 17
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 18
+Token -> Lexema: ou | Tipo: Operador Logico | Linha: 10 | Coluna: 20
+Token -> Lexema: verdadeiro | Tipo: Palavra Reservada | Linha: 10 | Coluna: 23
+Token -> Lexema: e | Tipo: Operador Logico | Linha: 10 | Coluna: 34
+Token -> Lexema: falso | Tipo: Palavra Reservada | Linha: 10 | Coluna: 36
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 10 | Coluna: 41
+Token -> Lexema: entao | Tipo: Palavra Reservada | Linha: 10 | Coluna: 43
+Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 10 | Coluna: 49
+Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 11 | Coluna: 3
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 11 | Coluna: 7
+Token -> Lexema: r1 | Tipo: Identificador | Linha: 11 | Coluna: 15
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 11 | Coluna: 17
+Token -> Lexema: se | Tipo: Palavra Reservada | Linha: 12 | Coluna: 4
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 12 | Coluna: 7
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 12 | Coluna: 8
+Token -> Lexema: a | Tipo: Identificador | Linha: 12 | Coluna: 9
+Token -> Lexema: > | Tipo: Operador Relacional | Linha: 12 | Coluna: 10
+Token -> Lexema: r1 | Tipo: Identificador | Linha: 12 | Coluna: 11
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 12 | Coluna: 13
+Token -> Lexema: e | Tipo: Operador Logico | Linha: 12 | Coluna: 15
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 12 | Coluna: 17
+Token -> Lexema: a | Tipo: Identificador | Linha: 12 | Coluna: 18
+Token -> Lexema: < | Tipo: Operador Relacional | Linha: 12 | Coluna: 19
+Token -> Lexema: b | Tipo: Identificador | Linha: 12 | Coluna: 20
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 12 | Coluna: 21
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 12 | Coluna: 22
+Token -> Lexema: entao | Tipo: Palavra Reservada | Linha: 12 | Coluna: 24
+Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 12 | Coluna: 30
+Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 13 | Coluna: 5
+Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 13 | Coluna: 9
+Token -> Lexema: i1 | Tipo: Identificador | Linha: 13 | Coluna: 14
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 13 | Coluna: 16
+Token -> Lexema: i1 | Tipo: Identificador | Linha: 14 | Coluna: 5
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 14 | Coluna: 8
+Token -> Lexema: tes | Tipo: Identificador | Linha: 14 | Coluna: 10
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 14 | Coluna: 13
+Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 15 | Coluna: 4
+Token -> Lexema: senao | Tipo: Palavra Reservada | Linha: 16 | Coluna: 4
+Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 16 | Coluna: 10
+Token -> Lexema: f1 | Tipo: Identificador | Linha: 17 | Coluna: 5
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 17 | Coluna: 7
+Token -> Lexema: 1 | Tipo: Digito | Linha: 17 | Coluna: 8
+Token -> Lexema: , | Tipo: Delimitador | Linha: 17 | Coluna: 9
+Token -> Lexema: 5.5 | Tipo: Numero | Linha: 17 | Coluna: 11
+Token -> Lexema: , | Tipo: Delimitador | Linha: 17 | Coluna: 14
+Token -> Lexema: 'k' | Tipo: Caractere | Linha: 17 | Coluna: 16
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 17 | Coluna: 19
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 17 | Coluna: 20
+Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 18 | Coluna: 5
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 18 | Coluna: 9
+Token -> Lexema: testesenao | Tipo: Identificador | Linha: 18 | Coluna: 17
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 18 | Coluna: 27
+Token -> Lexema: r1 | Tipo: Identificador | Linha: 19 | Coluna: 5
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 19 | Coluna: 8
+Token -> Lexema: 1 | Tipo: Digito | Linha: 19 | Coluna: 10
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 11
+Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 20 | Coluna: 4
+Token -> Lexema: r1 | Tipo: Identificador | Linha: 21 | Coluna: 3
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 21 | Coluna: 6
+Token -> Lexema: b | Tipo: Identificador | Linha: 21 | Coluna: 8
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 9
+Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 22 | Coluna: 2
+Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 23 | Coluna: 1
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 23 | Coluna: 4
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 23 | Coluna: 5
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 23 | Coluna: 6
+Token -> Lexema: funcao | Tipo: Palavra Reservada | Linha: 24 | Coluna: 1
+Token -> Lexema: a | Tipo: Identificador | Linha: 24 | Coluna: 8
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 24 | Coluna: 9
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 24 | Coluna: 10
+Token -> Lexema: v | Tipo: Identificador | Linha: 24 | Coluna: 18
+Token -> Lexema: , | Tipo: Delimitador | Linha: 24 | Coluna: 19
+Token -> Lexema: cadeia | Tipo: Palavra Reservada | Linha: 24 | Coluna: 21
+Token -> Lexema: s | Tipo: Identificador | Linha: 24 | Coluna: 28
+Token -> Lexema: , | Tipo: Delimitador | Linha: 24 | Coluna: 29
+Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 24 | Coluna: 31
+Token -> Lexema: x | Tipo: Identificador | Linha: 24 | Coluna: 36
+Token -> Lexema: , | Tipo: Delimitador | Linha: 24 | Coluna: 37
+Token -> Lexema: caractere | Tipo: Palavra Reservada | Linha: 24 | Coluna: 39
+Token -> Lexema: h | Tipo: Identificador | Linha: 24 | Coluna: 49
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 24 | Coluna: 50
+Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 24 | Coluna: 52
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 25 | Coluna: 5
-Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 25 | Coluna: 9
-Token -> Lexema: r | Tipo: Identificador | Linha: 25 | Coluna: 14
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 15
-Token -> Lexema: i | Tipo: Identificador | Linha: 26 | Coluna: 5
-Token -> Lexema: = | Tipo: Operador Relacional | Linha: 26 | Coluna: 7
-Token -> Lexema: b | Tipo: Identificador | Linha: 26 | Coluna: 9
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 26 | Coluna: 10
-Token -> Lexema: r | Tipo: Identificador | Linha: 27 | Coluna: 5
+Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 25 | Coluna: 9
+Token -> Lexema: i | Tipo: Identificador | Linha: 25 | Coluna: 17
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 25 | Coluna: 18
+Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 26 | Coluna: 5
+Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 26 | Coluna: 9
+Token -> Lexema: r | Tipo: Identificador | Linha: 26 | Coluna: 14
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 26 | Coluna: 15
+Token -> Lexema: i | Tipo: Identificador | Linha: 27 | Coluna: 5
 Token -> Lexema: = | Tipo: Operador Relacional | Linha: 27 | Coluna: 7
 Token -> Lexema: b | Tipo: Identificador | Linha: 27 | Coluna: 9
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 27 | Coluna: 10
-Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 28 | Coluna: 1
-Token -> Lexema: ( | Tipo: Delimitador | Linha: 28 | Coluna: 4
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 28 | Coluna: 5
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 28 | Coluna: 6
+Token -> Lexema: r | Tipo: Identificador | Linha: 28 | Coluna: 5
+Token -> Lexema: = | Tipo: Operador Relacional | Linha: 28 | Coluna: 7
+Token -> Lexema: b | Tipo: Identificador | Linha: 28 | Coluna: 9
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 28 | Coluna: 10
+Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 29 | Coluna: 1
+Token -> Lexema: ( | Tipo: Delimitador | Linha: 29 | Coluna: 4
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 29 | Coluna: 5
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 29 | Coluna: 6
 
-Sucesso! Não existem erros léxicos
+Sucesso! Nï¿½o existem erros lï¿½xicos

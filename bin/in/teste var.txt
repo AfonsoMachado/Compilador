@@ -6,6 +6,7 @@ programa inteiro a()
 inicio
 	var inteiro tes;
 	escreva(b);
+	leia(b,te);
 	se ((a>b) e (a<b) ou verdadeiro e falso) entao inicio
 		var inteiro r1;
 			se ((a>r1) e (a<b)) entao inicio
@@ -13,12 +14,12 @@ inicio
 				i1 = tes;	
 			fim
 			senao inicio
+				f1(1, 5.5, 'k');
 				var inteiro testesenao;
 				r1 = 1;
 			fim
 		r1 = b;
 	fim
-	f1(1, 5.5);
 fim();
 funcao a(inteiro v, cadeia s, real x, caractere h) inicio
     var inteiro i;

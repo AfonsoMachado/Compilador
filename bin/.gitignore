@@ -1,4 +1,8 @@
-/analisadorSintatico/
+/Gramatica_nova.grm
+/analisadorLexico/
 /analisadorSemantico/
+/analisadorSintatico/
+/arquivo/
 /in/
+/main/
 /out/
