@@ -131,11 +131,9 @@ Token -> Lexema: f1 | Tipo: Identificador | Linha: 20 | Coluna: 5
 Token -> Lexema: ( | Tipo: Delimitador | Linha: 20 | Coluna: 7
 Token -> Lexema: 1 | Tipo: Digito | Linha: 20 | Coluna: 8
 Token -> Lexema: , | Tipo: Delimitador | Linha: 20 | Coluna: 9
-Token -> Lexema: 5.5 | Tipo: Numero | Linha: 20 | Coluna: 11
-Token -> Lexema: , | Tipo: Delimitador | Linha: 20 | Coluna: 14
-Token -> Lexema: 'k' | Tipo: Caractere | Linha: 20 | Coluna: 16
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 20 | Coluna: 19
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 20
+Token -> Lexema: b | Tipo: Identificador | Linha: 20 | Coluna: 11
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 20 | Coluna: 12
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 20 | Coluna: 13
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 21 | Coluna: 5
 Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 21 | Coluna: 9
 Token -> Lexema: testesenao | Tipo: Identificador | Linha: 21 | Coluna: 17
@@ -165,8 +163,11 @@ Token -> Lexema: s | Tipo: Identificador | Linha: 27 | Coluna: 29
 Token -> Lexema: , | Tipo: Delimitador | Linha: 27 | Coluna: 30
 Token -> Lexema: real | Tipo: Palavra Reservada | Linha: 27 | Coluna: 32
 Token -> Lexema: x | Tipo: Identificador | Linha: 27 | Coluna: 37
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 27 | Coluna: 38
-Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 27 | Coluna: 40
+Token -> Lexema: , | Tipo: Delimitador | Linha: 27 | Coluna: 38
+Token -> Lexema: caractere | Tipo: Palavra Reservada | Linha: 27 | Coluna: 40
+Token -> Lexema: h | Tipo: Identificador | Linha: 27 | Coluna: 50
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 27 | Coluna: 51
+Token -> Lexema: inicio | Tipo: Palavra Reservada | Linha: 27 | Coluna: 53
 Token -> Lexema: var | Tipo: Palavra Reservada | Linha: 28 | Coluna: 5
 Token -> Lexema: inteiro | Tipo: Palavra Reservada | Linha: 28 | Coluna: 9
 Token -> Lexema: i | Tipo: Identificador | Linha: 28 | Coluna: 17
@@ -188,4 +189,4 @@ Token -> Lexema: ( | Tipo: Delimitador | Linha: 32 | Coluna: 4
 Token -> Lexema: ) | Tipo: Delimitador | Linha: 32 | Coluna: 5
 Token -> Lexema: ; | Tipo: Delimitador | Linha: 32 | Coluna: 6
 
-Sucesso! N?o existem erros l?xicos
+Sucesso! Não existem erros léxicos

@@ -57,10 +57,11 @@ public class Principal {
 			
 			sintatico = new AnalisadorSintatico();
 			ArrayList<Token> listaTokens = lexico.getTokens();
-			System.out.println("Iniciando a analise sintatica... ");
+			System.out.println("Iniciando a analise sintatica e semantica... ");
 			System.out.println("Analisando: " + arquivo.getLocalFile());
 			sintatico.analise(listaTokens);
 			arquivo.gravaSaidaSintatico(sintatico.getErros());
+			arquivo.gravaSaidaSemantico(sintatico.getErrosSemanticos());
 			
 						
 		}

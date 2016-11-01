@@ -1,0 +1,13 @@
+var inteiro a, dose;
+const inteiro b = "dfdsfsd";
+const inteiro f = 10;
+
+programa inteiro a(inteiro c)
+inicio
+	var inteiro ttt;
+    ttt = 15;
+fim();
+
+funcao inteiro a(inteiro v, cadeia s) inicio
+
+fim(a>b);

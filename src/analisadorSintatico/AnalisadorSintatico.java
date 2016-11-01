@@ -18,30 +18,41 @@ import analisadorSemantico.Variavel;
  *
  */
 
+/**
+ * @author afons
+ *
+ */
 public class AnalisadorSintatico {
-	
+
 	private ArrayList<Variavel> parametrosFuncaoAux = new ArrayList<>();
 	private boolean ehFuncao = false;
 	private int auxFuncao = 0;
 	private int countParametrosFuncao = 0; //usado somente na declaração de uma função
-	
+
 	private String escopoAtual = new String();
-	
+
 	private ArrayList<ArrayList<Variavel>> escopos = new ArrayList<ArrayList<Variavel>>(); //lista de escopos
 	private boolean escopoLocal = false;
 	private int hierarquiaEscopoAtual = 0;
-	
+
 	private ArrayList<Variavel> varAux = new ArrayList<>();
 	private ArrayList<Variavel> varEscopoGlobal = new ArrayList<>();
 	private ArrayList<Constante> constantes = new ArrayList<>();
 	private ArrayList<Funcao> funcoes = new ArrayList<>();
 	private ArrayList<Variavel> variaveis = new ArrayList<>();
-	
+
 	private String valorAtual;
 	private Variavel varAtual;
 	private Constante consAtual;
 	private ArrayList<String> errosSemanticos = new ArrayList<>();
-	
+
+	/**
+	 * @return the errosSemanticos
+	 */
+	public ArrayList<String> getErrosSemanticos() {
+		return errosSemanticos;
+	}
+
 	/**
 	 * Proximo token da lista
 	 */
@@ -50,142 +61,148 @@ public class AnalisadorSintatico {
 	 * Lista com os tokens recebidos do analisador lexico
 	 */
 	private ArrayList<Token> tokens;    //lista com os tokens recebidos
-    /**
-     * Lista com os erros encontrados na analise sintatica
-     */
-    private ArrayList<String> erros;    //lista com os erros encontrados na anï¿½lise.
-    /**
-     * Contador que aponta para o proximo token da lista
-     */
-    private int contTokens = 0;         //contador que aponta para o proximo token da lista
+	/**
+	 * Lista com os erros encontrados na analise sintatica
+	 */
+	private ArrayList<String> erros;    //lista com os erros encontrados na anï¿½lise.
+	/**
+	 * Contador que aponta para o proximo token da lista
+	 */
+	private int contTokens = 0;         //contador que aponta para o proximo token da lista
 	private String funcAtual;
-    
-    /**
-     * Metodo que faz a analise por completo a partir do simbolo inicial da gramatica
-     * 
-     * @param tokens - tokens encontrados pelo analisador lexico
-     */
-    public void analise(ArrayList<Token> tokens) {
-    	
-    	for (int i = 0; i < 26; i++) {
-    		ArrayList<Variavel> v = new ArrayList<Variavel>();
-    		escopos.add(v);
-    	}
-    	
-        this.tokens = tokens; //recebe os tokens vindos do lexico.
-        token = proximo();  //recebe o primeiro token da lista
-        erros = new ArrayList<>(); //cria a lista de erros
-        
-        programa(); //invoca o simbolo inicial da gramatica
-        
-        if(erros.size() != 0) {
-        	System.out.println("Ocorreram erros na analise sintatica");
-        	System.out.println(erros); //imprime os erros na tela
-        }
-        else
-        	System.out.println("Analise Sintatica feita com sucesso\n");
-        
-        System.out.println(constantes);
-        System.out.println(errosSemanticos);
-    }
-    
-    /**
-     * 
-     * 
-     * @param erro - String indicando um erro disparado pela analise
-     */
-    private void erroSintatico(String erro) {
-        if (!token.getLexema().equals("EOF")) {
-            erros.add("Linha: " + (token.getLinha()+1) + " -> " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
-            //token = proximo();
-        } else {
-            erros.add(erro);
-            //token = proximo();
-        }
-    }
-    
-    /**
-     * Verifica se um dado token ï¿½ do tipo esperado
-     * 
-     * @param esperado
-     * @return 
-     */
-    private String verificaTipo(String esperado) {
-        if ((!token.getLexema().equals("EOF")) && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
-        	String t = token.getLexema();
-        	token = proximo();
-            return t;
-        } else {
-            erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
-            return null;
-        }
-    }
-    
-    /**
-     * Verifica se ï¿½ um terminal, caso nï¿½o seja, um erro ï¿½ disparado
-     * 
-     * @param esperado
-     */
-    private void terminal(String esperado) {
-        if ((!token.getLexema().equals("EOF")) && token.getLexema().equals(esperado)) { //verifica se o token atual e o que era esperado
-            token = proximo();
-        } else {
-        	erroSintatico("Falta o token: " + esperado);   //gera o erro se o token nao e o esperado 
-        }
-    }
-    
-    /**
-     * Retorna o proximo token da lista
-     * 
-     * @return prï¿½ximo token da lista de tokens
-     */
-    private Token proximo() {
-        if (contTokens < tokens.size()) { //verifica se ainda possuem tokens para a analise.
-            return tokens.get(contTokens++);
-        } else {
-            return new Token(0, 0, "EOF", "EOF");  //cria um token de fim de arquivo. 
-        }
-    }
-	
+
+	/**
+	 * Metodo que faz a analise por completo a partir do simbolo inicial da gramatica
+	 * 
+	 * @param tokens - tokens encontrados pelo analisador lexico
+	 */
+	public void analise(ArrayList<Token> tokens) {
+
+		for (int i = 0; i < 26; i++) {
+			ArrayList<Variavel> v = new ArrayList<Variavel>();
+			escopos.add(v);
+		}
+
+		this.tokens = tokens; //recebe os tokens vindos do lexico.
+		token = proximo();  //recebe o primeiro token da lista
+		erros = new ArrayList<>(); //cria a lista de erros
+
+		programa(); //invoca o simbolo inicial da gramatica
+
+		if(erros.size() != 0) {
+			System.out.println("Ocorreram erros na analise sintatica");
+			System.out.println(erros); //imprime os erros na tela
+		}
+		else
+			System.out.println("Analise Sintatica feita com sucesso");
+
+		if(errosSemanticos.size() != 0) {
+			System.out.println("Ocorreram erros na analise semantica");
+			System.out.println(errosSemanticos); //imprime os erros na tela
+		}
+		else
+			System.out.println("Analise Semantica feita com sucesso\n");
+
+
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param erro - String indicando um erro disparado pela analise
+	 */
+	private void erroSintatico(String erro) {
+		if (!token.getLexema().equals("EOF")) {
+			erros.add("Linha: " + (token.getLinha()+1) + " -> " + erro + "\n"); //gera o erro normalizado e adiciona na lista de erros.
+			//token = proximo();
+		} else {
+			erros.add(erro);
+			//token = proximo();
+		}
+	}
+
+	/**
+	 * Verifica se um dado token ï¿½ do tipo esperado
+	 * 
+	 * @param esperado
+	 * @return 
+	 */
+	private String verificaTipo(String esperado) {
+		if ((!token.getLexema().equals("EOF")) && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
+			String t = token.getLexema();
+			token = proximo();
+			return t;
+		} else {
+			erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
+			return null;
+		}
+	}
+
+	/**
+	 * Verifica se ï¿½ um terminal, caso nï¿½o seja, um erro ï¿½ disparado
+	 * 
+	 * @param esperado
+	 */
+	private void terminal(String esperado) {
+		if ((!token.getLexema().equals("EOF")) && token.getLexema().equals(esperado)) { //verifica se o token atual e o que era esperado
+			token = proximo();
+		} else {
+			erroSintatico("Falta o token: " + esperado);   //gera o erro se o token nao e o esperado 
+		}
+	}
+
+	/**
+	 * Retorna o proximo token da lista
+	 * 
+	 * @return prï¿½ximo token da lista de tokens
+	 */
+	private Token proximo() {
+		if (contTokens < tokens.size()) { //verifica se ainda possuem tokens para a analise.
+			return tokens.get(contTokens++);
+		} else {
+			return new Token(0, 0, "EOF", "EOF");  //cria um token de fim de arquivo. 
+		}
+	}
+
 	/**
 	 * @return erros disparados pelo analisador sintatico
 	 */
 	public ArrayList<String> getErros(){
 		return this.erros;
 	}
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    /*INICIO DOS METODOS USADOS PARA REALIZAR AS PRODUCOES DA GRAMATICA, SENDO CADA NAO TERMINAL UM METODO*/
-    
-    private void declaracao_const() {
-    	constx();
-		
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	/*INICIO DOS METODOS USADOS PARA REALIZAR AS PRODUCOES DA GRAMATICA, SENDO CADA NAO TERMINAL UM METODO*/
+
+	private void declaracao_const() {
+		constx();
+
 	}
-    
-    private void programa() {
-    	escopoAtual = "global";
-    	varGlobal();
-    	/*for(Variavel v: variaveis) {
+
+	private void programa() {
+		escopoAtual = "global";
+		varGlobal();
+		/*for(Variavel v: variaveis) {
     		//varEscopoGlobal.add(v);
     		v.setEscopo("global");
     	}*/
-    	assinaturaFuncoes();
-    	declaracaoPrograma();
-    	ArrayList<Variavel> varsAux = new ArrayList<>();
-    	for (Variavel v : variaveis) {
+		assinaturaFuncoes();
+		declaracaoPrograma();
+		ArrayList<Variavel> varsAux = new ArrayList<>();
+		for (Variavel v : variaveis) {
 			if(v.getEscopo().equals("global"))
 				varsAux.add(v);
 		}
-    	variaveis.clear();
-    	for (Variavel v : varsAux) {
-				variaveis.add(v);
+		variaveis.clear();
+		for (Variavel v : varsAux) {
+			variaveis.add(v);
 		}
-    	Funcoes();
-    	System.out.println(variaveis);
-    	
-    }
-    
-    private void assinaturaFuncoes() {
+		Funcoes();
+		//System.out.println(variaveis);
+
+	}
+
+	private void assinaturaFuncoes() {
 		while (!(token.getLexema().equals("programa"))) {
 			Funcao f = new Funcao();
 			terminal("funcao");
@@ -207,18 +224,18 @@ public class AnalisadorSintatico {
 			parametrosFuncaoAux = new ArrayList<>();
 			terminal(")");
 			terminal(";");
-			System.err.println("dd");
+			//System.err.println("dd");
 		}
-		
+
 	}
 
 	private void Funcoes() {
 		for (Variavel v : variaveis){
-    		if(v.getEscopo().equals("global"))
-    			varEscopoGlobal.add(v);
-    	}
-    	variaveis = new ArrayList<>();
-    	switch (token.getLexema()) {
+			if(v.getEscopo().equals("global"))
+				varEscopoGlobal.add(v);
+		}
+		variaveis = new ArrayList<>();
+		switch (token.getLexema()) {
 		case "funcao":
 			funcao();
 			if(!(token.getLexema().equals("EOF")))
@@ -228,16 +245,16 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava um bloco de funcoes");
 			break;
 		}
-		
+
 	}
 
 	private void varGlobal() {
-    	switch (token.getLexema()) {
+		switch (token.getLexema()) {
 		case "const":
 			declaracao_const();
 			varGlobal();
 			break;
-			
+
 		case "var":
 			declaracaoVariaveis();
 			varGlobal();
@@ -246,10 +263,10 @@ public class AnalisadorSintatico {
 			//token = proximo();
 			break;
 		}
-    }
-    
-    private void declaracaoPrograma() {
-    	switch (token.getLexema()) {
+	}
+
+	private void declaracaoPrograma() {
+		switch (token.getLexema()) {
 		case "programa":
 			escopoAtual = "programa";
 			token = proximo();
@@ -274,10 +291,10 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava uma declaracao de programa");
 			break;
 		}
-    }
-    
-    private void enquanto() {
-    	switch (token.getLexema()) {
+	}
+
+	private void enquanto() {
+		switch (token.getLexema()) {
 		case "enquanto":
 			terminal("enquanto");
 			terminal("(");
@@ -294,10 +311,10 @@ public class AnalisadorSintatico {
 		default:
 			break;
 		}
-    }
-    
-    private void leia() {
-    	switch (token.getLexema()) {
+	}
+
+	private void leia() {
+		switch (token.getLexema()) {
 		case "leia":
 			token = proximo();
 			terminal("(");
@@ -311,16 +328,16 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava um leia");
 			break;
 		}
-    }
-    
-    private void exp(){
-    	switch (token.getTipo()) {
+	}
+
+	private void exp(){
+		switch (token.getTipo()) {
 		case "Identificador":
 			if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				boolean existe = false;
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -328,12 +345,12 @@ public class AnalisadorSintatico {
 								existe = true;
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
 				}
-				
+
 				for (Variavel vv : variaveis) {
 					if(token.getLexema().equals(vv.getNome()) && (vv.getTipo().equals("inteiro") || vv.getTipo().equals("real"))) {
 						existe = true;
@@ -344,7 +361,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A Variavel ou constante '" + token.getLexema() + "' nao existe\n");
 			}
@@ -364,16 +381,16 @@ public class AnalisadorSintatico {
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A Variavel ou constante '" + token.getLexema() + "' nao existe\n");
 			}
 			identificador("Identificador");
-	    	aux_valor4();
-	    	exp2();
+			aux_valor4();
+			exp2();
 			break;
 		default:
 			break;
 		}
-    }
-    
-    private void exp2(){
-    	switch (token.getLexema()) {
+	}
+
+	private void exp2(){
+		switch (token.getLexema()) {
 		case ",":
 			terminal(",");
 			exp();
@@ -382,15 +399,15 @@ public class AnalisadorSintatico {
 			//erroSintatico("Esperava um conjunto de parametros");
 			break;
 		}
-    }
-    
-    private void aux_valor1() {
-    	switch (token.getLexema()) {
+	}
+
+	private void aux_valor1() {
+		switch (token.getLexema()) {
 		case "(":
 			terminal("(");
 			ehFuncao = true;
 			aux_valor2();
-			
+
 			break;
 		case "/":
 			terminal("/");
@@ -399,9 +416,9 @@ public class AnalisadorSintatico {
 			//token = proximo();
 			break;
 		}
-    }
-    
-    private void dxyz() {
+	}
+
+	private void dxyz() {
 		switch(token.getLexema()) {
 		case "*":
 			aux_valor5();
@@ -410,29 +427,29 @@ public class AnalisadorSintatico {
 			expressaoAritmetica();
 			break;
 		}
-		
+
 	}
 
 	private void aux_valor5() {
 		terminal("*");
 		aux_valor3();
-		
+
 	}
 
 	private void aux_valor2() {
-			parametro();
-			terminal(")");
-			for (Funcao ff : funcoes) {
-				if (ff.getNome().equals(funcAtual)) {
-					if(auxFuncao != ff.getParametros().size()) {
-						errosSemanticos.add("Linha " + token.getLinha() + " -> Quantidade incorreta de parametros\n");
-					}
-						
+		parametro();
+		terminal(")");
+		for (Funcao ff : funcoes) {
+			if (ff.getNome().equals(funcAtual)) {
+				if(auxFuncao != ff.getParametros().size()) {
+					errosSemanticos.add("Linha " + token.getLinha() + " -> Quantidade incorreta de parametros\n");
 				}
+
 			}
-			funcAtual = null;
-			auxFuncao = 0;
-			ehFuncao = false;
+		}
+		funcAtual = null;
+		auxFuncao = 0;
+		ehFuncao = false;
 	}
 
 	private void parametro() {
@@ -447,7 +464,7 @@ public class AnalisadorSintatico {
 		}
 		switch (token.getTipo()) {
 		case "Cadeia de caracteres":
-			
+
 			if (auxFuncao < f.getParametros().size()) {
 				boolean existe1 = false;
 				if(f.getParametros().get(auxFuncao).getTipo().equals("cadeia")) {
@@ -455,19 +472,19 @@ public class AnalisadorSintatico {
 				}
 				if(!existe1)
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");
-				
+
 			}
-			
+
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
 			}	
-			
+
 			token = proximo();
 			auxFuncao++;
 			Rparametro();
 			break;
 		case "Caractere":
-			
+
 			if (auxFuncao < f.getParametros().size()) {
 				boolean existe2 = false;
 				if(f.getParametros().get(auxFuncao).getTipo().equals("caractere")) {
@@ -476,23 +493,23 @@ public class AnalisadorSintatico {
 				if(!existe2)
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");	
 			}
-			
+
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
 			}
-			
+
 			token = proximo();
 			auxFuncao++;
 			Rparametro();
 			break;
 		case "Identificador":
-			
+
 			if (auxFuncao < f.getParametros().size()) {
 				if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 					boolean existe = false;
 					int aux = hierarquiaEscopoAtual;
 					for (ArrayList<Variavel> escopo : escopos) {
-						
+
 						while(aux > 0) {
 							ArrayList<Variavel> vars = escopos.get(aux);
 							for (Variavel var : vars) {
@@ -500,12 +517,12 @@ public class AnalisadorSintatico {
 									existe = true;
 									break;
 								}
-									
+
 							}
 							aux--;
 						}
 					}
-					
+
 					for (Variavel vv : variaveis) {
 						if(token.getLexema().equals(vv.getNome()) && f.getParametros().get(auxFuncao).getTipo().equals(vv.getTipo())) {
 							existe = true;
@@ -516,9 +533,9 @@ public class AnalisadorSintatico {
 							existe = true;
 						}
 					}
-					
+
 					if(!existe && token.getTipo().equals("Identificador"))
-						errosSemanticos.add("Linha " + token.getLinha() + " -> A vvariavel ou constante '" + token.getLexema() + "' nao existe ou tem tipagem incorreta\n");
+						errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou tem tipagem incorreta\n");
 				}
 				else {
 					boolean existe = false;
@@ -536,26 +553,26 @@ public class AnalisadorSintatico {
 						errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou tem tipagem incorreta\n");
 				}
 			}
-			
+
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
 			}	
-			
+
 			auxFuncao++;
-			
-			System.err.println("ak");
+
+			//System.err.println("ak");
 			identificador("Identificador");
 			Rparametro();
 			break;
 		case "Palavra Reservada":
-			
+
 			if (auxFuncao < f.getParametros().size()) {
 				if(token.getLexema().equals("verdadeiro"))
 					terminal("verdadeiro");
 				else if(token.getLexema().equals("falso"))
 					terminal("falso");
 			}
-			
+
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
 			}	
@@ -563,7 +580,7 @@ public class AnalisadorSintatico {
 			Rparametro();
 			break;
 		case "Numero":
-			
+
 			if (auxFuncao < f.getParametros().size()) {
 				boolean existe3 = false;
 				if(f.getParametros().get(auxFuncao).getTipo().equals("real")) {
@@ -582,7 +599,7 @@ public class AnalisadorSintatico {
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
 			}
-			
+
 			verificaTipo("Numero");
 			auxFuncao++;
 			Rparametro();
@@ -615,9 +632,9 @@ public class AnalisadorSintatico {
 			auxFuncao = 0;
 			break;
 		}
-		
+
 	}
-	
+
 	private void Rparametro() {
 		switch (token.getLexema()) {
 		case ",":
@@ -637,27 +654,27 @@ public class AnalisadorSintatico {
 	}
 
 	private void aux_valor4() {
-    	switch (token.getTipo()) {
+		switch (token.getTipo()) {
 		case "Operador Aritmetico":
 			if(token.getLexema().equals("+") || token.getLexema().equals("-")) {
 				expressaoAritmetica();
 				break;
 			}
 			terminal("/");
-	    	terminal("*");
-	    	valor();
-	    	terminal("*");
-	    	terminal("/");
-	    	aux_valor4();
+			terminal("*");
+			valor();
+			terminal("*");
+			terminal("/");
+			aux_valor4();
 			break;
 		default:
 
 			break;
 		}
-    }
-   
-    
-    /*private void expressoesLeia() {
+	}
+
+
+	/*private void expressoesLeia() {
     	switch (token.getLexema()) {
 		case ",":
 			terminal(",");
@@ -679,15 +696,15 @@ public class AnalisadorSintatico {
 			break;
 		}
     }*/
-    
-    private void parametroPrograma() {
-			tipo();
-			identificador("Identificador");
-			listaParametroPrograma();
-    }
-    
-    private void listaParametroPrograma() {
-    	switch (token.getLexema()) {
+
+	private void parametroPrograma() {
+		tipo();
+		identificador("Identificador");
+		listaParametroPrograma();
+	}
+
+	private void listaParametroPrograma() {
+		switch (token.getLexema()) {
 		case ",":
 			token = proximo();
 			parametroPrograma();
@@ -695,10 +712,10 @@ public class AnalisadorSintatico {
 		default:
 			break;
 		}
-    }
-    
-    private void constx() {
-    	switch (token.getLexema()) {
+	}
+
+	private void constx() {
+		switch (token.getLexema()) {
 		case "const":
 			dec_const();
 			if(token.getLexema() != ","){
@@ -710,10 +727,10 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava uma declaracao de constante");
 			break;
 		}
-    }
-    
-    private void dec_const() {
-    	switch (token.getLexema()) {
+	}
+
+	private void dec_const() {
+		switch (token.getLexema()) {
 		case "const":
 			Constante c = new Constante();
 			terminal("const");
@@ -733,21 +750,21 @@ public class AnalisadorSintatico {
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
 				}
 				break;
-				
+
 			case "inteiro":
 				if (!(valorAtual.matches("^[0-9]*$"))) {
 					existe = false;
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
 				}
 				break;
-				
+
 			case "cadeia":
 				if (!(token.getTipo().equals("Cadeia de caracteres"))) {
 					existe = false;
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
 				}
 				break;
-				
+
 			case "caractere":
 				if (!(token.getTipo().equals("Caractere"))) {
 					existe = false;
@@ -757,15 +774,15 @@ public class AnalisadorSintatico {
 			default:
 				break;
 			}
-			
+
 			token = proximo();
-			
+
 			c.setC(valorAtual);
 			consAtual = c;
 			//int linha = token.getLinha();
 			terminal(";");
 			//if(!verificaTipoSemantico())
-				//errosSemanticos.add("Linha " + linha + " -> Atrubicao nao e do tipo " + consAtual.getTipo());
+			//errosSemanticos.add("Linha " + linha + " -> Atrubicao nao e do tipo " + consAtual.getTipo());
 			//verificaTipoSemantico();
 			if(existe)
 				constantes.add(c);
@@ -777,7 +794,7 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava um bloco de contantes");
 			break;
 		}
-    }
+	}
 
 	private boolean verificaTipoSemantico() {
 		if (valorAtual != null && varAtual != null) {
@@ -800,7 +817,7 @@ public class AnalisadorSintatico {
 				return true;
 		}
 		return false;
-		
+
 	}
 
 	private void tipo() {
@@ -824,16 +841,16 @@ public class AnalisadorSintatico {
 			erroSintatico("falta palavra reservada: inteiro, cadeia, real, booleano, caractere");
 			break;
 		}
-		
+
 	}
 
 	private void identificador(String esperado) {
 		if (!token.getLexema().equals("EOF") && token.getTipo().equals(esperado)) { //verifica se o tipo do token atual e o que era esperado
-            token = proximo();
-        } else {
-            erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
-        }
-		
+			token = proximo();
+		} else {
+			erroSintatico("falta " + esperado); //gera o erro se o tipo do token nao e o esperado 
+		}
+
 	}
 
 	private void declaracaoVariaveis() {
@@ -852,7 +869,7 @@ public class AnalisadorSintatico {
 				//ArrayList<Variavel> vars = escopos.get(hierarquiaEscopoAtual);
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -861,23 +878,23 @@ public class AnalisadorSintatico {
 								errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " jï¿½ existe no escopo");
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
-					
+
 					if(!errosemantico) {
 						ArrayList<Variavel> vars = escopos.get(hierarquiaEscopoAtual);
 						vars.add(v);
 						break;
 					}
 				}
-				
+
 			} else {
 				for (Variavel vv : variaveis) {
 					if((vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals(escopoAtual)) || (vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals("global")) || (vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals("programa"))) {
 						errosemantico = true;
-						errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " jï¿½ existe no escopo");
+						errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " ja existe no escopo");
 						break;
 					}
 				}
@@ -895,9 +912,9 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava uma declaracao de variavel");
 			break;
 		}
-		
+
 	}
-	
+
 	private void listaVariavel(String tipo) {
 		boolean errosemantico = false;
 		switch (token.getLexema()) {
@@ -907,12 +924,12 @@ public class AnalisadorSintatico {
 			terminal(",");
 			v.setNome(token.getLexema());
 			v.setEscopo(escopoAtual);
-			
+
 			if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				//ArrayList<Variavel> vars = escopos.get(hierarquiaEscopoAtual);
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -921,23 +938,23 @@ public class AnalisadorSintatico {
 								errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " jï¿½ existe no escopo");
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
-					
+
 					if(!errosemantico) {
 						ArrayList<Variavel> vars = escopos.get(hierarquiaEscopoAtual);
 						vars.add(v);
 						break;
 					}
 				}
-				
+
 			} else {
 				for (Variavel vv : variaveis) {
 					if((vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals(escopoAtual)) || (vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals("global")) || (vv.getNome().equals(token.getLexema()) && vv.getEscopo().equals("programa"))) {
 						errosemantico = true;
-						errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " jï¿½ existe no escopo");
+						errosSemanticos.add("Linha "+ token.getLinha() + " -> A Variavel " + "'" + token.getLexema()+ "'" + " ja existe no escopo");
 						break;
 					}
 				}
@@ -945,9 +962,9 @@ public class AnalisadorSintatico {
 					variaveis.add(v);
 				}
 			}
-			
-			
-			
+
+
+
 			identificador("Identificador");
 			if (token.getLexema().equals("/")) {
 				declaracaoMatriz();
@@ -964,13 +981,13 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void sincroniza() {
 		while(!(token.getLexema().equals(";"))){
 			token = proximo();
 		}
 	}
-	
+
 	private void declaracaoMatriz() {
 		switch (token.getLexema()) {
 		case "(":
@@ -986,7 +1003,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void funcao() {
 		switch (token.getLexema()) {
 		case "funcao":
@@ -1015,19 +1032,19 @@ public class AnalisadorSintatico {
 					break;
 				}
 			}
-			
+
 			if(erroSemantico)
 				errosSemanticos.add("Linha " + token.getLinha() + " -> A Assinatura da funcao nao existe");
-				
-			
-			
+
+
+
 			terminal(")");
 			terminal("inicio");
-			
+
 			while(!(token.getLexema().equals("fim")) && !(token.getLexema().equals("EOF"))){
 				blocoDeCodigo();
 			}
-			
+
 			terminal("fim");
 			terminal("(");
 			if (!(token.getLexema().equals(")")))
@@ -1042,7 +1059,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void escreva() {
 		switch (token.getLexema()) {
 		case "escreva":
@@ -1059,7 +1076,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void seEntao() {
 		switch (token.getLexema()) {
 		case "se":
@@ -1081,11 +1098,11 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void seAninhado() {
 		escopos.remove(hierarquiaEscopoAtual);
 		negacao();
-		
+
 	}
 
 	private void negacao() {
@@ -1096,17 +1113,17 @@ public class AnalisadorSintatico {
 			blocoDeCodigo();
 		terminal("fim");
 		//escopoAtual = "programa";
-		
+
 	}
 
 	//BX
 	private void blocoDeCodigo() {
 		switch (token.getTipo()) {
-		
+
 		case "Palavra Reservada":
 			blocoPalavraReservada();
 			break;
-			
+
 		case "Identificador":
 			Attr_temp();
 			break;
@@ -1114,17 +1131,17 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava um bloco de cï¿½digo");
 			break;
 		}
-		
+
 	}
 
 	private void Attr_temp() {
 		boolean erroSemantico = true;
 		boolean erroConstante = false;
-		
+
 		if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 			int aux = hierarquiaEscopoAtual;
 			for (ArrayList<Variavel> escopo : escopos) {
-				
+
 				while(aux > 0) {
 					ArrayList<Variavel> vars = escopos.get(aux);
 					for (Variavel var : vars) {
@@ -1133,7 +1150,7 @@ public class AnalisadorSintatico {
 							erroSemantico = false;
 							break;
 						}
-							
+
 					}
 					aux--;
 				}
@@ -1153,7 +1170,7 @@ public class AnalisadorSintatico {
 				if(f.getNome().equals(token.getLexema())){
 					ehFuncao = true;
 				}
-				
+
 			}
 		} else {
 			for (Variavel vv : variaveis) {
@@ -1171,7 +1188,7 @@ public class AnalisadorSintatico {
 				if(f.getNome().equals(token.getLexema())){
 					ehFuncao = true;
 				}
-				
+
 			}
 		}
 		if(ehFuncao) {
@@ -1186,7 +1203,7 @@ public class AnalisadorSintatico {
 		}
 		else if(erroSemantico) {
 			errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
-	
+
 		}
 		identificador("Identificador");
 		if(erroSemantico && !ehFuncao)
@@ -1202,7 +1219,7 @@ public class AnalisadorSintatico {
 		}
 		else
 			Attr1();
-		
+
 	}
 
 	private void Attr1() {
@@ -1214,9 +1231,9 @@ public class AnalisadorSintatico {
 		default:
 			break;
 		}
-		
+
 	}
-	
+
 
 	private void Attr2() {
 		boolean existe = false;
@@ -1228,7 +1245,7 @@ public class AnalisadorSintatico {
 			if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -1238,12 +1255,12 @@ public class AnalisadorSintatico {
 								valorAtual = null;
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
 				}
-				
+
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("cadeia")) {
 						existe = true;
@@ -1253,7 +1270,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("cadeia")){
 						existe = true;
@@ -1268,10 +1285,10 @@ public class AnalisadorSintatico {
 						}
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
-				
+
 			} else {
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("cadeia")) {
@@ -1282,7 +1299,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(c.getId()) && c.getTipo().equals("cadeia")){
 						existe = true;
@@ -1297,11 +1314,11 @@ public class AnalisadorSintatico {
 						}
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
 			}
-			
+
 			terminal(token.getLexema());
 			varAtual = null;
 			valorAtual = null;
@@ -1311,7 +1328,7 @@ public class AnalisadorSintatico {
 			if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -1321,12 +1338,12 @@ public class AnalisadorSintatico {
 								valorAtual = null;
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
 				}
-				
+
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("caractere")) {
 						existe = true;
@@ -1336,7 +1353,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("caractere")){
 						existe = true;
@@ -1351,10 +1368,10 @@ public class AnalisadorSintatico {
 						}
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
-				
+
 			} else {
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("caractere")) {
@@ -1365,7 +1382,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("caractere")){
 						existe = true;
@@ -1380,7 +1397,7 @@ public class AnalisadorSintatico {
 						}
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
 			}
@@ -1393,7 +1410,7 @@ public class AnalisadorSintatico {
 			if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -1403,12 +1420,12 @@ public class AnalisadorSintatico {
 								valorAtual = null;
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
 				}
-				
+
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
 						existe = true;
@@ -1423,7 +1440,7 @@ public class AnalisadorSintatico {
 						}
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
 						existe = true;
@@ -1441,7 +1458,7 @@ public class AnalisadorSintatico {
 				if(!existe && token.getTipo().equals("Identificador")) {
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
 				}
-					
+
 			} else {
 				for(Variavel v : variaveis) {
 					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
@@ -1452,7 +1469,7 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				} 
-				
+
 				for (Constante c : constantes) {
 					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
 						existe = true;
@@ -1467,17 +1484,17 @@ public class AnalisadorSintatico {
 						}
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador")) {
 					errosSemanticos.add("Linha " + token.getLinha() + " -> Variavel " + "'" + token.getLexema() + "'" + " nao existente no escopo");
-					
+
 				}
 			}
-			
-			
-			
-			
-			
+
+
+
+
+
 			/*else if(varAtual != null && !verificaTipoSemantico())
 				errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());*/
 			valorAtual = null;
@@ -1491,11 +1508,11 @@ public class AnalisadorSintatico {
 
 	private void blocoPalavraReservada() {
 		switch (token.getLexema()) {
-			
+
 		case "leia":
 			leia();
 			break;
-			
+
 		case "se":
 			escopoAtual = "seentao";
 			hierarquiaEscopoAtual++;
@@ -1505,7 +1522,7 @@ public class AnalisadorSintatico {
 			if(hierarquiaEscopoAtual == 0)
 				escopoAtual = "programa";
 			break;
-			
+
 		case "enquanto":
 			escopoAtual = "enquanto";
 			hierarquiaEscopoAtual++;
@@ -1519,7 +1536,7 @@ public class AnalisadorSintatico {
 		case "escreva":
 			escreva();
 			break;
-			
+
 		case "var":
 			declaracaoVariaveis();
 			break;
@@ -1527,19 +1544,19 @@ public class AnalisadorSintatico {
 			erroSintatico("Esperava um bloco de cï¿½digo");
 			break;
 		}
-		
+
 	}
 
 	private void expressaoBooleana() {
 		auxExpression();
 		expressaoBooleanaR();
 	}
-	
+
 	private void auxExpression() {
 		naoExpressaoAritmetica();
 		auxExpressionR();
 	}
-	
+
 	private void auxExpressionR() {
 		switch (token.getLexema()) {
 		case ">":
@@ -1569,7 +1586,7 @@ public class AnalisadorSintatico {
 		default:
 			break;
 		}
-		
+
 	}
 
 	private void expressaoBooleanaR() {
@@ -1586,7 +1603,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void naoExpressaoAritmetica() {
 		switch (token.getLexema()) {
 		case "nao":
@@ -1598,21 +1615,21 @@ public class AnalisadorSintatico {
 			expressaoAritmetica();
 			break;
 		}
-		
+
 	}
-	
-	
+
+
 	private void expressaoAritmetica() {
 		multExp();
 		expressaoAritmeticaR();
 	}
-	
+
 	private void multExp() {
 		negExp();
 		multExpR();
-		
+
 	}
-	
+
 	private void multExpR() {
 		switch (token.getLexema()) {
 		case "*":
@@ -1626,7 +1643,7 @@ public class AnalisadorSintatico {
 		default:
 			break;
 		}
-		
+
 	}
 
 	private void negExp() {
@@ -1643,7 +1660,7 @@ public class AnalisadorSintatico {
 			//valor();
 			break;
 		}
-		
+
 	}
 
 	private void verificaExistencia() {
@@ -1656,42 +1673,42 @@ public class AnalisadorSintatico {
 			if(varAtual != null && !verificaTipoSemantico())
 				errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 			break;
-		
+
 		case "Digito":
 			valorAtual = verificaTipo("Digito");
 			if(varAtual != null && !verificaTipoSemantico())
 				errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 			break;
-			
-		/*case "Palavra Reservada":
+
+			/*case "Palavra Reservada":
 			if(token.getLexema().equals("verdadeiro")) {
 				terminal("verdadeiro");
 			} else if(token.getLexema().equals("falso")) {
 				terminal("falso");
 			}*/
-			
-		
-		
-		
+
+
+
+
 		default:
-			
+
 			if(token.getLexema().equals("verdadeiro")) {
 				terminal("verdadeiro");
 			} else if(token.getLexema().equals("falso")) {
 				terminal("falso");
 			}
-			
+
 			else if(token.getLexema().equals("(")) {
 				terminal("(");
 				expressaoBooleana();
 				terminal(")");
 			} 
-			
+
 			else if(!(escopoAtual.equals("programa")) && !(escopoAtual.equals("global"))){
 				boolean existe = false;
 				int aux = hierarquiaEscopoAtual;
 				for (ArrayList<Variavel> escopo : escopos) {
-					
+
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
@@ -1699,12 +1716,12 @@ public class AnalisadorSintatico {
 								existe = true;
 								break;
 							}
-								
+
 						}
 						aux--;
 					}
 				}
-				
+
 				for (Variavel vv : variaveis) {
 					if(token.getLexema().equals(vv.getNome()) && (vv.getTipo().equals("inteiro") || vv.getTipo().equals("real"))) {
 						existe = true;
@@ -1715,9 +1732,9 @@ public class AnalisadorSintatico {
 						existe = true;
 					}
 				}
-				
+
 				if(!existe && token.getTipo().equals("Identificador"))
-					errosSemanticos.add("Linha " + token.getLinha() + " -> A vvariavel ou constante '" + token.getLexema() + "' nao existe ou nao e do tipo inteiro ou real\n");
+					errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou nao e do tipo inteiro ou real\n");
 				token = proximo();
 			}
 			else {
@@ -1733,16 +1750,16 @@ public class AnalisadorSintatico {
 					}
 				}
 				if(!existe)
-					errosSemanticos.add("Linha " + token.getLinha() + " -> A vvariavel ou constante '" + token.getLexema() + "' nao existe ou nao e do tipo inteiro ou real\n");
+					errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou nao e do tipo inteiro ou real\n");
 				token = proximo();
 			}
 			break;
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 	}
 
 	private void expressaoAritmeticaR() {
@@ -1758,7 +1775,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void valor() {
 		switch (token.getTipo()) {
 		case "Palavra Reservada":
@@ -1802,13 +1819,13 @@ public class AnalisadorSintatico {
 						existe = true;
 					} 
 				}
-				
+
 				if(!existe)
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou nao e do tipo inteiro ou real");
 			}
-			
-			
-			
+
+
+
 			valorAtual = token.getLexema();
 			identificador("Identificador");
 			aux_valor1();
@@ -1833,7 +1850,7 @@ public class AnalisadorSintatico {
 			break;
 		}
 	}
-	
+
 	private void retornoFuncao() {
 		boolean existe = false;
 		if(token.getTipo().equals("Identificador") || token.getTipo().equals("Numero") || token.getTipo().equals("Digito") || token.getTipo().equals("Caractere") || token.getTipo().equals("Cadeia de caracteres")){
@@ -1843,7 +1860,7 @@ public class AnalisadorSintatico {
 					valorAtual = null;
 				}
 			} 
-			
+
 			for (Constante c : constantes) {
 				if(token.getLexema().equals(c.getId())){
 					existe = true;
@@ -1862,7 +1879,7 @@ public class AnalisadorSintatico {
 			//EXPRESSAO BOOLEANA
 		}
 	}
-	
+
 	private void verificaExpressaoBooleana() {
 		if(token.getTipo().equals("Operador Aritmetico") || token.getTipo().equals("Operador Relacional") || token.getTipo().equals("Operador Logico")){
 			contTokens--;
@@ -1871,8 +1888,8 @@ public class AnalisadorSintatico {
 			expressaoBooleana();
 		}
 	}
-	
-	
+
+
 	private void parametroFuncao() {
 		//int qtdParametros = 0;
 		countParametrosFuncao++;
@@ -1887,14 +1904,14 @@ public class AnalisadorSintatico {
 				existe = true;
 			}
 		}
-		
+
 		if(!existe) {
 			parametrosFuncaoAux.add(v);
 			existe = false;
 		}
 		listaParametros();
 		//countParametrosFuncao--;
-		
+
 	}
 
 	private void listaParametros() {

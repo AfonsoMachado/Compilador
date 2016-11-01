@@ -17,14 +17,14 @@ inicio
 				i1 = tes;	
 			fim
 			senao inicio
-				f1(1, 5.5, 'k');
+				f1(1, b);
 				var inteiro testesenao;
 				r1 = 1;
 			fim
 		r1 = b;
 	fim
 fim();
-funcao f2(inteiro v, cadeia s, real x) inicio
+funcao f2(inteiro v, cadeia s, real x, caractere h) inicio
     var inteiro i;
     var real r;
     i = b;
