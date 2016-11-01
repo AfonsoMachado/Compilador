@@ -415,7 +415,7 @@ public class AnalisadorSintatico {
 			break;
 		case "Caractere":
 			boolean existe2 = false;
-			if(f.getParametros().get(auxFuncao).getTipo().equals("cadeia")) {
+			if(f.getParametros().get(auxFuncao).getTipo().equals("caractere")) {
 				existe1 = true;
 			}
 			if(!existe2)
@@ -461,7 +461,6 @@ public class AnalisadorSintatico {
 				
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A vvariavel ou constante '" + token.getLexema() + "' nao existe ou tem tipagem incorreta\n");
-				token = proximo();
 			}
 			else {
 				boolean existe = false;
@@ -477,7 +476,6 @@ public class AnalisadorSintatico {
 				}
 				if(!existe)
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A variavel ou constante '" + token.getLexema() + "' nao existe ou tem tipagem incorreta\n");
-				token = proximo();
 			}
 			if(token.getLexema().equals(")")){
 				ehFuncao = false;
@@ -497,11 +495,41 @@ public class AnalisadorSintatico {
 			Rparametro();
 			break;
 		case "Numero":
+			
+			boolean existe3 = false;
+			if(f.getParametros().get(auxFuncao).getTipo().equals("real")) {
+				existe3 = true;
+			}
+			else if (f.getParametros().get(auxFuncao).getTipo().equals("real") && token.getLexema().contains(".")) {
+				existe3 = true;
+			} 
+			else if (f.getParametros().get(auxFuncao).getTipo().equals("inteiro") && !token.getLexema().contains(".")) {
+				existe3 = true;
+			}
+			if(!existe3)
+				errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");
+			//token = proximo();
+			if(token.getLexema().equals(")")){
+				ehFuncao = false;
+			}
+			
 			verificaTipo("Numero");
+			auxFuncao++;
 			Rparametro();
 			break;
 		case "Digito":
+			boolean existe4 = false;
+			if(f.getParametros().get(auxFuncao).getTipo().equals("inteiro")) {
+				existe4 = true;
+			}
+			if(!existe4)
+				errosSemanticos.add("Linha " + token.getLinha() + " -> Atribuicao incorreta de parametro\n");
+			//token = proximo();
+			if(token.getLexema().equals(")")){
+				ehFuncao = false;
+			}	
 			verificaTipo("Digito");
+			auxFuncao++;
 			Rparametro();
 			break;
 		case "Delimitador":
@@ -1032,7 +1060,10 @@ public class AnalisadorSintatico {
 		}
 		if(ehFuncao) {
 			funcAtual = token.getLexema();
-			System.err.println("fodasse");
+			//System.err.println("fodasse");
+		}
+		else if (erroSemantico == true && erroConstante == false) {
+			errosSemanticos.add("Linha " + token.getLinha() + " -> Funcao " + "'" + token.getLexema() + "'" + " nao existe");
 		}
 		else if(erroSemantico && erroConstante) {
 			errosSemanticos.add("Linha " + token.getLinha() + " -> Impossivel atribuir valor a uma constante");

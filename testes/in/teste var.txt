@@ -18,7 +18,7 @@ inicio
 			fim
 		r1 = b;
 	fim
-	f1(tes);
+	f1(1, 5.5);
 fim();
 funcao a(inteiro v, cadeia s, real x, caractere h) inicio
     var inteiro i;

@@ -106,9 +106,11 @@ Token -> Lexema: ; | Tipo: Delimitador | Linha: 19 | Coluna: 9
 Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 20 | Coluna: 2
 Token -> Lexema: f1 | Tipo: Identificador | Linha: 21 | Coluna: 2
 Token -> Lexema: ( | Tipo: Delimitador | Linha: 21 | Coluna: 4
-Token -> Lexema: tes | Tipo: Identificador | Linha: 21 | Coluna: 5
-Token -> Lexema: ) | Tipo: Delimitador | Linha: 21 | Coluna: 8
-Token -> Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 9
+Token -> Lexema: 1 | Tipo: Digito | Linha: 21 | Coluna: 5
+Token -> Lexema: , | Tipo: Delimitador | Linha: 21 | Coluna: 6
+Token -> Lexema: 5.5 | Tipo: Numero | Linha: 21 | Coluna: 8
+Token -> Lexema: ) | Tipo: Delimitador | Linha: 21 | Coluna: 11
+Token -> Lexema: ; | Tipo: Delimitador | Linha: 21 | Coluna: 12
 Token -> Lexema: fim | Tipo: Palavra Reservada | Linha: 22 | Coluna: 1
 Token -> Lexema: ( | Tipo: Delimitador | Linha: 22 | Coluna: 4
 Token -> Lexema: ) | Tipo: Delimitador | Linha: 22 | Coluna: 5
