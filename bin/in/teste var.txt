@@ -1,12 +1,15 @@
 var inteiro a;
-const inteiro b = 50;
+var cadeia cad;
+const real caca = 75;
+const inteiro b = 12;
 funcao f1(inteiro v, inteiro s);
-funcao inteiro f2();
+funcao inteiro f2(inteiro v, cadeia s, real x, caractere h);
 programa inteiro a()
 inicio
 	var inteiro tes;
+	tes/*a*/ = 12;
 	escreva(b);
-	leia(b,te);
+	leia(b,tes);
 	se ((a>b) e (a<b) ou verdadeiro e falso) entao inicio
 		var inteiro r1;
 			se ((a>r1) e (a<b)) entao inicio
@@ -21,7 +24,7 @@ inicio
 		r1 = b;
 	fim
 fim();
-funcao a(inteiro v, cadeia s, real x, caractere h) inicio
+funcao f2(inteiro v, cadeia s, real x) inicio
     var inteiro i;
     var real r;
     i = b;

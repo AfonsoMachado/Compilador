@@ -17,15 +17,17 @@ import analisadorSemantico.Variavel;
  * @see AnalisadorLexico
  *
  */
+
 public class AnalisadorSintatico {
 	
 	private ArrayList<Variavel> parametrosFuncaoAux = new ArrayList<>();
 	private boolean ehFuncao = false;
 	private int auxFuncao = 0;
+	private int countParametrosFuncao = 0; //usado somente na declaraзгo de uma funзгo
 	
 	private String escopoAtual = new String();
 	
-	private ArrayList<ArrayList<Variavel>> escopos = new ArrayList<ArrayList<Variavel>>();
+	private ArrayList<ArrayList<Variavel>> escopos = new ArrayList<ArrayList<Variavel>>(); //lista de escopos
 	private boolean escopoLocal = false;
 	private int hierarquiaEscopoAtual = 0;
 	
@@ -345,7 +347,6 @@ public class AnalisadorSintatico {
 				
 				if(!existe && token.getTipo().equals("Identificador"))
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A Variavel ou constante '" + token.getLexema() + "' nao existe\n");
-				token = proximo();
 			}
 			else {
 				boolean existe = false;
@@ -361,7 +362,6 @@ public class AnalisadorSintatico {
 				}
 				if(!existe)
 					errosSemanticos.add("Linha " + token.getLinha() + " -> A Variavel ou constante '" + token.getLexema() + "' nao existe\n");
-				token = proximo();
 			}
 			identificador("Identificador");
 	    	aux_valor4();
@@ -721,16 +721,54 @@ public class AnalisadorSintatico {
 			tipo();
 			c.setId(token.getLexema());
 			identificador("Identificador");
-			terminal("=");		
-			valor();
+			terminal("=");
+			//token = proximo();
+			//attrConstante();
+			valorAtual = token.getLexema();
+			boolean existe = true;
+			switch (c.getTipo()) {
+			case "real":
+				if (!(valorAtual.matches("^[0-9]*[.]{0,1}[0-9]*$") || valorAtual.matches("^[0-9]*$"))) {
+					existe = false;
+					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
+				}
+				break;
+				
+			case "inteiro":
+				if (!(valorAtual.matches("^[0-9]*$"))) {
+					existe = false;
+					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
+				}
+				break;
+				
+			case "cadeia":
+				if (!(token.getTipo().equals("Cadeia de caracteres"))) {
+					existe = false;
+					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
+				}
+				break;
+				
+			case "caractere":
+				if (!(token.getTipo().equals("Caractere"))) {
+					existe = false;
+					errosSemanticos.add("Linha " + token.getLinha() + " -> Atrubicao nao e do tipo " + c.getTipo());
+				}
+				break;
+			default:
+				break;
+			}
+			
+			token = proximo();
+			
 			c.setC(valorAtual);
 			consAtual = c;
-			int linha = token.getLinha();
+			//int linha = token.getLinha();
 			terminal(";");
-			if(!verificaTipoSemantico())
-				errosSemanticos.add("Linha " + linha + " -> Atrubicao nao e do tipo " + consAtual.getTipo());
+			//if(!verificaTipoSemantico())
+				//errosSemanticos.add("Linha " + linha + " -> Atrubicao nao e do tipo " + consAtual.getTipo());
 			//verificaTipoSemantico();
-			constantes.add(c);
+			if(existe)
+				constantes.add(c);
 			consAtual = null;
 			valorAtual = null;
 			varAtual = null;
@@ -747,7 +785,7 @@ public class AnalisadorSintatico {
 				return true;
 			else if(valorAtual.matches("^[0-9]*$") && varAtual.getTipo().equals("inteiro"))
 				return true;
-			else if(valorAtual.matches("^[a-zA-ZпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ]*$") && varAtual.getTipo().equals("cadeia"))
+			else if(valorAtual.matches("^[a-zA-Z0-9]*$") && varAtual.getTipo().equals("cadeia"))
 				return true;
 			else if((valorAtual.equals("verdadeiro") || valorAtual.equals("false")) && varAtual.getTipo().equals("booleano"))
 				return true;
@@ -756,7 +794,7 @@ public class AnalisadorSintatico {
 				return true;
 			else if(valorAtual.matches("^[0-9]*$") && consAtual.getTipo().equals("inteiro"))
 				return true;
-			else if(valorAtual.matches("^[a-zA-ZпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ]*$") && consAtual.getTipo().equals("cadeia"))
+			else if(valorAtual.matches("^[a-zA-Z0-9]*$") && consAtual.getTipo().equals("cadeia"))
 				return true;
 			else if((valorAtual.equals("verdadeiro") || valorAtual.equals("false")) && consAtual.getTipo().equals("booleano"))
 				return true;
@@ -952,6 +990,7 @@ public class AnalisadorSintatico {
 	private void funcao() {
 		switch (token.getLexema()) {
 		case "funcao":
+			Funcao fatual = new Funcao();
 			token = proximo();
 			String nome;
 			if(token.getTipo().equals("Palavra Reservada")) {
@@ -962,19 +1001,24 @@ public class AnalisadorSintatico {
 				nome = token.getLexema();
 				identificador("Identificador");
 			}
-			
-			for (Funcao func : funcoes) {
-				if(!(func.getNome().equals(nome))){
-					errosSemanticos.add("Linha " + token.getLinha() + " -> A assinatura da funcao nao existe");
-					break;
-				}
-			}
 			//String nome = token.getLexema();
 			escopoAtual = "programa";
 			terminal("(");
+			countParametrosFuncao = 0;
 			if(token.getTipo().equals("Palavra Reservada"))
 				parametroFuncao();
+			boolean erroSemantico = true;
+			for (Funcao f : funcoes) {
+				if(f.getNome().equals(nome) && f.getParametros().size() == countParametrosFuncao) {
+					erroSemantico = false;
+					fatual = f;
+					break;
+				}
+			}
 			
+			if(erroSemantico)
+				errosSemanticos.add("Linha " + token.getLinha() + " -> A Assinatura da funcao nao existe");
+				
 			
 			
 			terminal(")");
@@ -1188,7 +1232,7 @@ public class AnalisadorSintatico {
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
-							if(token.getLexema().equals(var.getNome()) && !(var.getTipo().equals(varAtual.getTipo()))){
+							if(varAtual.getNome().equals(var.getNome()) && !(var.getTipo().equals("cadeia"))){
 								errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 								existe = true;
 								valorAtual = null;
@@ -1201,20 +1245,20 @@ public class AnalisadorSintatico {
 				}
 				
 				for(Variavel v : variaveis) {
-					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
+					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("cadeia")) {
 						existe = true;
 						valorAtual = null;
-					} else if (v.getNome().equals(token.getLexema()) && !(v.getTipo().equals(varAtual.getTipo()))) {
+					} else if (v.getNome().equals(varAtual.getNome()) && !(v.getTipo().equals("cadeia"))) {
 						errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 						existe = true;
 					}
 				} 
 				
 				for (Constante c : constantes) {
-					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
+					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("cadeia")){
 						existe = true;
 						valorAtual = null;
-					} else if (token.getLexema().equals(c.getId()) && !(c.getTipo().equals(varAtual.getTipo()))) {
+					} else if (token.getLexema().equals(varAtual.getNome()) && !(c.getTipo().equals("cadeia"))) {
 						if(varAtual.getTipo().equals("real") && c.getTipo().equals("inteiro")){
 							existe = true;
 						}
@@ -1230,20 +1274,20 @@ public class AnalisadorSintatico {
 				
 			} else {
 				for(Variavel v : variaveis) {
-					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
+					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("cadeia")) {
 						existe = true;
 						valorAtual = null;
-					} else if (v.getNome().equals(token.getLexema()) && !(v.getTipo().equals(varAtual.getTipo()))) {
+					} else if (v.getNome().equals(varAtual.getNome()) && !(v.getTipo().equals("cadeia"))) {
 						errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 						existe = true;
 					}
 				} 
 				
 				for (Constante c : constantes) {
-					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
+					if(token.getLexema().equals(c.getId()) && c.getTipo().equals("cadeia")){
 						existe = true;
 						valorAtual = null;
-					} else if (token.getLexema().equals(c.getId()) && !(c.getTipo().equals(varAtual.getTipo()))) {
+					} else if (token.getLexema().equals(c.getId()) && !(c.getTipo().equals("cadeia"))) {
 						if(varAtual.getTipo().equals("real") && c.getTipo().equals("inteiro")){
 							existe = true;
 						}
@@ -1271,7 +1315,7 @@ public class AnalisadorSintatico {
 					while(aux > 0) {
 						ArrayList<Variavel> vars = escopos.get(aux);
 						for (Variavel var : vars) {
-							if(token.getLexema().equals(var.getNome()) && !(var.getTipo().equals(varAtual.getTipo()))){
+							if(varAtual.getNome().equals(var.getNome()) && !(var.getTipo().equals("caractere"))){
 								errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 								existe = true;
 								valorAtual = null;
@@ -1284,20 +1328,20 @@ public class AnalisadorSintatico {
 				}
 				
 				for(Variavel v : variaveis) {
-					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
+					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("caractere")) {
 						existe = true;
 						valorAtual = null;
-					} else if (v.getNome().equals(token.getLexema()) && !(v.getTipo().equals(varAtual.getTipo()))) {
+					} else if (v.getNome().equals(varAtual.getNome()) && !(v.getTipo().equals("caractere"))) {
 						errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 						existe = true;
 					}
 				} 
 				
 				for (Constante c : constantes) {
-					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
+					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("caractere")){
 						existe = true;
 						valorAtual = null;
-					} else if (token.getLexema().equals(c.getId()) && !(c.getTipo().equals(varAtual.getTipo()))) {
+					} else if (token.getLexema().equals(varAtual.getNome()) && !(c.getTipo().equals("caractere"))) {
 						if(varAtual.getTipo().equals("real") && c.getTipo().equals("inteiro")){
 							existe = true;
 						}
@@ -1313,20 +1357,20 @@ public class AnalisadorSintatico {
 				
 			} else {
 				for(Variavel v : variaveis) {
-					if(v.getNome().equals(token.getLexema()) && v.getTipo().equals(varAtual.getTipo())) {
+					if(v.getNome().equals(varAtual.getNome()) && v.getTipo().equals("caractere")) {
 						existe = true;
 						valorAtual = null;
-					} else if (v.getNome().equals(token.getLexema()) && !(v.getTipo().equals(varAtual.getTipo()))) {
+					} else if (v.getNome().equals(varAtual.getNome()) && !(v.getTipo().equals("caractere"))) {
 						errosSemanticos.add("Linha " + token.getLinha() + " -> Atriubicao nao e do tipo " + varAtual.getTipo());
 						existe = true;
 					}
 				} 
 				
 				for (Constante c : constantes) {
-					if(token.getLexema().equals(c.getId()) && c.getTipo().equals(varAtual.getTipo())){
+					if(token.getLexema().equals(varAtual.getNome()) && c.getTipo().equals("caractere")){
 						existe = true;
 						valorAtual = null;
-					} else if (token.getLexema().equals(c.getId()) && !(c.getTipo().equals(varAtual.getTipo()))) {
+					} else if (token.getLexema().equals(varAtual.getNome()) && !(c.getTipo().equals("caractere"))) {
 						if(varAtual.getTipo().equals("real") && c.getTipo().equals("inteiro")){
 							existe = true;
 						}
@@ -1830,7 +1874,8 @@ public class AnalisadorSintatico {
 	
 	
 	private void parametroFuncao() {
-		int qtdParametros = 0;
+		//int qtdParametros = 0;
+		countParametrosFuncao++;
 		Variavel v = new Variavel();
 		v.setTipo(token.getLexema());
 		tipo();
@@ -1848,6 +1893,7 @@ public class AnalisadorSintatico {
 			existe = false;
 		}
 		listaParametros();
+		//countParametrosFuncao--;
 		
 	}
 
